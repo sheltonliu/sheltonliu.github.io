@@ -12,3 +12,8 @@ tags: "tag1"
 创建个人blog
 
 
+引入测试图片
+
+![Aaron Swartz](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/01.png)
+
+图片
