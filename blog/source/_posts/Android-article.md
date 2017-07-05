@@ -178,3 +178,5 @@ ContentProvider: 向其他组件共享数据，需要注意的是内部的insert
 ### 9.1 Activity的工作过程
 Activity的真正实现由ActivityManagerNative.getDefault()的startActivity来完成。
 ActivityManagerNative.getDefault()的具体实现是AMS（ActivityManagerService）也是一个Binder
+
+
