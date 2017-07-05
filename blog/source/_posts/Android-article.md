@@ -6,6 +6,7 @@ categories: "Android"
 ---
 
 ## 第一章：Activity的启动模式
+
 <font size=3>
 
 * standard: 标准模式，每次启动Activity都会重新创建新实例。
@@ -61,7 +62,7 @@ RemoteCallbackList 是系统专门提供的用于删除跨进程listener的接�
 	第二种方法：我们可以在服务端的onTransact方法中进行
 
 
-####IPC方式的优缺点和适用场景
+#### IPC方式的优缺点和适用场景
 AIDL: Android Interface definition language   
 
 |   | 优点  | 缺点  | 试用场景 |
@@ -97,8 +98,7 @@ view的三大流程均是通过ViewRoot来完成的
 
 view的绘制流程：
 	
-* 1: 
-	measure：测量view的宽高  getMeasuredWidth和getMeasuredHeight
+* 1: measure：测量view的宽高  getMeasuredWidth和getMeasuredHeight
 	
 	原始的view通过measure方法完成测量
 	
@@ -146,7 +146,7 @@ DecorView: 就是一个FrameLayout
 
 ### 7.3.4：对任意属性做动画：
 
-<font size=4>
+<font size=3>
 动画注意事项：
 	
 * 1：OOM问题  帧动画易出现
@@ -178,5 +178,3 @@ ContentProvider: 向其他组件共享数据，需要注意的是内部的insert
 ### 9.1 Activity的工作过程
 Activity的真正实现由ActivityManagerNative.getDefault()的startActivity来完成。
 ActivityManagerNative.getDefault()的具体实现是AMS（ActivityManagerService）也是一个Binder
-
-</font>
