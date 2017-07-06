@@ -93,19 +93,19 @@
 
 
 
-<meta name="description" content="第一章：Activity的启动模式   standard: 标准模式，每次启动Activity都会重新创建新实例。如果使用ApplicationContext启动，则需要添加Flag_activity_new_task,创建一个新的任务栈  singleTop  模式：  栈顶复用。如果已在栈顶则Activity 不会被重建，同时onNewIntent方法会被回调  singleTask 模式：">
+<meta name="description" content="第十章 Android消息机制本文是《Android开发艺术探索》一书的学习笔记 10.1:Android消息机制概述 Android的消息机制主要是指Handler的运行机制。Handler需要底层的MessageQueue和Looper支撑。  MessageQueue: 单链表数据结构，是消息存储单元，不能处理消息  Looper: 无线循环查找是否有新消息，有的话就处理，没有就一直等待注意">
 <meta name="keywords" content="学习笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android开发艺术探索学习笔记">
-<meta property="og:url" content="http://yoursite.com/2017/07/05/Android-article/index.html">
+<meta property="og:title" content="Android消息机制">
+<meta property="og:url" content="http://yoursite.com/2017/07/06/Android消息机制/index.html">
 <meta property="og:site_name" content="Shelton Blog">
-<meta property="og:description" content="第一章：Activity的启动模式   standard: 标准模式，每次启动Activity都会重新创建新实例。如果使用ApplicationContext启动，则需要添加Flag_activity_new_task,创建一个新的任务栈  singleTop  模式：  栈顶复用。如果已在栈顶则Activity 不会被重建，同时onNewIntent方法会被回调  singleTask 模式：">
+<meta property="og:description" content="第十章 Android消息机制本文是《Android开发艺术探索》一书的学习笔记 10.1:Android消息机制概述 Android的消息机制主要是指Handler的运行机制。Handler需要底层的MessageQueue和Looper支撑。  MessageQueue: 单链表数据结构，是消息存储单元，不能处理消息  Looper: 无线循环查找是否有新消息，有的话就处理，没有就一直等待注意">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6.jpeg">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B62.jpg">
-<meta property="og:updated_time" content="2017-07-06T14:59:40.000Z">
+<meta property="og:updated_time" content="2017-07-06T14:57:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android开发艺术探索学习笔记">
-<meta name="twitter:description" content="第一章：Activity的启动模式   standard: 标准模式，每次启动Activity都会重新创建新实例。如果使用ApplicationContext启动，则需要添加Flag_activity_new_task,创建一个新的任务栈  singleTop  模式：  栈顶复用。如果已在栈顶则Activity 不会被重建，同时onNewIntent方法会被回调  singleTask 模式：">
+<meta name="twitter:title" content="Android消息机制">
+<meta name="twitter:description" content="第十章 Android消息机制本文是《Android开发艺术探索》一书的学习笔记 10.1:Android消息机制概述 Android的消息机制主要是指Handler的运行机制。Handler需要底层的MessageQueue和Looper支撑。  MessageQueue: 单链表数据结构，是消息存储单元，不能处理消息  Looper: 无线循环查找是否有新消息，有的话就处理，没有就一直等待注意">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6.jpeg">
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/05/Android-article/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/06/Android消息机制/"/>
 
 
 
 
 
-  <title>Android开发艺术探索学习笔记 | Shelton Blog</title>
+  <title>Android消息机制 | Shelton Blog</title>
   
 
 
@@ -279,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/05/Android-article/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/06/Android消息机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shelton">
@@ -296,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android开发艺术探索学习笔记</h1>
+          <h1 class="post-title" itemprop="name headline">Android消息机制</h1>
         
 
         <div class="post-meta">
@@ -308,8 +308,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T23:45:32+08:00">
-                2017-07-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T22:55:24+08:00">
+                2017-07-06
               </time>
             
 
@@ -348,7 +348,7 @@
 
           
           
-             <span id="/2017/07/05/Android-article/" class="leancloud_visitors" data-flag-title="Android开发艺术探索学习笔记">
+             <span id="/2017/07/06/Android消息机制/" class="leancloud_visitors" data-flag-title="Android消息机制">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -376,130 +376,8 @@
       
 
       
-        <h2 id="第一章：Activity的启动模式"><a href="#第一章：Activity的启动模式" class="headerlink" title="第一章：Activity的启动模式"></a>第一章：Activity的启动模式</h2><font size="3">
-
-<ul>
-<li><p>standard: 标准模式，每次启动Activity都会重新创建新实例。<br>如果使用ApplicationContext启动，则需要添加Flag_activity_new_task,创建一个新的任务栈</p>
-</li>
-<li><p>singleTop  模式：  栈顶复用。如果已在栈顶则Activity 不会被重建，同时onNewIntent方法会被回调</p>
-</li>
-<li><p>singleTask 模式： 栈内复用。如果在栈中存在，那么多次启动Activity都不会重新建立实例，同时onNewIntent方法会被回调<br>如果D所在任务栈为S1，并且当前任务栈S1的情况为ADBC,根据栈内复用原则D不会被重新创建，系统会把D切换到栈顶并调用onNewIntent方法。同时由于SingleTask默认具有clearTop效果，会导致栈内D以上的Activity全部出栈，于是最终S1的情况为AD</p>
-</li>
-</ul>
-<ul>
-<li>singleInstance: 单实例模式  是一种加强的singleTask模式。singleTask模式的特性它都有，此外具有这种模式的Activity只能单独地位于一个任务栈中</li>
-</ul>
-<h2 id="第二章：Android-IPC简介"><a href="#第二章：Android-IPC简介" class="headerlink" title="第二章：Android IPC简介"></a>第二章：Android IPC简介</h2><h3 id="2-2-1-通过ps命令-查看一个包名中当前的进程信息"><a href="#2-2-1-通过ps命令-查看一个包名中当前的进程信息" class="headerlink" title="2.2.1: 通过ps命令 查看一个包名中当前的进程信息"></a>2.2.1: 通过ps命令 查看一个包名中当前的进程信息</h3><p>adb shell ps <code>|</code> grep com.ryg.chapter_2.<br>其中com.ryg.chapter_2 是包名</p>
-<p>进程名<br>“:remote”中“:”表示要在当前进程名前面附加上当前的包名，这是一种简单的写法。 第二此类表示方式描述的进程属于当前应用的私有进程，其他应用的组件不可以和它跑在同一个进程中</p>
-<p>进程名不已”:”开头的进程属于全局进程，其他应用通过shareUID方式可以和它跑在同一进程中</p>
-<p>多进程带来的问题：<br>所有运行在不同进程中的四大组件，只要他们之间需要通过内存来共享数据，都会共享失败，这也是多进程所带来的主要影响。</p>
-<pre><code>1. 静态成员和单例模式完全失效。
-2. 线程同步机制完全失效
-3. SharedPreferences可靠性失效
-4. Application会多次创建
-</code></pre><h3 id="2-3-IPC基础概念介绍"><a href="#2-3-IPC基础概念介绍" class="headerlink" title="2.3 IPC基础概念介绍"></a>2.3 IPC基础概念介绍</h3><p>Serializable:  serialVersionUID  开销大</p>
-<p>Parcelable : 适用于android平台，组要作用与内存序列化上</p>
-<p>避免客户端的UI线程去访问远程方法</p>
-<p>RemoteCallbackList 是系统专门提供的用于删除跨进程listener的接口</p>
-<p>权限验证功能：默认情况下远程服务任何人都可以连接，但这应该不是我们愿意看到的，必须要给权限加上验证功能</p>
-<pre><code>第一种方法：我们在onBind中进行验证
-第二种方法：我们可以在服务端的onTransact方法中进行
-</code></pre><h4 id="IPC方式的优缺点和适用场景"><a href="#IPC方式的优缺点和适用场景" class="headerlink" title="IPC方式的优缺点和适用场景"></a>IPC方式的优缺点和适用场景</h4><p>AIDL: Android Interface definition language   </p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left"></th>
-<th style="text-align:left">优点</th>
-<th style="text-align:center">缺点</th>
-<th style="text-align:right">试用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Bundle</td>
-<td style="text-align:left">简单易用</td>
-<td style="text-align:center">只传输bundle支持的类型</td>
-<td style="text-align:right">四大组建通讯</td>
-</tr>
-<tr>
-<td style="text-align:left">文件共享</td>
-<td style="text-align:left">简单易用</td>
-<td style="text-align:center">不适合高并发,无法进程间即时通讯</td>
-<td style="text-align:right">无并发访问实时性不高的场景</td>
-</tr>
-<tr>
-<td style="text-align:left">AIDL</td>
-<td style="text-align:left">支持一对多并发,支持实时通讯</td>
-<td style="text-align:center">使用稍复杂,需要处理好线程同步</td>
-<td style="text-align:right">一对多通讯且有RPC需求</td>
-</tr>
-<tr>
-<td style="text-align:left">Message</td>
-<td style="text-align:left">支持一对多串行 , 支持实时通讯</td>
-<td style="text-align:center">不能很好处理高并发情形，不支持RPC</td>
-<td style="text-align:right">低并发无RPC需求</td>
-</tr>
-<tr>
-<td style="text-align:left">ContentProvider</td>
-<td style="text-align:left">数据源访问强大，支持一对多并发共享</td>
-<td style="text-align:center">受约束的AIDL主要提供数据源的CRUD操作</td>
-<td style="text-align:right">一对多的进程间的数据共享</td>
-</tr>
-<tr>
-<td style="text-align:left">socket</td>
-<td style="text-align:left">通过字节流传输，支持一对多并发实时通讯</td>
-<td style="text-align:center">细节繁琐，不支持直接的RPC</td>
-<td style="text-align:right">网络数据交换</td>
-</tr>
-</tbody>
-</table>
-<h2 id="第三章：view的事件体系"><a href="#第三章：view的事件体系" class="headerlink" title="第三章：view的事件体系"></a>第三章：view的事件体系</h2><p>3.2：view的滑动：<br>第一种：通过view本身提供的scrollTo/scrollBy方法来滑动<br>这个只能将view的内容进行移动，并不能将view本身进行移动</p>
-<p>第二种：通过动画给view施加平移效果来实现滑动<br>如果希望动画后的状态得以保留还必须将fillAfter属性设置为true,否则动画完成后其动画结果会消失。</p>
-<p>第三种：通过改变view的LayoutParams使得view重新布局来实现滑动</p>
-<h2 id="第四章：-view-的工作原理"><a href="#第四章：-view-的工作原理" class="headerlink" title="第四章： view 的工作原理"></a>第四章： view 的工作原理</h2><p>ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽带，<br>view的三大流程均是通过ViewRoot来完成的</p>
-<p>view的绘制流程：</p>
-<ul>
-<li><p>1: measure：测量view的宽高  getMeasuredWidth和getMeasuredHeight</p>
-<p>  原始的view通过measure方法完成测量</p>
-<p>  如果是viewGroup除了自己测量外，还会遍历去调用所有子元素的measure方法</p>
-</li>
-<li><p>2：layout：决定了view的四个顶点的坐标和实际view的宽高,getTop  getBottom, getLeft, getRight 拿到顶点位置</p>
-</li>
-<li><p>3：draw: 将view绘制到屏幕上</p>
-<p>  绘制背景background.draw()</p>
-<p>  绘制自己onDraw</p>
-<p>  绘制children(dispatchDraw)</p>
-<p>  绘制装饰(onDrawScrollBars)</p>
-</li>
-</ul>
-<p>DecorView: 就是一个FrameLayout</p>
-<p>＝＝＝＝＝＝＝＝＝＝＝自定义View </p>
-<p>1：继承View重写onDraw方法  主要实现一些不规则的效果</p>
-<p>2：继承ViewGroup派生特殊的Layout,这种方法主要用于实现自定义布局</p>
-<h2 id="第七章：Android动画深入分析"><a href="#第七章：Android动画深入分析" class="headerlink" title="第七章：Android动画深入分析"></a>第七章：Android动画深入分析</h2><p>分类：</p>
-<pre><code>1：view动画（平移，缩放，旋转，透明度）只支持这四种
-2：帧动画: 尽量避免使用大图片，避免OOM
-3：属性动画
-</code></pre><p>属性动画的监听：</p>
-<pre><code>AnimatorListener(接口) ：开始，结束，取消，重复
-AnimatorUpdateListener比较特殊，它会监听整个动画过程，每播放一帧，onAnimationUpdate就会被调用一次
-属性动画要求动画作用的对象提供该属性的set方法
-</code></pre><h3 id="7-3-4：对任意属性做动画："><a href="#7-3-4：对任意属性做动画：" class="headerlink" title="7.3.4：对任意属性做动画："></a>7.3.4：对任意属性做动画：</h3><p><font size="3"><br>动画注意事项：</font></p>
-<ul>
-<li>1：OOM问题  帧动画易出现</li>
-<li>2：内存泄漏： 无限循环的动画，要在Activity退出时及时停止</li>
-<li>3：兼容性问题：3.0一下系统</li>
-<li>4：view动画的问题：view动画是对view的影像做动画，并不是真正的改变view的状态，比如setVisibility(View.GONE)失效了，这时候调用view.clearAnimation()清除view动画即可</li>
-<li>5：不要使用px</li>
-<li>6: 建议开启硬件加速</li>
-</ul>
-<p>view动画的特殊使用场景：<br>LayoutAnimation : list view 中item的动画</p>
-<h2 id="第九章：四大组件的工作过程"><a href="#第九章：四大组件的工作过程" class="headerlink" title="第九章：四大组件的工作过程"></a>第九章：四大组件的工作过程</h2><p>Activity：展示型组件</p>
-<p>Service: 计算型组件<br>两种状态：启动状态， 绑定状态 </p>
-<p>BroadCastReceiver: 静态注册和动态注册， 用来实现低耦合的观察者模式，不适合用来执行耗时操作</p>
-<p>ContentProvider: 向其他组件共享数据，需要注意的是内部的insert,update,delete,query方法需要处理好线程同步，因为这几个方法是在Binder线程池中被调用的</p>
-<h3 id="9-1-Activity的工作过程"><a href="#9-1-Activity的工作过程" class="headerlink" title="9.1 Activity的工作过程"></a>9.1 Activity的工作过程</h3><p>Activity的真正实现由ActivityManagerNative.getDefault()的startActivity来完成。<br>ActivityManagerNative.getDefault()的具体实现是AMS（ActivityManagerService）也是一个Binder</p>
-<h2 id="第十章-Android消息机制"><a href="#第十章-Android消息机制" class="headerlink" title="第十章 Android消息机制"></a>第十章 Android消息机制</h2><h3 id="10-1-Android消息机制概述"><a href="#10-1-Android消息机制概述" class="headerlink" title="10.1:Android消息机制概述"></a>10.1:Android消息机制概述</h3><ul>
+        <h2 id="第十章-Android消息机制"><a href="#第十章-Android消息机制" class="headerlink" title="第十章 Android消息机制"></a>第十章 Android消息机制</h2><p>本文是《Android开发艺术探索》一书的学习笔记</p>
+<h3 id="10-1-Android消息机制概述"><a href="#10-1-Android消息机制概述" class="headerlink" title="10.1:Android消息机制概述"></a>10.1:Android消息机制概述</h3><ul>
 <li><p>Android的消息机制主要是指Handler的运行机制。Handler需要底层的MessageQueue和Looper支撑。</p>
 </li>
 <li><p>MessageQueue: 单链表数据结构，是消息存储单元，不能处理消息</p>
@@ -545,7 +423,7 @@ AnimatorUpdateListener比较特殊，它会监听整个动画过程，每播放�
 <h4 id="3-Handler工作原理"><a href="#3-Handler工作原理" class="headerlink" title="3:Handler工作原理"></a>3:Handler工作原理</h4><p>主线程消息循环模型：<br>ActivityThread通过ApplicationThread和AMS进行进程间通讯。AMS以进程间通讯的方式完成ActivityThread的请求后回调ApplicationThread中的Binder方法，然后ApplicationThread向H发送消息，H将逻辑切换到ActivityThread中执行，即切换到主线程中执行。</p>
 <p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6.jpeg" alt="Android消息机制"></p>
 <p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B62.jpg" alt="Android消息机制2"></p>
-</font>
+
       
     </div>
 
@@ -587,8 +465,8 @@ AnimatorUpdateListener比较特殊，它会监听整个动画过程，每播放�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/04/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2017/07/05/Android-article/" rel="next" title="Android开发艺术探索学习笔记">
+                <i class="fa fa-chevron-left"></i> Android开发艺术探索学习笔记
               </a>
             
           </div>
@@ -596,10 +474,6 @@ AnimatorUpdateListener比较特殊，它会监听整个动画过程，每播放�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/06/Android消息机制/" rel="prev" title="Android消息机制">
-                Android消息机制 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -728,7 +602,7 @@ AnimatorUpdateListener比较特殊，它会监听整个动画过程，每播放�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章：Activity的启动模式"><span class="nav-number">1.</span> <span class="nav-text">第一章：Activity的启动模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章：Android-IPC简介"><span class="nav-number">2.</span> <span class="nav-text">第二章：Android IPC简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-通过ps命令-查看一个包名中当前的进程信息"><span class="nav-number">2.1.</span> <span class="nav-text">2.2.1: 通过ps命令 查看一个包名中当前的进程信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-IPC基础概念介绍"><span class="nav-number">2.2.</span> <span class="nav-text">2.3 IPC基础概念介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IPC方式的优缺点和适用场景"><span class="nav-number">2.2.1.</span> <span class="nav-text">IPC方式的优缺点和适用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章：view的事件体系"><span class="nav-number">3.</span> <span class="nav-text">第三章：view的事件体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章：-view-的工作原理"><span class="nav-number">4.</span> <span class="nav-text">第四章： view 的工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七章：Android动画深入分析"><span class="nav-number">5.</span> <span class="nav-text">第七章：Android动画深入分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-4：对任意属性做动画："><span class="nav-number">5.1.</span> <span class="nav-text">7.3.4：对任意属性做动画：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九章：四大组件的工作过程"><span class="nav-number">6.</span> <span class="nav-text">第九章：四大组件的工作过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-Activity的工作过程"><span class="nav-number">6.1.</span> <span class="nav-text">9.1 Activity的工作过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十章-Android消息机制"><span class="nav-number">7.</span> <span class="nav-text">第十章 Android消息机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-Android消息机制概述"><span class="nav-number">7.1.</span> <span class="nav-text">10.1:Android消息机制概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-2-Android消息机制分析"><span class="nav-number">7.2.</span> <span class="nav-text">10.2:Android消息机制分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1：MessageQueue工作原理"><span class="nav-number">7.2.1.</span> <span class="nav-text">1：MessageQueue工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Looper工作原理"><span class="nav-number">7.2.2.</span> <span class="nav-text">2:Looper工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Handler工作原理"><span class="nav-number">7.2.3.</span> <span class="nav-text">3:Handler工作原理</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第十章-Android消息机制"><span class="nav-number">1.</span> <span class="nav-text">第十章 Android消息机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-Android消息机制概述"><span class="nav-number">1.1.</span> <span class="nav-text">10.1:Android消息机制概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-2-Android消息机制分析"><span class="nav-number">1.2.</span> <span class="nav-text">10.2:Android消息机制分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1：MessageQueue工作原理"><span class="nav-number">1.2.1.</span> <span class="nav-text">1：MessageQueue工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Looper工作原理"><span class="nav-number">1.2.2.</span> <span class="nav-text">2:Looper工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Handler工作原理"><span class="nav-number">1.2.3.</span> <span class="nav-text">3:Handler工作原理</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
