@@ -93,20 +93,20 @@
 
 
 
-<meta name="description" content="第十章 Android消息机制本文是《Android开发艺术探索》一书的学习笔记 10.1:Android消息机制概述 Android的消息机制主要是指Handler的运行机制。Handler需要底层的MessageQueue和Looper支撑。  MessageQueue: 单链表数据结构，是消息存储单元，不能处理消息  Looper: 无线循环查找是否有新消息，有的话就处理，没有就一直等待注意">
+<meta name="description" content="View的事件体系1.View基础知识1.1 View与ViewGroup的关系 1.View是Android中控件的基类 2.ViewGroup名字上翻译是控件组，ViewGroup内部包含许多控件，ViewGroup继承View意味着View可以是单个控件也可以是由多个控件组成的一组控件.如LinearLayout不单是view还是ViewGroup.  1.2.MotionEvent和Tou">
 <meta name="keywords" content="学习笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android消息机制">
-<meta property="og:url" content="http://yoursite.com/2017/07/06/Android消息机制/index.html">
+<meta property="og:title" content="Android View的事件体系">
+<meta property="og:url" content="http://yoursite.com/2017/07/09/AndroidViewDispatch/index.html">
 <meta property="og:site_name" content="Shelton Blog">
-<meta property="og:description" content="第十章 Android消息机制本文是《Android开发艺术探索》一书的学习笔记 10.1:Android消息机制概述 Android的消息机制主要是指Handler的运行机制。Handler需要底层的MessageQueue和Looper支撑。  MessageQueue: 单链表数据结构，是消息存储单元，不能处理消息  Looper: 无线循环查找是否有新消息，有的话就处理，没有就一直等待注意">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6.jpeg">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B62.jpg">
-<meta property="og:updated_time" content="2017-07-06T14:57:49.000Z">
+<meta property="og:description" content="View的事件体系1.View基础知识1.1 View与ViewGroup的关系 1.View是Android中控件的基类 2.ViewGroup名字上翻译是控件组，ViewGroup内部包含许多控件，ViewGroup继承View意味着View可以是单个控件也可以是由多个控件组成的一组控件.如LinearLayout不单是view还是ViewGroup.  1.2.MotionEvent和Tou">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/Activity%E5%B8%83%E5%B1%80.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/View%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%A8%8B.jpg">
+<meta property="og:updated_time" content="2017-07-08T16:35:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android消息机制">
-<meta name="twitter:description" content="第十章 Android消息机制本文是《Android开发艺术探索》一书的学习笔记 10.1:Android消息机制概述 Android的消息机制主要是指Handler的运行机制。Handler需要底层的MessageQueue和Looper支撑。  MessageQueue: 单链表数据结构，是消息存储单元，不能处理消息  Looper: 无线循环查找是否有新消息，有的话就处理，没有就一直等待注意">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6.jpeg">
+<meta name="twitter:title" content="Android View的事件体系">
+<meta name="twitter:description" content="View的事件体系1.View基础知识1.1 View与ViewGroup的关系 1.View是Android中控件的基类 2.ViewGroup名字上翻译是控件组，ViewGroup内部包含许多控件，ViewGroup继承View意味着View可以是单个控件也可以是由多个控件组成的一组控件.如LinearLayout不单是view还是ViewGroup.  1.2.MotionEvent和Tou">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/Activity%E5%B8%83%E5%B1%80.jpg">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/06/Android消息机制/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/09/AndroidViewDispatch/"/>
 
 
 
 
 
-  <title>Android消息机制 | Shelton Blog</title>
+  <title>Android View的事件体系 | Shelton Blog</title>
   
 
 
@@ -279,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/06/Android消息机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/09/AndroidViewDispatch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shelton">
@@ -296,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android消息机制</h1>
+          <h1 class="post-title" itemprop="name headline">Android View的事件体系</h1>
         
 
         <div class="post-meta">
@@ -308,8 +308,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T22:55:24+08:00">
-                2017-07-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T00:21:41+08:00">
+                2017-07-09
               </time>
             
 
@@ -348,7 +348,7 @@
 
           
           
-             <span id="/2017/07/06/Android消息机制/" class="leancloud_visitors" data-flag-title="Android消息机制">
+             <span id="/2017/07/09/AndroidViewDispatch/" class="leancloud_visitors" data-flag-title="Android View的事件体系">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -376,53 +376,49 @@
       
 
       
-        <h2 id="第十章-Android消息机制"><a href="#第十章-Android消息机制" class="headerlink" title="第十章 Android消息机制"></a>第十章 Android消息机制</h2><p>本文是《Android开发艺术探索》一书的学习笔记</p>
-<h3 id="10-1-Android消息机制概述"><a href="#10-1-Android消息机制概述" class="headerlink" title="10.1:Android消息机制概述"></a>10.1:Android消息机制概述</h3><ul>
-<li><p>Android的消息机制主要是指Handler的运行机制。Handler需要底层的MessageQueue和Looper支撑。</p>
-</li>
-<li><p>MessageQueue: 单链表数据结构，是消息存储单元，不能处理消息</p>
-</li>
-<li><p>Looper: 无线循环查找是否有新消息，有的话就处理，没有就一直等待<br>注意Looper是运行在创建Handler所在的线程中的。</p>
-</li>
-<li><p>Handler通过ThreadLocal获取每个线程的Looper来构建消息循环系统。</p>
-</li>
-<li><p>线程默认是没有Looper的。如果要使用Handler，就需要为线程创建Looper</p>
-</li>
-<li><p>Android主线程也就是UI线程：ActivityThread在创建的时候就会初始化Looper.这也就是Android主线程默认可以使用Handler的原因。</p>
-</li>
-<li><p>系统为什么不允许在子线程中访问UI？ 因为Android的UI控件不是线程安全的。</p>
-</li>
-<li><p>为什么UI不采用加锁机制？</p>
-<ul>
-<li>1：加锁会让UI访问逻辑复杂</li>
-<li>2：会让UI访问效率降低</li>
+        <h2 id="View的事件体系"><a href="#View的事件体系" class="headerlink" title="View的事件体系"></a>View的事件体系</h2><h3 id="1-View基础知识"><a href="#1-View基础知识" class="headerlink" title="1.View基础知识"></a>1.View基础知识</h3><h4 id="1-1-View与ViewGroup的关系"><a href="#1-1-View与ViewGroup的关系" class="headerlink" title="1.1 View与ViewGroup的关系"></a>1.1 View与ViewGroup的关系</h4><ul>
+<li>1.View是Android中控件的基类</li>
+<li>2.ViewGroup名字上翻译是控件组，ViewGroup内部包含许多控件，ViewGroup继承View意味着View可以是单个控件也可以是由多个控件组成的一组控件.如LinearLayout不单是view还是ViewGroup.</li>
 </ul>
-</li>
+<h4 id="1-2-MotionEvent和TouchSlop"><a href="#1-2-MotionEvent和TouchSlop" class="headerlink" title="1.2.MotionEvent和TouchSlop"></a>1.2.MotionEvent和TouchSlop</h4><ul>
+<li>MotionEvent: ACTION_DOWN, ACTION_MOVE, ACTION_UP.通过MotionEvent可以得到点击事件的X,Y坐标。有两组方法</li>
 </ul>
-<h3 id="10-2-Android消息机制分析"><a href="#10-2-Android消息机制分析" class="headerlink" title="10.2:Android消息机制分析"></a>10.2:Android消息机制分析</h3><h4 id="1：MessageQueue工作原理"><a href="#1：MessageQueue工作原理" class="headerlink" title="1：MessageQueue工作原理"></a>1：MessageQueue工作原理</h4><ul>
-<li>MessageQueue单链表结构，在插入和删除中有优势</li>
-<li>enqueueMessage:插入</li>
-<li>next : 读取并移除数据。next方法是无限循环的方法，队列中没有消息该方法会一直阻塞，有消息就返回并将该数据移除</li>
-</ul>
-<h4 id="2-Looper工作原理"><a href="#2-Looper工作原理" class="headerlink" title="2:Looper工作原理"></a>2:Looper工作原理</h4><p>Handler所在线程需要Looper,没有Looper线程会报错。如何在线程中创建Looper呢？ </p>
-<pre><code>new Thread(&quot;threadname&quot;){
-    @Override
-    public void run(){
-        Looper.prepare(); //为当前线程创建Looper
-        Handler handler = new Handler();
-        Looper.loop();   //开启消息循环
-    }
-}
+<pre><code>* getX/getY:返回相对于当前View左上角的X,Y坐标
+* getRawX/getRawY:返回相对于手机屏幕左上角的X,Y坐标。
 </code></pre><ul>
-<li>prepareMainLooper:给主线程创建Looper使用的</li>
-<li>getMainLooper:  获取主线程Looper</li>
-<li>quit: 直接退出Looper</li>
-<li>quitSafely: 把队列中已有消息处理完毕后安全退出</li>
-<li>如果在子线程中创建Looper,在事情处理完后调用quit终止消息循环，否则子线程一直处于等待状态。退出Looper后线程就会立刻终止。</li>
+<li>TouchSlop：系统所识别的滑动的最小距离，是一个常量，和设备有关。不同设备上值是不同的。</li>
 </ul>
-<h4 id="3-Handler工作原理"><a href="#3-Handler工作原理" class="headerlink" title="3:Handler工作原理"></a>3:Handler工作原理</h4><p>主线程消息循环模型：<br>ActivityThread通过ApplicationThread和AMS进行进程间通讯。AMS以进程间通讯的方式完成ActivityThread的请求后回调ApplicationThread中的Binder方法，然后ApplicationThread向H发送消息，H将逻辑切换到ActivityThread中执行，即切换到主线程中执行。</p>
-<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6.jpeg" alt="Android消息机制"></p>
-<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B62.jpg" alt="Android消息机制2"></p>
+<h4 id="1-3-VelocityTracker-GestureDetector-Scroller"><a href="#1-3-VelocityTracker-GestureDetector-Scroller" class="headerlink" title="1.3 VelocityTracker,GestureDetector,Scroller"></a>1.3 VelocityTracker,GestureDetector,Scroller</h4><ul>
+<li><p>VelocityTracker：用于追踪手指滑动的速度。获取速度之前先computeCurrentVelocity计算速度。不需要的时候需要</p>
+<pre><code>velocityTracker.clear();
+velocityTracker.recycle();
+</code></pre></li>
+<li><p>GestureDetector:手势检测            </p>
+</li>
+<li>Scroller：弹性滑动对象。实现View的弹性滑动</li>
+</ul>
+<h3 id="2-View的滑动"><a href="#2-View的滑动" class="headerlink" title="2.View的滑动"></a>2.View的滑动</h3><h4 id="2-1使用scrollTo-scrollBy"><a href="#2-1使用scrollTo-scrollBy" class="headerlink" title="2.1使用scrollTo/scrollBy"></a>2.1使用scrollTo/scrollBy</h4><h4 id="2-2使用动画"><a href="#2-2使用动画" class="headerlink" title="2.2使用动画"></a>2.2使用动画</h4><p>View平移，或采用属性动画</p>
+<h4 id="2-3改变布局参数"><a href="#2-3改变布局参数" class="headerlink" title="2.3改变布局参数"></a>2.3改变布局参数</h4><p>如marginLeft</p>
+<h3 id="View的事件分发机制"><a href="#View的事件分发机制" class="headerlink" title="View的事件分发机制"></a>View的事件分发机制</h3><p>当一个点击事件产生后，流程如下：<br>Activity-&gt;Window-&gt;顶级View-&gt;处理分发事件。<br>事件首先由Activity的dispatchTouchEvent进行派发，具体工作由Window来完成，Window会将事件传递给DecorView,DecorView是当前页面的底层容器(即setContentView所设置的View的父容器)，然后由该顶级View处理分发。</p>
+<p>如一个Activity的布局如下：<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/Activity%E5%B8%83%E5%B1%80.jpg" alt="Activity布局"><br>事件流程如下：</p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/View%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%A8%8B.jpg" alt="事件分发流程"></p>
+<h3 id="重点：其事件传递的核心规则，可由下面的伪代码来表示："><a href="#重点：其事件传递的核心规则，可由下面的伪代码来表示：" class="headerlink" title="重点：其事件传递的核心规则，可由下面的伪代码来表示："></a>重点：其事件传递的核心规则，可由下面的伪代码来表示：</h3><pre><code>public boolena dispatchTouchEvent(MotionEvent ev){
+    boolena consume = false;
+    if (onInterceptTouchEvent(ev)){
+        consume = onTouchEvent(ev);
+    }else{
+        consume = child.dispatchTouchEvent(ev);
+    }
+    return consume; 
+}
+</code></pre><p>了解了伪代码的流程，也就了解了事件传递的流程</p>
+<h3 id="3-滑动冲突的解决方式："><a href="#3-滑动冲突的解决方式：" class="headerlink" title="3.滑动冲突的解决方式："></a>3.滑动冲突的解决方式：</h3><ul>
+<li><p>外部拦截法：重写父容器的onInterceptTouchEvent 方法</p>
+</li>
+<li><p>内部拦截法：需要重写子元素的dispatchTouchEvent方法并配合requestDisallowInterceptTouchEvent方法来用</p>
+</li>
+</ul>
+<p>参考：<br>《Android开发艺术探索》</p>
 
       
     </div>
@@ -465,8 +461,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/05/Android-article/" rel="next" title="Android开发艺术探索学习笔记">
-                <i class="fa fa-chevron-left"></i> Android开发艺术探索学习笔记
+              <a href="/2017/07/06/Android消息机制/" rel="next" title="Android消息机制">
+                <i class="fa fa-chevron-left"></i> Android消息机制
               </a>
             
           </div>
@@ -475,8 +471,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/09/AndroidViewDispatch/" rel="prev" title="Android View的事件体系">
-                Android View的事件体系 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/09/Android-ThreadPool/" rel="prev" title="Android的线程和线程池">
+                Android的线程和线程池 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -606,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第十章-Android消息机制"><span class="nav-number">1.</span> <span class="nav-text">第十章 Android消息机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-Android消息机制概述"><span class="nav-number">1.1.</span> <span class="nav-text">10.1:Android消息机制概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-2-Android消息机制分析"><span class="nav-number">1.2.</span> <span class="nav-text">10.2:Android消息机制分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1：MessageQueue工作原理"><span class="nav-number">1.2.1.</span> <span class="nav-text">1：MessageQueue工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Looper工作原理"><span class="nav-number">1.2.2.</span> <span class="nav-text">2:Looper工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Handler工作原理"><span class="nav-number">1.2.3.</span> <span class="nav-text">3:Handler工作原理</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#View的事件体系"><span class="nav-number">1.</span> <span class="nav-text">View的事件体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-View基础知识"><span class="nav-number">1.1.</span> <span class="nav-text">1.View基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-View与ViewGroup的关系"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 View与ViewGroup的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-MotionEvent和TouchSlop"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2.MotionEvent和TouchSlop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-VelocityTracker-GestureDetector-Scroller"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 VelocityTracker,GestureDetector,Scroller</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-View的滑动"><span class="nav-number">1.2.</span> <span class="nav-text">2.View的滑动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1使用scrollTo-scrollBy"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1使用scrollTo/scrollBy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2使用动画"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2使用动画</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3改变布局参数"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3改变布局参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View的事件分发机制"><span class="nav-number">1.3.</span> <span class="nav-text">View的事件分发机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重点：其事件传递的核心规则，可由下面的伪代码来表示："><span class="nav-number">1.4.</span> <span class="nav-text">重点：其事件传递的核心规则，可由下面的伪代码来表示：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-滑动冲突的解决方式："><span class="nav-number">1.5.</span> <span class="nav-text">3.滑动冲突的解决方式：</span></a></li></ol></li></ol></div>
             
 
           </div>

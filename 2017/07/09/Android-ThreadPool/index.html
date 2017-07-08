@@ -93,20 +93,20 @@
 
 
 
-<meta name="description" content="第十章 Android消息机制本文是《Android开发艺术探索》一书的学习笔记 10.1:Android消息机制概述 Android的消息机制主要是指Handler的运行机制。Handler需要底层的MessageQueue和Looper支撑。  MessageQueue: 单链表数据结构，是消息存储单元，不能处理消息  Looper: 无线循环查找是否有新消息，有的话就处理，没有就一直等待注意">
+<meta name="description" content="Android的线程和线程池Android中的线程形态1.AsyncTaskAsyncTask封装了Thread和Handler,是抽象的泛型类，提供了Params,Progress,Result这三个泛型参数 四个核心方法： 1.onPreExecute() 主线程中执行，异步任务之前调用 2.doInBackground(Params… par) 异步后台执行 3.onProgressUpda">
 <meta name="keywords" content="学习笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android消息机制">
-<meta property="og:url" content="http://yoursite.com/2017/07/06/Android消息机制/index.html">
+<meta property="og:title" content="Android的线程和线程池">
+<meta property="og:url" content="http://yoursite.com/2017/07/09/Android-ThreadPool/index.html">
 <meta property="og:site_name" content="Shelton Blog">
-<meta property="og:description" content="第十章 Android消息机制本文是《Android开发艺术探索》一书的学习笔记 10.1:Android消息机制概述 Android的消息机制主要是指Handler的运行机制。Handler需要底层的MessageQueue和Looper支撑。  MessageQueue: 单链表数据结构，是消息存储单元，不能处理消息  Looper: 无线循环查找是否有新消息，有的话就处理，没有就一直等待注意">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6.jpeg">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B62.jpg">
-<meta property="og:updated_time" content="2017-07-06T14:57:49.000Z">
+<meta property="og:description" content="Android的线程和线程池Android中的线程形态1.AsyncTaskAsyncTask封装了Thread和Handler,是抽象的泛型类，提供了Params,Progress,Result这三个泛型参数 四个核心方法： 1.onPreExecute() 主线程中执行，异步任务之前调用 2.doInBackground(Params… par) 异步后台执行 3.onProgressUpda">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/IntentService%E6%B5%81%E7%A8%8B1.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/IntentService%E6%B5%81%E7%A8%8B2.jpg">
+<meta property="og:updated_time" content="2017-07-08T16:35:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android消息机制">
-<meta name="twitter:description" content="第十章 Android消息机制本文是《Android开发艺术探索》一书的学习笔记 10.1:Android消息机制概述 Android的消息机制主要是指Handler的运行机制。Handler需要底层的MessageQueue和Looper支撑。  MessageQueue: 单链表数据结构，是消息存储单元，不能处理消息  Looper: 无线循环查找是否有新消息，有的话就处理，没有就一直等待注意">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6.jpeg">
+<meta name="twitter:title" content="Android的线程和线程池">
+<meta name="twitter:description" content="Android的线程和线程池Android中的线程形态1.AsyncTaskAsyncTask封装了Thread和Handler,是抽象的泛型类，提供了Params,Progress,Result这三个泛型参数 四个核心方法： 1.onPreExecute() 主线程中执行，异步任务之前调用 2.doInBackground(Params… par) 异步后台执行 3.onProgressUpda">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/IntentService%E6%B5%81%E7%A8%8B1.jpg">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/06/Android消息机制/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/09/Android-ThreadPool/"/>
 
 
 
 
 
-  <title>Android消息机制 | Shelton Blog</title>
+  <title>Android的线程和线程池 | Shelton Blog</title>
   
 
 
@@ -279,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/06/Android消息机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/09/Android-ThreadPool/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shelton">
@@ -296,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android消息机制</h1>
+          <h1 class="post-title" itemprop="name headline">Android的线程和线程池</h1>
         
 
         <div class="post-meta">
@@ -308,8 +308,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T22:55:24+08:00">
-                2017-07-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T00:31:10+08:00">
+                2017-07-09
               </time>
             
 
@@ -348,7 +348,7 @@
 
           
           
-             <span id="/2017/07/06/Android消息机制/" class="leancloud_visitors" data-flag-title="Android消息机制">
+             <span id="/2017/07/09/Android-ThreadPool/" class="leancloud_visitors" data-flag-title="Android的线程和线程池">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -376,53 +376,107 @@
       
 
       
-        <h2 id="第十章-Android消息机制"><a href="#第十章-Android消息机制" class="headerlink" title="第十章 Android消息机制"></a>第十章 Android消息机制</h2><p>本文是《Android开发艺术探索》一书的学习笔记</p>
-<h3 id="10-1-Android消息机制概述"><a href="#10-1-Android消息机制概述" class="headerlink" title="10.1:Android消息机制概述"></a>10.1:Android消息机制概述</h3><ul>
-<li><p>Android的消息机制主要是指Handler的运行机制。Handler需要底层的MessageQueue和Looper支撑。</p>
-</li>
-<li><p>MessageQueue: 单链表数据结构，是消息存储单元，不能处理消息</p>
-</li>
-<li><p>Looper: 无线循环查找是否有新消息，有的话就处理，没有就一直等待<br>注意Looper是运行在创建Handler所在的线程中的。</p>
-</li>
-<li><p>Handler通过ThreadLocal获取每个线程的Looper来构建消息循环系统。</p>
-</li>
-<li><p>线程默认是没有Looper的。如果要使用Handler，就需要为线程创建Looper</p>
-</li>
-<li><p>Android主线程也就是UI线程：ActivityThread在创建的时候就会初始化Looper.这也就是Android主线程默认可以使用Handler的原因。</p>
-</li>
-<li><p>系统为什么不允许在子线程中访问UI？ 因为Android的UI控件不是线程安全的。</p>
-</li>
-<li><p>为什么UI不采用加锁机制？</p>
-<ul>
-<li>1：加锁会让UI访问逻辑复杂</li>
-<li>2：会让UI访问效率降低</li>
+        <h2 id="Android的线程和线程池"><a href="#Android的线程和线程池" class="headerlink" title="Android的线程和线程池"></a>Android的线程和线程池</h2><h3 id="Android中的线程形态"><a href="#Android中的线程形态" class="headerlink" title="Android中的线程形态"></a>Android中的线程形态</h3><h4 id="1-AsyncTask"><a href="#1-AsyncTask" class="headerlink" title="1.AsyncTask"></a>1.AsyncTask</h4><p>AsyncTask封装了Thread和Handler,是抽象的泛型类，提供了Params,Progress,Result这三个泛型参数</p>
+<h4 id="四个核心方法："><a href="#四个核心方法：" class="headerlink" title="四个核心方法："></a>四个核心方法：</h4><ul>
+<li>1.onPreExecute() 主线程中执行，异步任务之前调用</li>
+<li>2.doInBackground(Params… par) 异步后台执行</li>
+<li>3.onProgressUpdate(Progress… value) 主线程中执行，进度发生变化该方法被调用</li>
+<li>4.onPostExecute(Result res) 主线程中执行，异步任务执行完改方法被调用</li>
+</ul>
+<h4 id="使用过程中有以下条件限制"><a href="#使用过程中有以下条件限制" class="headerlink" title="使用过程中有以下条件限制"></a>使用过程中有以下条件限制</h4><ul>
+<li>1.AsyncTask的类必须在主线程中加载。在5.0的源码中ActivityThread的main方法中调用AsyncTask的init方法</li>
+<li>2.AsyncTask的对象必须在主线程中创建</li>
+<li>3.execute方法必须在UI线程调用</li>
+<li>4.不要在程序中直接调用上述四个核心方法</li>
+<li>5.一个AsyncTask对象只能执行一次，即只能调用一次execute方法，否则报运行时异常</li>
+<li>6.版本差异<ul>
+<li>1.在Android1.6之前是串行执行任务；</li>
+<li>2.Android1.6的时候采取并行处理；</li>
+<li>3.Android3.0又采取串行执行，尽管如此3.0以后的版本还可以通过AsyncTask的executeOnExecutor来并行执行任务</li>
 </ul>
 </li>
 </ul>
-<h3 id="10-2-Android消息机制分析"><a href="#10-2-Android消息机制分析" class="headerlink" title="10.2:Android消息机制分析"></a>10.2:Android消息机制分析</h3><h4 id="1：MessageQueue工作原理"><a href="#1：MessageQueue工作原理" class="headerlink" title="1：MessageQueue工作原理"></a>1：MessageQueue工作原理</h4><ul>
-<li>MessageQueue单链表结构，在插入和删除中有优势</li>
-<li>enqueueMessage:插入</li>
-<li>next : 读取并移除数据。next方法是无限循环的方法，队列中没有消息该方法会一直阻塞，有消息就返回并将该数据移除</li>
-</ul>
-<h4 id="2-Looper工作原理"><a href="#2-Looper工作原理" class="headerlink" title="2:Looper工作原理"></a>2:Looper工作原理</h4><p>Handler所在线程需要Looper,没有Looper线程会报错。如何在线程中创建Looper呢？ </p>
-<pre><code>new Thread(&quot;threadname&quot;){
-    @Override
-    public void run(){
-        Looper.prepare(); //为当前线程创建Looper
-        Handler handler = new Handler();
-        Looper.loop();   //开启消息循环
+<h4 id="2-HandlerThread"><a href="#2-HandlerThread" class="headerlink" title="2.HandlerThread"></a>2.HandlerThread</h4><p>HandlerThread继承了Thread. 该线程运行的时候创建Looper。可以说是自带Looper的Thread</p>
+<h4 id="3-IntentService"><a href="#3-IntentService" class="headerlink" title="3.IntentService"></a>3.IntentService</h4><p>IntentService抽象类，继承了Service. 内部包含了ServiceHandler和HandlerThread.</p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/IntentService%E6%B5%81%E7%A8%8B1.jpg" alt="IntentService流程1"></p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/IntentService%E6%B5%81%E7%A8%8B2.jpg" alt="IntentService流程2"></p>
+<pre><code>public class LocalIntentService extends IntentService {
+private static final String TAG = &quot;LocalIntentService&quot;;
+
+public LocalIntentService() {
+    super(TAG);
+}
+
+@Override
+protected void onHandleIntent(final Intent intent) {
+    final String action = intent.getStringExtra(&quot;task_action&quot;);
+    Log.d(TAG, &quot;receive task :&quot; +  action);
+
+    SystemClock.sleep(3000);
+    if (&quot;com.ryg.action.TASK1&quot;.equals(action)) {
+        Log.d(TAG, &quot;handle task: &quot; + action);
     }
 }
-</code></pre><ul>
-<li>prepareMainLooper:给主线程创建Looper使用的</li>
-<li>getMainLooper:  获取主线程Looper</li>
-<li>quit: 直接退出Looper</li>
-<li>quitSafely: 把队列中已有消息处理完毕后安全退出</li>
-<li>如果在子线程中创建Looper,在事情处理完后调用quit终止消息循环，否则子线程一直处于等待状态。退出Looper后线程就会立刻终止。</li>
+
+@Override
+public void onDestroy() {
+    Log.d(TAG, &quot;service destroyed.&quot;);
+    super.onDestroy();
+}
+}
+</code></pre><p>启动服务</p>
+<pre><code> Intent service = new Intent(this, LocalIntentService.class);
+service.putExtra(&quot;task_action&quot;, &quot;com.ryg.action.TASK1&quot;);
+startService(service);
+service.putExtra(&quot;task_action&quot;, &quot;com.ryg.action.TASK2&quot;);
+startService(service);
+service.putExtra(&quot;task_action&quot;, &quot;com.ryg.action.TASK3&quot;);
+startService(service);
+</code></pre><h3 id="Android中的线程池"><a href="#Android中的线程池" class="headerlink" title="Android中的线程池"></a>Android中的线程池</h3><p>线程池的优点：</p>
+<ul>
+<li>1.重用线程，避免开销</li>
+<li>2.有效控制线程并发数，避免因抢占资源造成的阻塞</li>
+<li>3.有效管理，提供定时及循环间隔执行等功能</li>
 </ul>
-<h4 id="3-Handler工作原理"><a href="#3-Handler工作原理" class="headerlink" title="3:Handler工作原理"></a>3:Handler工作原理</h4><p>主线程消息循环模型：<br>ActivityThread通过ApplicationThread和AMS进行进程间通讯。AMS以进程间通讯的方式完成ActivityThread的请求后回调ApplicationThread中的Binder方法，然后ApplicationThread向H发送消息，H将逻辑切换到ActivityThread中执行，即切换到主线程中执行。</p>
-<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6.jpeg" alt="Android消息机制"></p>
-<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B62.jpg" alt="Android消息机制2"></p>
+<h4 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h4><p>参数：</p>
+<ul>
+<li>1.corePoolSize: 核心线程数。默认情况下核心线程在线程池中会一直存活，即便是闲置状态。如果将ThreadPoolExecutor的allowCoreThreadTimeOut设置为true,那么闲置的核心线程在等待新任务到来时会有超时策略</li>
+<li>2.maximumPoolSize：容纳的最大线程数</li>
+<li>3.keepAliveTime：非核心线程闲置时的超时时长，超过这个时长，非核心线程就会被回收。</li>
+<li>4.TimeUnit</li>
+<li>5.workQueue</li>
+<li>6.ThreadFactory</li>
+</ul>
+<h4 id="线程池的分类"><a href="#线程池的分类" class="headerlink" title="线程池的分类"></a>线程池的分类</h4><ul>
+<li>1.FixedThreadPool: newFixedThreadPool方法创建。是一种数量固定的线程池，只有核心线程，且核心线程不会被回收，可以快速相应外界请求。没有超时机制，没有队列大小限制。</li>
+<li>2.CachedThreadPool：newCachedThreadPool方法创建。是一种线程数量不定的线程池，只有非核心线程。有超时机制。适合执行大量的耗时较少的任务     </li>
+<li>3.ScheduledThreadPool：核心线程数量是固定的，非核心线程数是没有固定的，当非核心线程闲置时会被立即回收。主要用于执行定时任务和具有固定周期的重复任务。</li>
+<li>4.SingleThreadExecutor：线程池内部只有一个核心线程，确保所有的任务都在同一个线程中按顺序执行。</li>
+</ul>
+<pre><code>private void runThreadPool() {
+    Runnable command = new Runnable() {
+    @Override
+    public void run() {
+        SystemClock.sleep(2000);
+    }
+    };
+
+    ExecutorService fixedThreadPool = Executors.newFixedThreadPool(4);
+    fixedThreadPool.execute(command);
+
+    ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+    cachedThreadPool.execute(command);
+
+    ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(4);
+    // 2000ms后执行command
+    scheduledThreadPool.schedule(command, 2000, TimeUnit.MILLISECONDS);
+    // 延迟10ms后，每隔1000ms执行一次command
+    scheduledThreadPool.scheduleAtFixedRate(command, 10, 1000, TimeUnit.MILLISECONDS);
+
+    ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
+    singleThreadExecutor.execute(command);
+}
+</code></pre><p>参考：<br>《Android开发艺术探索》</p>
 
       
     </div>
@@ -465,8 +519,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/05/Android-article/" rel="next" title="Android开发艺术探索学习笔记">
-                <i class="fa fa-chevron-left"></i> Android开发艺术探索学习笔记
+              <a href="/2017/07/09/AndroidViewDispatch/" rel="next" title="Android View的事件体系">
+                <i class="fa fa-chevron-left"></i> Android View的事件体系
               </a>
             
           </div>
@@ -474,10 +528,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/09/AndroidViewDispatch/" rel="prev" title="Android View的事件体系">
-                Android View的事件体系 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -606,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第十章-Android消息机制"><span class="nav-number">1.</span> <span class="nav-text">第十章 Android消息机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-Android消息机制概述"><span class="nav-number">1.1.</span> <span class="nav-text">10.1:Android消息机制概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-2-Android消息机制分析"><span class="nav-number">1.2.</span> <span class="nav-text">10.2:Android消息机制分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1：MessageQueue工作原理"><span class="nav-number">1.2.1.</span> <span class="nav-text">1：MessageQueue工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Looper工作原理"><span class="nav-number">1.2.2.</span> <span class="nav-text">2:Looper工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Handler工作原理"><span class="nav-number">1.2.3.</span> <span class="nav-text">3:Handler工作原理</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android的线程和线程池"><span class="nav-number">1.</span> <span class="nav-text">Android的线程和线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android中的线程形态"><span class="nav-number">1.1.</span> <span class="nav-text">Android中的线程形态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-AsyncTask"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.AsyncTask</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四个核心方法："><span class="nav-number">1.1.2.</span> <span class="nav-text">四个核心方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用过程中有以下条件限制"><span class="nav-number">1.1.3.</span> <span class="nav-text">使用过程中有以下条件限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-HandlerThread"><span class="nav-number">1.1.4.</span> <span class="nav-text">2.HandlerThread</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-IntentService"><span class="nav-number">1.1.5.</span> <span class="nav-text">3.IntentService</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android中的线程池"><span class="nav-number">1.2.</span> <span class="nav-text">Android中的线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ThreadPoolExecutor"><span class="nav-number">1.2.1.</span> <span class="nav-text">ThreadPoolExecutor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程池的分类"><span class="nav-number">1.2.2.</span> <span class="nav-text">线程池的分类</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
