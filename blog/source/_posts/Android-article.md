@@ -364,7 +364,25 @@ IntentService抽象类，继承了Service. 内部包含了ServiceHandler和Handl
     	
     	
     	
-    	
+## 第十五章 Android性能优化
+
+性能优化这是个很大的范畴。
+
+1：布局优化： <include> <merge>(减少层级) ViewStub 
+
+2: 绘制优化：指View的onDraw方法避免大量操作
+3. Bitmap优化，线程优化
+
+一些性能优化建议：
+
+* 1.避免创建过多对象
+* 2.不要过多使用枚举，枚举占用的内存空间比整型大
+* 3.常量使用static final来修饰
+* 4.使用Android特有数据结构比如SparseArray和Pair等。
+* 5.适当使用软引用(SoftReference)和弱引用(WeakReference)
+* 6.尽量采用静态内部类，避免潜在的由于内部类导致的内存泄漏。
+
+
     
 
 
