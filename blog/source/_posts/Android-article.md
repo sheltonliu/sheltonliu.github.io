@@ -1,7 +1,8 @@
 ---
 title: Android开发艺术探索学习笔记
 date: 2017-07-05 23:45:32
-tags: "学习笔记"
+tags:
+	- "Android开发艺术探索笔记"
 categories: "Android"
 ---
 

@@ -1,7 +1,8 @@
 ---
 title: Android View的事件体系
 date: 2017-07-09 00:21:41
-tags: "学习笔记"
+tags:
+	- "Android开发艺术探索笔记"
 categories: "Android"
 ---
 

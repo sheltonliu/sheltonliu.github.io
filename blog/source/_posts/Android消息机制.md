@@ -1,7 +1,8 @@
 ---
 title: Android消息机制
 date: 2017-07-06 22:55:24
-tags: "学习笔记"
+tags: 
+	- "Android开发艺术探索笔记"
 categories: "Android"
 ---
 

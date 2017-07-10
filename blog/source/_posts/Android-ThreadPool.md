@@ -1,7 +1,8 @@
 ---
 title: Android的线程和线程池
 date: 2017-07-09 00:31:10
-tags: "学习笔记"
+tags:
+	- "Android开发艺术探索笔记"
 categories: "Android"
 ---
 ## Android的线程和线程池
