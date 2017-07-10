@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="tag1," />
+  <meta name="keywords" content="内存泄漏,MAT," />
 
 
 
@@ -93,19 +93,26 @@
 
 
 
-<meta name="description" content="创建个人blog 引入测试图片  图片">
-<meta name="keywords" content="tag1">
+<meta name="description" content="1.内存泄漏是什么 一句话概括：就是GC垃圾回收机制漏掉的垃圾对象，无法回收 内存泄漏过多就会造成内存溢出  2.什么是垃圾回收机制？就是当对象不具备任何引用的时候，可被回收 3.GC ROOT Tracing 算法  被GC Root 引用的对象不可被回收 没有被GC Root Obj所持有的对象可以被回收  4.可以作为GC Root引用的点是（不被回收）： java stack中引用的对象">
+<meta name="keywords" content="内存泄漏,MAT">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FirstArticle">
-<meta property="og:url" content="http://yoursite.com/2017/07/04/FirstArticle/index.html">
+<meta property="og:title" content="Android内存泄漏分析及MAT工具使用">
+<meta property="og:url" content="http://yoursite.com/2017/07/10/Android-MemoryLeak-Analyze/index.html">
 <meta property="og:site_name" content="Shelton Blog">
-<meta property="og:description" content="创建个人blog 引入测试图片  图片">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/01.png">
-<meta property="og:updated_time" content="2017-07-05T23:50:41.000Z">
+<meta property="og:description" content="1.内存泄漏是什么 一句话概括：就是GC垃圾回收机制漏掉的垃圾对象，无法回收 内存泄漏过多就会造成内存溢出  2.什么是垃圾回收机制？就是当对象不具备任何引用的时候，可被回收 3.GC ROOT Tracing 算法  被GC Root 引用的对象不可被回收 没有被GC Root Obj所持有的对象可以被回收  4.可以作为GC Root引用的点是（不被回收）： java stack中引用的对象">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/GC_Root_Tracing.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool_hprof.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool5.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool6.png">
+<meta property="og:updated_time" content="2017-07-10T03:24:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FirstArticle">
-<meta name="twitter:description" content="创建个人blog 引入测试图片  图片">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/01.png">
+<meta name="twitter:title" content="Android内存泄漏分析及MAT工具使用">
+<meta name="twitter:description" content="1.内存泄漏是什么 一句话概括：就是GC垃圾回收机制漏掉的垃圾对象，无法回收 内存泄漏过多就会造成内存溢出  2.什么是垃圾回收机制？就是当对象不具备任何引用的时候，可被回收 3.GC ROOT Tracing 算法  被GC Root 引用的对象不可被回收 没有被GC Root Obj所持有的对象可以被回收  4.可以作为GC Root引用的点是（不被回收）： java stack中引用的对象">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/GC_Root_Tracing.png">
 
 
 
@@ -133,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/04/FirstArticle/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/10/Android-MemoryLeak-Analyze/"/>
 
 
 
 
 
-  <title>FirstArticle | Shelton Blog</title>
+  <title>Android内存泄漏分析及MAT工具使用 | Shelton Blog</title>
   
 
 
@@ -278,7 +285,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/FirstArticle/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/10/Android-MemoryLeak-Analyze/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shelton">
@@ -295,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">FirstArticle</h1>
+          <h1 class="post-title" itemprop="name headline">Android内存泄漏分析及MAT工具使用</h1>
         
 
         <div class="post-meta">
@@ -307,8 +314,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-04T11:50:11+08:00">
-                2017-07-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T11:19:16+08:00">
+                2017-07-10
               </time>
             
 
@@ -330,8 +337,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/测试分类/" itemprop="url" rel="index">
-                    <span itemprop="name">测试分类</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -347,7 +354,7 @@
 
           
           
-             <span id="/2017/07/04/FirstArticle/" class="leancloud_visitors" data-flag-title="FirstArticle">
+             <span id="/2017/07/10/Android-MemoryLeak-Analyze/" class="leancloud_visitors" data-flag-title="Android内存泄漏分析及MAT工具使用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -375,10 +382,99 @@
       
 
       
-        <p>创建个人blog</p>
-<p>引入测试图片</p>
-<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/01.png" alt="Aaron Swartz"></p>
-<p>图片</p>
+        <p><font size="3"></font></p>
+<h3 id="1-内存泄漏是什么"><a href="#1-内存泄漏是什么" class="headerlink" title="1.内存泄漏是什么"></a>1.内存泄漏是什么</h3><ul>
+<li>一句话概括：就是GC垃圾回收机制漏掉的垃圾对象，无法回收</li>
+<li>内存泄漏过多就会造成内存溢出</li>
+</ul>
+<h3 id="2-什么是垃圾回收机制？"><a href="#2-什么是垃圾回收机制？" class="headerlink" title="2.什么是垃圾回收机制？"></a>2.什么是垃圾回收机制？</h3><p>就是当对象不具备任何引用的时候，可被回收</p>
+<h3 id="3-GC-ROOT-Tracing-算法"><a href="#3-GC-ROOT-Tracing-算法" class="headerlink" title="3.GC ROOT Tracing 算法"></a>3.GC ROOT Tracing 算法</h3><p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/GC_Root_Tracing.png" alt="GC Root Tracing"></p>
+<ul>
+<li>被GC Root 引用的对象不可被回收</li>
+<li>没有被GC Root Obj所持有的对象可以被回收</li>
+</ul>
+<h3 id="4-可以作为GC-Root引用的点是（不被回收）："><a href="#4-可以作为GC-Root引用的点是（不被回收）：" class="headerlink" title="4.可以作为GC Root引用的点是（不被回收）："></a>4.可以作为GC Root引用的点是（不被回收）：</h3><ul>
+<li>java stack中引用的对象</li>
+<li>方法区中静态引用指向的对象</li>
+<li>方法去中常量引用指向的对象</li>
+<li>Native方法中jni引用的对象</li>
+<li>Thread—活着的线程</li>
+</ul>
+<h3 id="5-常见的内存泄漏案例："><a href="#5-常见的内存泄漏案例：" class="headerlink" title="5.常见的内存泄漏案例："></a>5.常见的内存泄漏案例：</h3><p>参考<a href="https://mp.weixin.qq.com/s?__biz=MzI1MTA1MzM2Nw==&amp;mid=2649796884&amp;idx=1&amp;sn=92b4e344060362128e4a86d6132c3736&amp;scene=0#wechat_redirect" target="_blank" rel="external">QQ空间Android内存泄漏分析心得</a></p>
+<ul>
+<li>1：单例造成的内存泄漏<ul>
+<li>解决方案<ul>
+<li>将该属性的引用方式改为弱引用;</li>
+<li>如果传入Context，使用ApplicationContext;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2： InnerClass匿名内部类<ul>
+<li>在Java中，非静态内部类 和 匿名类 都会潜在的引用它们所属的外部类，但是，静态内部类却不会。如果这个非静态内部类实例做了一些耗时的操作，就会造成外围对象不会被回收，从而导致内存泄漏。</li>
+<li>解决方案<ul>
+<li>将内部类变成静态内部类;</li>
+<li>如果有强引用Activity中的属性，则将该属性的引用方式改为弱引用;</li>
+<li>在业务允许的情况下，当Activity执行onDestory时，结束这些耗时任务;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>3：Activity Context 的不正确使用</p>
+<ul>
+<li>在Android应用程序中通常可以使用两种Context对象：Activity和Application。当类或方法需要Context对象的时候常见的做法是使用第一个作为Context参数。这样就意味着View对象对整个Activity保持引用，因此也就保持对Activty的所有的引用。</li>
+<li>解决方案<ul>
+<li>使用ApplicationContext代替ActivityContext，因为ApplicationContext会随着应用程序的存在而存在，而不依赖于activity的生命周期；</li>
+<li>对Context的引用不要超过它本身的生命周期，慎重的对Context使用“static”关键字。Context里如果有线程，一定要在onDestroy()里及时停掉。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>4：Handler引起的内存泄漏</p>
+<ul>
+<li>当Handler中有延迟的的任务或是等待执行的任务队列过长，由于消息持有对Handler的引用，而Handler又持有对其外部类的潜在引用，这条引用关系会一直保持到消息得到处理，而导致了Activity无法被垃圾回收器回收，而导致了内存泄露。</li>
+<li>解决方案<ul>
+<li>可以把Handler类放在单独的类文件中，或者使用静态内部类便可以避免泄露;</li>
+<li>如果想在Handler内部去调用所在的Activity,那么可以在handler内部使用弱引用的方式去指向所在Activity.使用Static + WeakReference的方式来达到断开Handler与Activity之间存在引用关系的目的。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>5：注册监听器的泄漏</p>
+<ul>
+<li>解决方案<ul>
+<li>使用ApplicationContext代替ActivityContext;</li>
+<li>在Activity执行onDestory时，调用反注册;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>6：Cursor，Stream没有close，View没有recyle</p>
+</li>
+</ul>
+<ul>
+<li><p>7：集合中对象没清理造成的内存泄漏</p>
+<ul>
+<li>在Activity退出之前，将集合里的东西clear，然后置为null，再退出程序。</li>
+</ul>
+</li>
+<li><p>8： WebView造成的泄露</p>
+<ul>
+<li>当我们不要使用WebView对象时，应该调用它的destory()函数来销毁它，并释放其占用的内存，否则其占用的内存长期也不能被回收，从而造成内存泄露。</li>
+</ul>
+</li>
+<li><p>9：构造Adapter时，没有使用缓存的ConvertView                                        </p>
+</li>
+</ul>
+<h3 id="6-使用AndroidStudio进行内存分析"><a href="#6-使用AndroidStudio进行内存分析" class="headerlink" title="6.使用AndroidStudio进行内存分析"></a>6.使用AndroidStudio进行内存分析</h3><p>步骤如下：</p>
+<p>图1：<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool.png" alt="图1"></p>
+<p>图2：<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool2.png" alt="图2"></p>
+<h3 id="7-通过MAT工具进行分析"><a href="#7-通过MAT工具进行分析" class="headerlink" title="7.通过MAT工具进行分析"></a>7.通过MAT工具进行分析</h3><p>第一步：如下图先导出标准的hprof文件。可以生成两个hprof文件，通过MAT比较分析。<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool_hprof.png" alt="图1"></p>
+<p>第二步：打开MAT工具，可以单独下载这个插件<a href="http://www.eclipse.org/mat/" target="_blank" rel="external">下载</a><br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool3.png" alt="图2"></p>
+<p>第三步：导入两个hprof文件，根据下图的步骤进行比较分析<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool4.png" alt="图3"></p>
+<p>第四步：按照下图步骤选择<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool5.png" alt="图4"></p>
+<p>最后：找到未释放的引用<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool6.png" alt="图5"></p>
+<p>参考：<br><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTA1MzM2Nw==&amp;mid=2649796884&amp;idx=1&amp;sn=92b4e344060362128e4a86d6132c3736&amp;scene=0#wechat_redirect" target="_blank" rel="external">QQ空间Android内存泄漏分析心得</a></p>
 
       
     </div>
@@ -408,7 +504,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/tag1/" rel="tag"># tag1</a>
+            <a href="/tags/内存泄漏/" rel="tag"># 内存泄漏</a>
+          
+            <a href="/tags/MAT/" rel="tag"># MAT</a>
           
         </div>
       
@@ -421,15 +519,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/07/09/Android-ThreadPool/" rel="next" title="Android的线程和线程池">
+                <i class="fa fa-chevron-left"></i> Android的线程和线程池
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/04/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -476,8 +574,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -503,7 +610,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -514,7 +621,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -539,6 +646,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-内存泄漏是什么"><span class="nav-number">1.</span> <span class="nav-text">1.内存泄漏是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-什么是垃圾回收机制？"><span class="nav-number">2.</span> <span class="nav-text">2.什么是垃圾回收机制？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-GC-ROOT-Tracing-算法"><span class="nav-number">3.</span> <span class="nav-text">3.GC ROOT Tracing 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-可以作为GC-Root引用的点是（不被回收）："><span class="nav-number">4.</span> <span class="nav-text">4.可以作为GC Root引用的点是（不被回收）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-常见的内存泄漏案例："><span class="nav-number">5.</span> <span class="nav-text">5.常见的内存泄漏案例：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-使用AndroidStudio进行内存分析"><span class="nav-number">6.</span> <span class="nav-text">6.使用AndroidStudio进行内存分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-通过MAT工具进行分析"><span class="nav-number">7.</span> <span class="nav-text">7.通过MAT工具进行分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
