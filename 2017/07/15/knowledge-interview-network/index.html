@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android开发艺术探索笔记," />
+  <meta name="keywords" content="知识点总结,网络协议,HTTPS," />
 
 
 
@@ -93,20 +93,27 @@
 
 
 
-<meta name="description" content="View的事件体系1.View基础知识1.1 View与ViewGroup的关系 1.View是Android中控件的基类 2.ViewGroup名字上翻译是控件组，ViewGroup内部包含许多控件，ViewGroup继承View意味着View可以是单个控件也可以是由多个控件组成的一组控件.如LinearLayout不单是view还是ViewGroup.  1.2.MotionEvent和Tou">
-<meta name="keywords" content="Android开发艺术探索笔记">
+<meta name="description" content="网络协议知识点  1.HTTPHTTP协议中比较容易混淆的点1 http1.1/http1.0区别  缓存处理方面 带宽优化及网络连接的使用 Host头处理 长连接（最重要区别 1.1支持）  2 1.1和1.0存在的问题  1.0：传输数据时，每次都需要重新建立连接 1.x: 在传输数据时，都是明文传输，客户端服务端无法验证对方身份 1.x: 在使用过程中header里携带的内容过大，增加了传输">
+<meta name="keywords" content="知识点总结,网络协议,HTTPS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android View的事件体系">
-<meta property="og:url" content="http://yoursite.com/2017/07/09/AndroidViewDispatch/index.html">
+<meta property="og:title" content="知识点总结--网络协议">
+<meta property="og:url" content="http://yoursite.com/2017/07/15/knowledge-interview-network/index.html">
 <meta property="og:site_name" content="Shelton Blog">
-<meta property="og:description" content="View的事件体系1.View基础知识1.1 View与ViewGroup的关系 1.View是Android中控件的基类 2.ViewGroup名字上翻译是控件组，ViewGroup内部包含许多控件，ViewGroup继承View意味着View可以是单个控件也可以是由多个控件组成的一组控件.如LinearLayout不单是view还是ViewGroup.  1.2.MotionEvent和Tou">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/Activity%E5%B8%83%E5%B1%80.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/View%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%A8%8B.jpg">
-<meta property="og:updated_time" content="2017-07-10T03:26:46.000Z">
+<meta property="og:description" content="网络协议知识点  1.HTTPHTTP协议中比较容易混淆的点1 http1.1/http1.0区别  缓存处理方面 带宽优化及网络连接的使用 Host头处理 长连接（最重要区别 1.1支持）  2 1.1和1.0存在的问题  1.0：传输数据时，每次都需要重新建立连接 1.x: 在传输数据时，都是明文传输，客户端服务端无法验证对方身份 1.x: 在使用过程中header里携带的内容过大，增加了传输">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_http_cookie.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_http_cookie2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_https01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_https02.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_tcp%3Aip.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_broadcast.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_https%E7%AE%97%E6%B3%9501.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_%E7%AD%BE%E5%90%8D%E7%9A%84%E7%94%9F%E6%88%90.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_%E7%AD%BE%E5%90%8D2.png">
+<meta property="og:updated_time" content="2017-07-15T10:34:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android View的事件体系">
-<meta name="twitter:description" content="View的事件体系1.View基础知识1.1 View与ViewGroup的关系 1.View是Android中控件的基类 2.ViewGroup名字上翻译是控件组，ViewGroup内部包含许多控件，ViewGroup继承View意味着View可以是单个控件也可以是由多个控件组成的一组控件.如LinearLayout不单是view还是ViewGroup.  1.2.MotionEvent和Tou">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/Activity%E5%B8%83%E5%B1%80.jpg">
+<meta name="twitter:title" content="知识点总结--网络协议">
+<meta name="twitter:description" content="网络协议知识点  1.HTTPHTTP协议中比较容易混淆的点1 http1.1/http1.0区别  缓存处理方面 带宽优化及网络连接的使用 Host头处理 长连接（最重要区别 1.1支持）  2 1.1和1.0存在的问题  1.0：传输数据时，每次都需要重新建立连接 1.x: 在传输数据时，都是明文传输，客户端服务端无法验证对方身份 1.x: 在使用过程中header里携带的内容过大，增加了传输">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_http_cookie.png">
 
 
 
@@ -134,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/09/AndroidViewDispatch/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/15/knowledge-interview-network/"/>
 
 
 
 
 
-  <title>Android View的事件体系 | Shelton Blog</title>
+  <title>知识点总结--网络协议 | Shelton Blog</title>
   
 
 
@@ -279,7 +286,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/09/AndroidViewDispatch/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/15/knowledge-interview-network/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shelton">
@@ -296,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android View的事件体系</h1>
+          <h1 class="post-title" itemprop="name headline">知识点总结--网络协议</h1>
         
 
         <div class="post-meta">
@@ -308,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T00:21:41+08:00">
-                2017-07-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-15T18:30:14+08:00">
+                2017-07-15
               </time>
             
 
@@ -331,8 +338,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/知识点总结/" itemprop="url" rel="index">
+                    <span itemprop="name">知识点总结</span>
                   </a>
                 </span>
 
@@ -348,7 +355,7 @@
 
           
           
-             <span id="/2017/07/09/AndroidViewDispatch/" class="leancloud_visitors" data-flag-title="Android View的事件体系">
+             <span id="/2017/07/15/knowledge-interview-network/" class="leancloud_visitors" data-flag-title="知识点总结--网络协议">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -376,50 +383,144 @@
       
 
       
-        <h2 id="View的事件体系"><a href="#View的事件体系" class="headerlink" title="View的事件体系"></a>View的事件体系</h2><h3 id="1-View基础知识"><a href="#1-View基础知识" class="headerlink" title="1.View基础知识"></a>1.View基础知识</h3><h4 id="1-1-View与ViewGroup的关系"><a href="#1-1-View与ViewGroup的关系" class="headerlink" title="1.1 View与ViewGroup的关系"></a>1.1 View与ViewGroup的关系</h4><ul>
-<li>1.View是Android中控件的基类</li>
-<li>2.ViewGroup名字上翻译是控件组，ViewGroup内部包含许多控件，ViewGroup继承View意味着View可以是单个控件也可以是由多个控件组成的一组控件.如LinearLayout不单是view还是ViewGroup.</li>
-</ul>
-<h4 id="1-2-MotionEvent和TouchSlop"><a href="#1-2-MotionEvent和TouchSlop" class="headerlink" title="1.2.MotionEvent和TouchSlop"></a>1.2.MotionEvent和TouchSlop</h4><ul>
-<li>MotionEvent: ACTION_DOWN, ACTION_MOVE, ACTION_UP.通过MotionEvent可以得到点击事件的X,Y坐标。有两组方法</li>
-</ul>
-<pre><code>* getX/getY:返回相对于当前View左上角的X,Y坐标
-* getRawX/getRawY:返回相对于手机屏幕左上角的X,Y坐标。
-</code></pre><ul>
-<li>TouchSlop：系统所识别的滑动的最小距离，是一个常量，和设备有关。不同设备上值是不同的。</li>
-</ul>
-<h4 id="1-3-VelocityTracker-GestureDetector-Scroller"><a href="#1-3-VelocityTracker-GestureDetector-Scroller" class="headerlink" title="1.3 VelocityTracker,GestureDetector,Scroller"></a>1.3 VelocityTracker,GestureDetector,Scroller</h4><ul>
-<li><p>VelocityTracker：用于追踪手指滑动的速度。获取速度之前先computeCurrentVelocity计算速度。不需要的时候需要</p>
-<pre><code>velocityTracker.clear();
-velocityTracker.recycle();
-</code></pre></li>
-<li><p>GestureDetector:手势检测            </p>
-</li>
-<li>Scroller：弹性滑动对象。实现View的弹性滑动</li>
-</ul>
-<h3 id="2-View的滑动"><a href="#2-View的滑动" class="headerlink" title="2.View的滑动"></a>2.View的滑动</h3><h4 id="2-1使用scrollTo-scrollBy"><a href="#2-1使用scrollTo-scrollBy" class="headerlink" title="2.1使用scrollTo/scrollBy"></a>2.1使用scrollTo/scrollBy</h4><h4 id="2-2使用动画"><a href="#2-2使用动画" class="headerlink" title="2.2使用动画"></a>2.2使用动画</h4><p>View平移，或采用属性动画</p>
-<h4 id="2-3改变布局参数"><a href="#2-3改变布局参数" class="headerlink" title="2.3改变布局参数"></a>2.3改变布局参数</h4><p>如marginLeft</p>
-<h3 id="View的事件分发机制"><a href="#View的事件分发机制" class="headerlink" title="View的事件分发机制"></a>View的事件分发机制</h3><p>当一个点击事件产生后，流程如下：<br>Activity-&gt;Window-&gt;顶级View-&gt;处理分发事件。<br>事件首先由Activity的dispatchTouchEvent进行派发，具体工作由Window来完成，Window会将事件传递给DecorView,DecorView是当前页面的底层容器(即setContentView所设置的View的父容器)，然后由该顶级View处理分发。</p>
-<p>如一个Activity的布局如下：<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/Activity%E5%B8%83%E5%B1%80.jpg" alt="Activity布局"><br>事件流程如下：</p>
-<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/View%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%A8%8B.jpg" alt="事件分发流程"></p>
-<h3 id="重点：其事件传递的核心规则，可由下面的伪代码来表示："><a href="#重点：其事件传递的核心规则，可由下面的伪代码来表示：" class="headerlink" title="重点：其事件传递的核心规则，可由下面的伪代码来表示："></a>重点：其事件传递的核心规则，可由下面的伪代码来表示：</h3><pre><code>public boolena dispatchTouchEvent(MotionEvent ev){
-    boolena consume = false;
-    if (onInterceptTouchEvent(ev)){
-        consume = onTouchEvent(ev);
-    }else{
-        consume = child.dispatchTouchEvent(ev);
-    }
-    return consume; 
-}
-</code></pre><p>了解了伪代码的流程，也就了解了事件传递的流程</p>
-<h3 id="3-滑动冲突的解决方式："><a href="#3-滑动冲突的解决方式：" class="headerlink" title="3.滑动冲突的解决方式："></a>3.滑动冲突的解决方式：</h3><ul>
-<li><p>外部拦截法：重写父容器的onInterceptTouchEvent 方法</p>
-</li>
-<li><p>内部拦截法：需要重写子元素的dispatchTouchEvent方法并配合requestDisallowInterceptTouchEvent方法来用</p>
-</li>
-</ul>
-<p>参考：<br>《Android开发艺术探索》</p>
+        <h1 id="网络协议知识点"><a href="#网络协议知识点" class="headerlink" title="网络协议知识点"></a>网络协议知识点</h1><font size="4">
 
+<h2 id="1-HTTP"><a href="#1-HTTP" class="headerlink" title="1.HTTP"></a>1.HTTP</h2><h3 id="HTTP协议中比较容易混淆的点"><a href="#HTTP协议中比较容易混淆的点" class="headerlink" title="HTTP协议中比较容易混淆的点"></a>HTTP协议中比较容易混淆的点</h3><p>1 http1.1/http1.0区别</p>
+<ul>
+<li>缓存处理方面</li>
+<li>带宽优化及网络连接的使用</li>
+<li>Host头处理</li>
+<li>长连接（最重要区别 1.1支持）</li>
+</ul>
+<p>2 1.1和1.0存在的问题</p>
+<ul>
+<li>1.0：传输数据时，每次都需要重新建立连接</li>
+<li>1.x: 在传输数据时，都是明文传输，客户端服务端无法验证对方身份</li>
+<li>1.x: 在使用过程中header里携带的内容过大，增加了传输成本</li>
+<li>1.1：虽然1.1支持了keep-alive弥补了多次创建连接产生的延迟，但keep-alive使用过多同样给服务端带来性能压力</li>
+</ul>
+<p>3 cookie和session的区别</p>
+<ul>
+<li>cookie:是客户端的解决方案，Cookie是由服务端发给客户端的特殊信息，这些信息已文本文件的方式存在客户端，然后客户端每次向服务端发送请求的时候都会带上这些特殊信息。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_http_cookie.png" alt="cookie"></p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_http_cookie2.png" alt="cookie 2"></p>
+<ul>
+<li>session: 是另一种记录客户状态的机制。session保存在服务器上</li>
+<li><p>session工作原理：</p>
+<ul>
+<li>第一步创建session</li>
+<li>在创建session的同时，服务器为该session创建唯一的sessionID</li>
+<li>在session创建之后，就可以调用session相关的方法往session中添加内容</li>
+<li>当客户端再次发送请求的时候，会将sessionID带上，服务端接收请求后根据sessionid找到相应的session</li>
+</ul>
+</li>
+<li><p>区别：</p>
+<ul>
+<li>存放位置不同：cookie保存在客户端； session保存在服务端</li>
+<li>存取方式不同：cookie:保存的是ascii字符串； session可以存取任何类型数据</li>
+<li>安全性(隐私策略)cookie存在客户端可能会被其他程序篡改</li>
+<li>有效期不同：cookie可以设置很长时间；session依赖于当中的id的，当id设置为-1，关闭浏览器session也就失效了</li>
+<li>对服务端造成的压力：由于cookie保存在客户端，如果并发量过多的话，选择cookie会减少压力</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-HTTPS"><a href="#2-HTTPS" class="headerlink" title="2.HTTPS"></a>2.HTTPS</h2><h3 id="HTTPS是什么"><a href="#HTTPS是什么" class="headerlink" title="HTTPS是什么"></a>HTTPS是什么</h3><ul>
+<li><p>HTTPS不是一个单独的协议。是工作在加密连接(SSL/TLS)上的常规HTTP协议。通过在TCP和HTTP之间加入TLS(Trasnport Layer Security)来加密</p>
+</li>
+<li><p>SSL/TLS协议</p>
+<ul>
+<li>SSL协议是一种安全传输协议，TLS是ssl v3.0升级版</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_https01.png" alt="https01"> </p>
+<ul>
+<li>HTTP传输速度<ul>
+<li>通讯慢</li>
+<li>SSL必须进行加密处理</li>
+</ul>
+</li>
+</ul>
+<h3 id="TLS-SSL握手"><a href="#TLS-SSL握手" class="headerlink" title="TLS/SSL握手"></a>TLS/SSL握手</h3><ul>
+<li>密码学原理<ul>
+<li>对称加密：加密数据跟解密数据用的密钥是一样的.以DES算法为代表；</li>
+<li>不对称加密：SSL层采用这种。以RSA算法为代表；<pre><code>* 私有密钥：一方保管
+* 共有密钥：双方共有
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>数字证书</p>
+<ul>
+<li>是互联网通讯标志通讯双方信息的一串数字</li>
+<li>为什么要有数字证书？这个是第三方权威机构发布的</li>
+</ul>
+</li>
+<li><p>SSL与TLS握手整个过程</p>
+</li>
+<li><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_https02.png" alt="https02"></li>
+</ul>
+<p><a href="http://blog.csdn.net/tencent_bugly/article/details/72626127" target="_blank" rel="external">也可以参考腾讯Bugly专栏</a></p>
+<h2 id="3-TCP-IP"><a href="#3-TCP-IP" class="headerlink" title="3.TCP/IP"></a>3.TCP/IP</h2><p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_tcp%3Aip.png" alt="网络分层"></p>
+<ul>
+<li>物理层</li>
+<li><p>链接层</p>
+<ul>
+<li>链接层协议：以太网规定了电信号的分组方式 head:data</li>
+<li>mac 地址:每台网卡出厂时地址，48位</li>
+<li>广播<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_broadcast.png" alt="广播"><br>如果在同一个子网环境，1与2通讯，则3，4，5都会收到通知，然后根据mac地址是否匹配进行回应，效率较低</li>
+</ul>
+</li>
+<li><p>网络层 </p>
+<ul>
+<li>作用：使得我们可以区分不同的计算机是否在同一个子网环境下</li>
+<li>ip协议</li>
+<li>ip数据包</li>
+<li>arp协议：需要一种机制能够从ip地址得到MAC地址。ARP是解决同一局域网内主机或路由器的ip地址和硬件地址之间的映射问题</li>
+</ul>
+</li>
+<li><p>传输层</p>
+<ul>
+<li>当数据包从互联网发过来，我们需要知道这个数据包是要给哪个应用程序使用的。</li>
+<li>传输层功能：就是建立端口到端口之间的通讯 </li>
+</ul>
+</li>
+</ul>
+<h2 id="4-HTTPS中的加密算法相关"><a href="#4-HTTPS中的加密算法相关" class="headerlink" title="4.HTTPS中的加密算法相关"></a>4.HTTPS中的加密算法相关</h2><ul>
+<li><p>密钥</p>
+<ul>
+<li><p>密钥是一种参数,它是在使用密码算法过程中输入的参数。同一个明文在相同的密码算法和不同的密钥计算下会产生不同的密文。<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_https%E7%AE%97%E6%B3%9501.png" alt="密文"></p>
+</li>
+<li><p>对称密钥：在加密和解密过程中使用的密钥是相同的。常见的对称加密算法：DES,3DES,AES,RC5,RC6。 优点是计算速度快，缺点是密钥需要通讯两端共享。</p>
+</li>
+<li>不对称密钥。服务端会生成一对密钥，一个私钥保存在服务端，，公钥可自由发布供任何人使用 RSA</li>
+</ul>
+</li>
+<li>密钥 RSA加密简单过程 <ul>
+<li>服务端生成配对的公钥私钥</li>
+<li>私钥保存服务端，公钥发送给客户端</li>
+<li>客户端使用公钥加密明文传输给服务端</li>
+<li>服务端使用私钥解密密文得到明文</li>
+</ul>
+</li>
+<li>思考：浏览器和服务端传输数据时，有可能内容被替换，如何保证数据是真实服务端发送，没有被篡改？</li>
+<li><p>数字签名</p>
+<ul>
+<li>数字签名</li>
+<li>1.用于验证传输的内容是不是真实服务器发送的。2.验证数据有没有被篡改过。它就验证这两件事</li>
+<li>是非对称加密的应用场景。不过它是反过来用私钥加密，通过配对的公钥来解密<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_%E7%AD%BE%E5%90%8D%E7%9A%84%E7%94%9F%E6%88%90.png" alt="签名生成"></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/15/android_%E7%AD%BE%E5%90%8D2.png" alt="签名校验"></p>
+</li>
+<li><p>数字证书</p>
+<ul>
+<li>如何确保现在使用的公钥就是真是服务器发送的呢？ 数字证书简称CA,是一种认可的凭证。 </li>
+</ul>
+</li>
+</ul>
+</font>
       
     </div>
 
@@ -448,7 +549,11 @@ velocityTracker.recycle();
       
         <div class="post-tags">
           
-            <a href="/tags/Android开发艺术探索笔记/" rel="tag"># Android开发艺术探索笔记</a>
+            <a href="/tags/知识点总结/" rel="tag"># 知识点总结</a>
+          
+            <a href="/tags/网络协议/" rel="tag"># 网络协议</a>
+          
+            <a href="/tags/HTTPS/" rel="tag"># HTTPS</a>
           
         </div>
       
@@ -461,8 +566,8 @@ velocityTracker.recycle();
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/06/Android消息机制/" rel="next" title="Android消息机制">
-                <i class="fa fa-chevron-left"></i> Android消息机制
+              <a href="/2017/07/10/Android-MemoryLeak-Analyze/" rel="next" title="Android内存泄漏分析及MAT工具使用">
+                <i class="fa fa-chevron-left"></i> Android内存泄漏分析及MAT工具使用
               </a>
             
           </div>
@@ -470,10 +575,6 @@ velocityTracker.recycle();
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/09/Android-ThreadPool/" rel="prev" title="Android的线程和线程池">
-                Android的线程和线程池 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -602,7 +703,7 @@ velocityTracker.recycle();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#View的事件体系"><span class="nav-number">1.</span> <span class="nav-text">View的事件体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-View基础知识"><span class="nav-number">1.1.</span> <span class="nav-text">1.View基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-View与ViewGroup的关系"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 View与ViewGroup的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-MotionEvent和TouchSlop"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2.MotionEvent和TouchSlop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-VelocityTracker-GestureDetector-Scroller"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 VelocityTracker,GestureDetector,Scroller</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-View的滑动"><span class="nav-number">1.2.</span> <span class="nav-text">2.View的滑动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1使用scrollTo-scrollBy"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1使用scrollTo/scrollBy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2使用动画"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2使用动画</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3改变布局参数"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3改变布局参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View的事件分发机制"><span class="nav-number">1.3.</span> <span class="nav-text">View的事件分发机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重点：其事件传递的核心规则，可由下面的伪代码来表示："><span class="nav-number">1.4.</span> <span class="nav-text">重点：其事件传递的核心规则，可由下面的伪代码来表示：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-滑动冲突的解决方式："><span class="nav-number">1.5.</span> <span class="nav-text">3.滑动冲突的解决方式：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络协议知识点"><span class="nav-number">1.</span> <span class="nav-text">网络协议知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-HTTP"><span class="nav-number">1.1.</span> <span class="nav-text">1.HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP协议中比较容易混淆的点"><span class="nav-number">1.1.1.</span> <span class="nav-text">HTTP协议中比较容易混淆的点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-HTTPS"><span class="nav-number">1.2.</span> <span class="nav-text">2.HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS是什么"><span class="nav-number">1.2.1.</span> <span class="nav-text">HTTPS是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS-SSL握手"><span class="nav-number">1.2.2.</span> <span class="nav-text">TLS/SSL握手</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-TCP-IP"><span class="nav-number">1.3.</span> <span class="nav-text">3.TCP/IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-HTTPS中的加密算法相关"><span class="nav-number">1.4.</span> <span class="nav-text">4.HTTPS中的加密算法相关</span></a></li></ol></li></ol></div>
             
 
           </div>
