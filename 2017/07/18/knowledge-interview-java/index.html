@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android开发艺术探索笔记," />
+  <meta name="keywords" content="知识点总结,java高级," />
 
 
 
@@ -93,20 +93,22 @@
 
 
 
-<meta name="description" content="Android的线程和线程池Android中的线程形态1.AsyncTaskAsyncTask封装了Thread和Handler,是抽象的泛型类，提供了Params,Progress,Result这三个泛型参数 四个核心方法： 1.onPreExecute() 主线程中执行，异步任务之前调用 2.doInBackground(Params… par) 异步后台执行 3.onProgressUpda">
-<meta name="keywords" content="Android开发艺术探索笔记">
+<meta name="description" content="7.java高级知识点7.1 IO相关1.java的IO接口  基于字节操作IO接口(inputstream/outputstream) 基于字符………(writer/reader) 基于磁盘………(file) 基于网络………(socket)  2.阻塞IO的通讯模型  阻塞IO模型  Bio数据在写入OutputStream或者从InputStream读取时都有可能会阻塞   3.NIO 模型">
+<meta name="keywords" content="知识点总结,java高级">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android的线程和线程池">
-<meta property="og:url" content="http://yoursite.com/2017/07/09/Android-ThreadPool/index.html">
+<meta property="og:title" content="知识点总结--java高级">
+<meta property="og:url" content="http://yoursite.com/2017/07/18/knowledge-interview-java/index.html">
 <meta property="og:site_name" content="Shelton Blog">
-<meta property="og:description" content="Android的线程和线程池Android中的线程形态1.AsyncTaskAsyncTask封装了Thread和Handler,是抽象的泛型类，提供了Params,Progress,Result这三个泛型参数 四个核心方法： 1.onPreExecute() 主线程中执行，异步任务之前调用 2.doInBackground(Params… par) 异步后台执行 3.onProgressUpda">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/IntentService%E6%B5%81%E7%A8%8B1.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/IntentService%E6%B5%81%E7%A8%8B2.jpg">
-<meta property="og:updated_time" content="2017-07-10T03:26:34.000Z">
+<meta property="og:description" content="7.java高级知识点7.1 IO相关1.java的IO接口  基于字节操作IO接口(inputstream/outputstream) 基于字符………(writer/reader) 基于磁盘………(file) 基于网络………(socket)  2.阻塞IO的通讯模型  阻塞IO模型  Bio数据在写入OutputStream或者从InputStream读取时都有可能会阻塞   3.NIO 模型">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/Android_bio.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_nio.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader_process.png">
+<meta property="og:updated_time" content="2017-07-18T10:13:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android的线程和线程池">
-<meta name="twitter:description" content="Android的线程和线程池Android中的线程形态1.AsyncTaskAsyncTask封装了Thread和Handler,是抽象的泛型类，提供了Params,Progress,Result这三个泛型参数 四个核心方法： 1.onPreExecute() 主线程中执行，异步任务之前调用 2.doInBackground(Params… par) 异步后台执行 3.onProgressUpda">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/IntentService%E6%B5%81%E7%A8%8B1.jpg">
+<meta name="twitter:title" content="知识点总结--java高级">
+<meta name="twitter:description" content="7.java高级知识点7.1 IO相关1.java的IO接口  基于字节操作IO接口(inputstream/outputstream) 基于字符………(writer/reader) 基于磁盘………(file) 基于网络………(socket)  2.阻塞IO的通讯模型  阻塞IO模型  Bio数据在写入OutputStream或者从InputStream读取时都有可能会阻塞   3.NIO 模型">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/Android_bio.png">
 
 
 
@@ -134,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/09/Android-ThreadPool/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/18/knowledge-interview-java/"/>
 
 
 
 
 
-  <title>Android的线程和线程池 | Shelton Blog</title>
+  <title>知识点总结--java高级 | Shelton Blog</title>
   
 
 
@@ -279,7 +281,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/09/Android-ThreadPool/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/18/knowledge-interview-java/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shelton">
@@ -296,7 +298,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android的线程和线程池</h1>
+          <h1 class="post-title" itemprop="name headline">知识点总结--java高级</h1>
         
 
         <div class="post-meta">
@@ -308,8 +310,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T00:31:10+08:00">
-                2017-07-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-18T18:08:01+08:00">
+                2017-07-18
               </time>
             
 
@@ -331,8 +333,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/知识点总结/" itemprop="url" rel="index">
+                    <span itemprop="name">知识点总结</span>
                   </a>
                 </span>
 
@@ -348,7 +350,7 @@
 
           
           
-             <span id="/2017/07/09/Android-ThreadPool/" class="leancloud_visitors" data-flag-title="Android的线程和线程池">
+             <span id="/2017/07/18/knowledge-interview-java/" class="leancloud_visitors" data-flag-title="知识点总结--java高级">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -376,107 +378,147 @@
       
 
       
-        <h2 id="Android的线程和线程池"><a href="#Android的线程和线程池" class="headerlink" title="Android的线程和线程池"></a>Android的线程和线程池</h2><h3 id="Android中的线程形态"><a href="#Android中的线程形态" class="headerlink" title="Android中的线程形态"></a>Android中的线程形态</h3><h4 id="1-AsyncTask"><a href="#1-AsyncTask" class="headerlink" title="1.AsyncTask"></a>1.AsyncTask</h4><p>AsyncTask封装了Thread和Handler,是抽象的泛型类，提供了Params,Progress,Result这三个泛型参数</p>
-<h4 id="四个核心方法："><a href="#四个核心方法：" class="headerlink" title="四个核心方法："></a>四个核心方法：</h4><ul>
-<li>1.onPreExecute() 主线程中执行，异步任务之前调用</li>
-<li>2.doInBackground(Params… par) 异步后台执行</li>
-<li>3.onProgressUpdate(Progress… value) 主线程中执行，进度发生变化该方法被调用</li>
-<li>4.onPostExecute(Result res) 主线程中执行，异步任务执行完改方法被调用</li>
+        <h2 id="7-java高级知识点"><a href="#7-java高级知识点" class="headerlink" title="7.java高级知识点"></a>7.java高级知识点</h2><h3 id="7-1-IO相关"><a href="#7-1-IO相关" class="headerlink" title="7.1 IO相关"></a>7.1 IO相关</h3><p>1.java的IO接口</p>
+<ul>
+<li>基于字节操作IO接口(inputstream/outputstream)</li>
+<li>基于字符………(writer/reader)</li>
+<li>基于磁盘………(file)</li>
+<li>基于网络………(socket)</li>
 </ul>
-<h4 id="使用过程中有以下条件限制"><a href="#使用过程中有以下条件限制" class="headerlink" title="使用过程中有以下条件限制"></a>使用过程中有以下条件限制</h4><ul>
-<li>1.AsyncTask的类必须在主线程中加载。在5.0的源码中ActivityThread的main方法中调用AsyncTask的init方法</li>
-<li>2.AsyncTask的对象必须在主线程中创建</li>
-<li>3.execute方法必须在UI线程调用</li>
-<li>4.不要在程序中直接调用上述四个核心方法</li>
-<li>5.一个AsyncTask对象只能执行一次，即只能调用一次execute方法，否则报运行时异常</li>
-<li>6.版本差异<ul>
-<li>1.在Android1.6之前是串行执行任务；</li>
-<li>2.Android1.6的时候采取并行处理；</li>
-<li>3.Android3.0又采取串行执行，尽管如此3.0以后的版本还可以通过AsyncTask的executeOnExecutor来并行执行任务</li>
+<p>2.阻塞IO的通讯模型</p>
+<ul>
+<li><p>阻塞IO模型<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/Android_bio.png" alt="阻塞IO"></p>
+</li>
+<li><p>Bio数据在写入OutputStream或者从InputStream读取时都有可能会阻塞</p>
+</li>
+</ul>
+<p>3.NIO 模型</p>
+<ul>
+<li><p>NIO模型</p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_nio.png" alt="NIO模型"></p>
+</li>
+</ul>
+<ul>
+<li>工作原理</li>
+<li>通讯模型: 服务端和客户端各自维护一个selector对象，它能检测一个或多个channel事件</li>
+</ul>
+<ul>
+<li><p>同步和异步是相对于应用和内核的交互方式而言的，同步 需要主动去询问，而异步的时候内核在IO事件发生的时候通知应用程序，而阻塞和非阻塞仅仅是系统在调用系统调用的时候函数的实现方式而已。<a href="http://bbym010.iteye.com/blog/2100868" target="_blank" rel="external">参考</a>  </p>
+</li>
+<li><p>如果你想吃一份宫保鸡丁盖饭： </p>
+<ul>
+<li>同步阻塞：你到饭馆点餐，然后在那等着，还要一边喊：好了没啊！ </li>
+<li>同步非阻塞：在饭馆点完餐，就去遛狗了。不过溜一会儿，就回饭馆喊一声：好了没啊！ </li>
+<li>异步阻塞：遛狗的时候，接到饭馆电话，说饭做好了，让您亲自去拿。 </li>
+<li>异步非阻塞：饭馆打电话说，我们知道您的位置，一会给你送过来，安心遛狗就可以了。</li>
 </ul>
 </li>
 </ul>
-<h4 id="2-HandlerThread"><a href="#2-HandlerThread" class="headerlink" title="2.HandlerThread"></a>2.HandlerThread</h4><p>HandlerThread继承了Thread. 该线程运行的时候创建Looper。可以说是自带Looper的Thread</p>
-<h4 id="3-IntentService"><a href="#3-IntentService" class="headerlink" title="3.IntentService"></a>3.IntentService</h4><p>IntentService抽象类，继承了Service. 内部包含了ServiceHandler和HandlerThread.</p>
-<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/IntentService%E6%B5%81%E7%A8%8B1.jpg" alt="IntentService流程1"></p>
-<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/06/IntentService%E6%B5%81%E7%A8%8B2.jpg" alt="IntentService流程2"></p>
-<pre><code>public class LocalIntentService extends IntentService {
-private static final String TAG = &quot;LocalIntentService&quot;;
-
-public LocalIntentService() {
-    super(TAG);
-}
-
-@Override
-protected void onHandleIntent(final Intent intent) {
-    final String action = intent.getStringExtra(&quot;task_action&quot;);
-    Log.d(TAG, &quot;receive task :&quot; +  action);
-
-    SystemClock.sleep(3000);
-    if (&quot;com.ryg.action.TASK1&quot;.equals(action)) {
-        Log.d(TAG, &quot;handle task: &quot; + action);
-    }
-}
-
-@Override
-public void onDestroy() {
-    Log.d(TAG, &quot;service destroyed.&quot;);
-    super.onDestroy();
-}
-}
-</code></pre><p>启动服务</p>
-<pre><code> Intent service = new Intent(this, LocalIntentService.class);
-service.putExtra(&quot;task_action&quot;, &quot;com.ryg.action.TASK1&quot;);
-startService(service);
-service.putExtra(&quot;task_action&quot;, &quot;com.ryg.action.TASK2&quot;);
-startService(service);
-service.putExtra(&quot;task_action&quot;, &quot;com.ryg.action.TASK3&quot;);
-startService(service);
-</code></pre><h3 id="Android中的线程池"><a href="#Android中的线程池" class="headerlink" title="Android中的线程池"></a>Android中的线程池</h3><p>线程池的优点：</p>
+<h3 id="7-2-多线程相关"><a href="#7-2-多线程相关" class="headerlink" title="7.2 多线程相关"></a>7.2 多线程相关</h3><p>1.volatile关键字：<br>volatile类型的变量</p>
 <ul>
-<li>1.重用线程，避免开销</li>
-<li>2.有效控制线程并发数，避免因抢占资源造成的阻塞</li>
-<li>3.有效管理，提供定时及循环间隔执行等功能</li>
+<li>不允许线程从主内存中将变量拷贝到自己的存储空间。表示不同线程要获取改变量都是从主内存中获取。</li>
+<li>在线程中修改该类型数据，其他线程也会刷新数据</li>
 </ul>
-<h4 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h4><p>参数：</p>
+<p>2.synchronized关键字：</p>
 <ul>
-<li>1.corePoolSize: 核心线程数。默认情况下核心线程在线程池中会一直存活，即便是闲置状态。如果将ThreadPoolExecutor的allowCoreThreadTimeOut设置为true,那么闲置的核心线程在等待新任务到来时会有超时策略</li>
-<li>2.maximumPoolSize：容纳的最大线程数</li>
-<li>3.keepAliveTime：非核心线程闲置时的超时时长，超过这个时长，非核心线程就会被回收。</li>
-<li>4.TimeUnit</li>
-<li>5.workQueue</li>
-<li>6.ThreadFactory</li>
+<li>锁机制。当前线程通过锁拿到该变量，然后修改变量，最后释放锁。之后其他线程会更新该变量的值。 volatile只使用在字段变量上，而synchronized可使用在类，方法</li>
 </ul>
-<h4 id="线程池的分类"><a href="#线程池的分类" class="headerlink" title="线程池的分类"></a>线程池的分类</h4><ul>
-<li>1.FixedThreadPool: newFixedThreadPool方法创建。是一种数量固定的线程池，只有核心线程，且核心线程不会被回收，可以快速相应外界请求。没有超时机制，没有队列大小限制。</li>
-<li>2.CachedThreadPool：newCachedThreadPool方法创建。是一种线程数量不定的线程池，只有非核心线程。有超时机制。适合执行大量的耗时较少的任务     </li>
-<li>3.ScheduledThreadPool：核心线程数量是固定的，非核心线程数是没有固定的，当非核心线程闲置时会被立即回收。主要用于执行定时任务和具有固定周期的重复任务。</li>
-<li>4.SingleThreadExecutor：线程池内部只有一个核心线程，确保所有的任务都在同一个线程中按顺序执行。</li>
+<p>3.synchronized与lock</p>
+<ul>
+<li><p>synchronized:悲观锁机制。采用独占锁，就是其他线程需要阻塞等待该线程释放锁</p>
+</li>
+<li><p>lock：乐观锁机制。假设没有冲突去完成某件事，如果遇到冲突失败，就会不断的去重试知道成功为止。</p>
+</li>
 </ul>
-<pre><code>private void runThreadPool() {
-    Runnable command = new Runnable() {
-    @Override
-    public void run() {
-        SystemClock.sleep(2000);
-    }
-    };
-
-    ExecutorService fixedThreadPool = Executors.newFixedThreadPool(4);
-    fixedThreadPool.execute(command);
-
-    ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
-    cachedThreadPool.execute(command);
-
-    ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(4);
-    // 2000ms后执行command
-    scheduledThreadPool.schedule(command, 2000, TimeUnit.MILLISECONDS);
-    // 延迟10ms后，每隔1000ms执行一次command
-    scheduledThreadPool.scheduleAtFixedRate(command, 10, 1000, TimeUnit.MILLISECONDS);
-
-    ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
-    singleThreadExecutor.execute(command);
-}
-</code></pre><p>参考：<br>《Android开发艺术探索》</p>
+<p>4.线程池</p>
+<ul>
+<li>好处：<ul>
+<li>降低资源消耗</li>
+<li>提高相应速度</li>
+<li>提高线程的可管理性</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-3-异常相关"><a href="#7-3-异常相关" class="headerlink" title="7.3 异常相关"></a>7.3 异常相关</h3><ul>
+<li>java中的检查型异常和非检查型异常有什么区别？<ul>
+<li>非检查型异常包括：error, RuntimeException</li>
+</ul>
+</li>
+<li>throw 和 throws的异同<ul>
+<li>throw出现在函数体内，是抛出的具体的exception,需要捕获</li>
+<li>throws：出现在函数头上，声明方法抛出的异常</li>
+</ul>
+</li>
+<li>java中final，finalize, finally关键字的区别<ul>
+<li>finalize: 垃圾回收器会调用的方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-4-注解"><a href="#7-4-注解" class="headerlink" title="7.4 注解"></a>7.4 注解</h3><p>1.系统内置标准注解：</p>
+<ul>
+<li>Override : 表示重写方法</li>
+<li>Deprecated ： 表示过时</li>
+<li>SuppressWarnnings : 抑制编译器的警告，用于lint检查</li>
+</ul>
+<p>2.元注解</p>
+<ul>
+<li>@Target    ：表示修饰目标的范围 </li>
+<li>@Retention ：runtime, class, source, 保留的时间长短</li>
+<li>@Documented:</li>
+<li>@Inherited : 表示可以继承</li>
+</ul>
+<p>3.Android support annotations</p>
+<ul>
+<li>Nullness注解</li>
+<li>Resource Type 注解</li>
+<li>Threading 注解</li>
+<li>Overriding Methods 注解： @CallSuper</li>
+</ul>
+<h3 id="7-5-java中类加载器"><a href="#7-5-java中类加载器" class="headerlink" title="7.5 java中类加载器"></a>7.5 java中类加载器</h3><ul>
+<li><p>什么是类加载器</p>
+<ul>
+<li>ClassLoader就是动态加载class文件到内存中的</li>
+</ul>
+</li>
+<li><p>类加载器类型</p>
+<ul>
+<li>BootStrap ClassLoader : 启动器的类加载器，不继承ClassLoader抽象类，底层是C++编写的。</li>
+<li>Extension ClassLoader: 扩展类类加载器</li>
+<li>App ClassLoader: 应用类加载器</li>
+</ul>
+</li>
+<li><p>双亲委托模型<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader.png" alt="模型"></p>
+</li>
+<li>流程是当一个classlaoder尝试加载一个类时，它会先抛给父加载器，一层层的往上抛，抛到最上层启动类加载器。如果启动类加载器无法加载，这时会自上而下的抛给其他类加载器，直到可以加载为止</li>
+</ul>
+<ul>
+<li>类加载的过程<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader_process.png" alt="类加载工程"></li>
+</ul>
+<h3 id="7-6-java中堆与栈"><a href="#7-6-java中堆与栈" class="headerlink" title="7.6 java中堆与栈"></a>7.6 java中堆与栈</h3><p>java程序运行时的内存分配策略</p>
+<ul>
+<li>静态存储区(方法区):主要存放静态数据，全局static数据和常量</li>
+<li>栈区：方法体内的局部变量都在栈上创建</li>
+<li><p>堆区：通常指程序运行时直接new出来的内存,由垃圾回收器进行管理</p>
+<p>总结：</p>
+</li>
+<li><p>堆：运行时，垃圾回收，动态分配内存，存取速度(相对于栈较慢)</p>
+</li>
+<li>栈：存取速度(较快，仅次于寄存器),生命周期(栈中的数据是和生命周期进行绑定的)</li>
+</ul>
+<h3 id="7-7-java中反射"><a href="#7-7-java中反射" class="headerlink" title="7.7 java中反射"></a>7.7 java中反射</h3><p>1.编译时 VS 运行时</p>
+<ul>
+<li>编译时：将java代码编译成.class文件的过程。涉及到语法，不涉及到内存</li>
+<li>运行时：就是java虚拟机执行.class文件的过程。需要用到内存的调用</li>
+</ul>
+<p>2.什么是反射</p>
+<ul>
+<li>在运行状态中，对任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；</li>
+</ul>
+<p>3.Android中反射的运用</p>
+<ul>
+<li>1.通过原始的java反射机制的方式调用资源</li>
+<li>2.Activity的启动过程中Activity的对象的创建 </li>
+</ul>
 
       
     </div>
@@ -506,7 +548,9 @@ startService(service);
       
         <div class="post-tags">
           
-            <a href="/tags/Android开发艺术探索笔记/" rel="tag"># Android开发艺术探索笔记</a>
+            <a href="/tags/知识点总结/" rel="tag"># 知识点总结</a>
+          
+            <a href="/tags/java高级/" rel="tag"># java高级</a>
           
         </div>
       
@@ -519,8 +563,8 @@ startService(service);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/09/AndroidViewDispatch/" rel="next" title="Android View的事件体系">
-                <i class="fa fa-chevron-left"></i> Android View的事件体系
+              <a href="/2017/07/15/knowledge-interview-network/" rel="next" title="知识点总结--网络协议">
+                <i class="fa fa-chevron-left"></i> 知识点总结--网络协议
               </a>
             
           </div>
@@ -529,8 +573,8 @@ startService(service);
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/10/Android-MemoryLeak-Analyze/" rel="prev" title="Android内存泄漏分析及MAT工具使用">
-                Android内存泄漏分析及MAT工具使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/18/knowledge-interview-android/" rel="prev" title="知识点总结--android相关">
+                知识点总结--android相关 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -660,7 +704,7 @@ startService(service);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android的线程和线程池"><span class="nav-number">1.</span> <span class="nav-text">Android的线程和线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android中的线程形态"><span class="nav-number">1.1.</span> <span class="nav-text">Android中的线程形态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-AsyncTask"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.AsyncTask</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四个核心方法："><span class="nav-number">1.1.2.</span> <span class="nav-text">四个核心方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用过程中有以下条件限制"><span class="nav-number">1.1.3.</span> <span class="nav-text">使用过程中有以下条件限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-HandlerThread"><span class="nav-number">1.1.4.</span> <span class="nav-text">2.HandlerThread</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-IntentService"><span class="nav-number">1.1.5.</span> <span class="nav-text">3.IntentService</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android中的线程池"><span class="nav-number">1.2.</span> <span class="nav-text">Android中的线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ThreadPoolExecutor"><span class="nav-number">1.2.1.</span> <span class="nav-text">ThreadPoolExecutor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程池的分类"><span class="nav-number">1.2.2.</span> <span class="nav-text">线程池的分类</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-java高级知识点"><span class="nav-number">1.</span> <span class="nav-text">7.java高级知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-IO相关"><span class="nav-number">1.1.</span> <span class="nav-text">7.1 IO相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-多线程相关"><span class="nav-number">1.2.</span> <span class="nav-text">7.2 多线程相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-异常相关"><span class="nav-number">1.3.</span> <span class="nav-text">7.3 异常相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-注解"><span class="nav-number">1.4.</span> <span class="nav-text">7.4 注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-5-java中类加载器"><span class="nav-number">1.5.</span> <span class="nav-text">7.5 java中类加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-6-java中堆与栈"><span class="nav-number">1.6.</span> <span class="nav-text">7.6 java中堆与栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-7-java中反射"><span class="nav-number">1.7.</span> <span class="nav-text">7.7 java中反射</span></a></li></ol></li></ol></div>
             
 
           </div>
