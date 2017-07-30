@@ -7,9 +7,10 @@ tags:
 	- "Android"
 ---
 
-## 1.Android基础相关知识点
+# 1.Android基础相关知识点
 
 <font size=4>
+
 ### 1.1：广播的使用场景
 
 * 1：同一APP具有多进程间组件的消息通讯
