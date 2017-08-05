@@ -21,15 +21,48 @@ categories: "Android"
 * 被GC Root 引用的对象不可被回收
 * 没有被GC Root Obj所持有的对象可以被回收
 
+### 4.再谈引用
+JDK1.2之后对引用进行了扩充，分为如下4种
 
-### 4.可以作为GC Root引用的点是（不被回收）：
+* 强引用(Strong Reference)：类似"object obj = new object()".只要强引用还在，垃圾回收器永远不会回收被引用的对象。
+
+* 软饮用(Soft Reference):用来描述一些还有用，但非必须的对象。在系统将要发生内存溢出异常之前，会把这些对象列入回收范围中并进行第二次回收。如果这次回收还是没有足够的内存，才会抛出内存溢出异常。
+
+* 弱引用(Weak Reference): 它的强度比软引用更弱一些。被弱引用关联的对象只能生存到下一次垃圾收集发生之前。当垃圾收集器工作时，无论当前内存是否够用都会回收该引用的对象。
+
+* 虚引用(Phantom Reference):也称为幽灵引用，或者幻影引用，它是最弱的引用关系。一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来取得一个对象实例。为一个对象设置虚引用的唯一目的就是希望能在这个对象被回收时收到一个系统通知。
+
+
+### 5.垃圾收集算法
+* 标记-清除算法。主要有”标记“，”清除“两个阶段。首先要标记要回收的对象，然后统一清除被标记的对象。这是最基础的收集算法，后续的收集算法都是通过这种思路改进的。
+	* 主要缺点：
+		* 效率不高 
+		* 空间问题：会产生大量不连续的内存碎片。
+
+ 		
+* 复制算法
+	* 将可用的内存按容量划分为等量的两块，每次只使用其中一块，当这一块内存用完了，将存活的对象复制到另一块内存中，然后将这块内存一次性清理掉，解决碎片问题
+	* 代价就是将内存缩小为原来一半。还有就是如果对象存活较高的时候就要执行较多的复制，效率会降低。
+
+* 标记-整理算法
+	* 标记的过程和”标记-清理“算法一样
+	* 整理是指让所有存活的对象都向一端移动，然后直接清理掉边界以外的内存。
+
+* 分代收集算法。 java堆分为新生代和老年代
+	* 新生代：复制算法
+	* 老年代：标记清理，标记整理算法	
+	
+	 		   
+
+
+### 6.可以作为GC Root引用的点是（不被回收）：
 * java stack中引用的对象
 * 方法区中静态引用指向的对象
 * 方法去中常量引用指向的对象
 * Native方法中jni引用的对象
 * Thread—活着的线程
 
-### 5.常见的内存泄漏案例：
+### 7.常见的内存泄漏案例：
 参考[QQ空间Android内存泄漏分析心得](https://mp.weixin.qq.com/s?__biz=MzI1MTA1MzM2Nw==&mid=2649796884&idx=1&sn=92b4e344060362128e4a86d6132c3736&scene=0#wechat_redirect)
 
 * 1：单例造成的内存泄漏
@@ -71,7 +104,7 @@ categories: "Android"
 * 9：构造Adapter时，没有使用缓存的ConvertView	 		 		  	  		  
 		 
 
-### 6.使用AndroidStudio进行内存分析
+### 8.使用AndroidStudio进行内存分析
 步骤如下：
 
 图1：
@@ -81,7 +114,7 @@ categories: "Android"
 图2：
 ![图2](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool2.png)
 
-### 7.通过MAT工具进行分析
+### 8.通过MAT工具进行分析
 第一步：如下图先导出标准的hprof文件。可以生成两个hprof文件，通过MAT比较分析。
 ![图1](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool_hprof.png)
 
@@ -99,7 +132,10 @@ categories: "Android"
 ![图5](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool6.png)
 
 参考：
+
 [QQ空间Android内存泄漏分析心得](https://mp.weixin.qq.com/s?__biz=MzI1MTA1MzM2Nw==&mid=2649796884&idx=1&sn=92b4e344060362128e4a86d6132c3736&scene=0#wechat_redirect)
+
+《深入理解java虚拟机》
 
 
 
