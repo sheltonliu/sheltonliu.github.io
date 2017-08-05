@@ -114,7 +114,7 @@ JDK1.2之后对引用进行了扩充，分为如下4种
 图2：
 ![图2](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool2.png)
 
-### 8.通过MAT工具进行分析
+### 9.通过MAT工具进行分析
 第一步：如下图先导出标准的hprof文件。可以生成两个hprof文件，通过MAT比较分析。
 ![图1](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/10/memory_tool_hprof.png)
 
