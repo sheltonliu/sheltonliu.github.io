@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android开发艺术探索笔记," />
+  <meta name="keywords" content="深入理解java虚拟机,jvm," />
 
 
 
@@ -93,20 +93,20 @@
 
 
 
-<meta name="description" content="View的事件体系1.View基础知识1.1 View与ViewGroup的关系 1.View是Android中控件的基类 2.ViewGroup名字上翻译是控件组，ViewGroup内部包含许多控件，ViewGroup继承View意味着View可以是单个控件也可以是由多个控件组成的一组控件.如LinearLayout不单是view还是ViewGroup.  1.2.MotionEvent和Tou">
-<meta name="keywords" content="Android开发艺术探索笔记">
+<meta name="description" content="类加载的时机类从被加载到虚拟机内存开始，到卸载出内存开始，生命周期包括七个阶段  其中”验证“，”准备“，”解析“三个部分统称为连接(Linking) 对于初始化，虚拟机是严格规定了有且只有四种情况必须立即对类进行”初始化“  1.遇到 new, getstatic, putstatic, 或invokestatic 这4条字节码指令，如果没有初始化则先初始化。这4条指令对应的java代码场景">
+<meta name="keywords" content="深入理解java虚拟机,jvm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android View的事件体系">
-<meta property="og:url" content="http://yoursite.com/2017/07/09/AndroidViewDispatch/index.html">
+<meta property="og:title" content="虚拟机类加载机制">
+<meta property="og:url" content="http://yoursite.com/2017/08/06/jvm-classloader/index.html">
 <meta property="og:site_name" content="Shelton Blog">
-<meta property="og:description" content="View的事件体系1.View基础知识1.1 View与ViewGroup的关系 1.View是Android中控件的基类 2.ViewGroup名字上翻译是控件组，ViewGroup内部包含许多控件，ViewGroup继承View意味着View可以是单个控件也可以是由多个控件组成的一组控件.如LinearLayout不单是view还是ViewGroup.  1.2.MotionEvent和Tou">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/Activity%E5%B8%83%E5%B1%80.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/View%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%A8%8B.jpg">
-<meta property="og:updated_time" content="2017-07-10T03:26:46.000Z">
+<meta property="og:description" content="类加载的时机类从被加载到虚拟机内存开始，到卸载出内存开始，生命周期包括七个阶段  其中”验证“，”准备“，”解析“三个部分统称为连接(Linking) 对于初始化，虚拟机是严格规定了有且只有四种情况必须立即对类进行”初始化“  1.遇到 new, getstatic, putstatic, 或invokestatic 这4条字节码指令，如果没有初始化则先初始化。这4条指令对应的java代码场景">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader_process.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader.png">
+<meta property="og:updated_time" content="2017-08-07T03:21:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android View的事件体系">
-<meta name="twitter:description" content="View的事件体系1.View基础知识1.1 View与ViewGroup的关系 1.View是Android中控件的基类 2.ViewGroup名字上翻译是控件组，ViewGroup内部包含许多控件，ViewGroup继承View意味着View可以是单个控件也可以是由多个控件组成的一组控件.如LinearLayout不单是view还是ViewGroup.  1.2.MotionEvent和Tou">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/Activity%E5%B8%83%E5%B1%80.jpg">
+<meta name="twitter:title" content="虚拟机类加载机制">
+<meta name="twitter:description" content="类加载的时机类从被加载到虚拟机内存开始，到卸载出内存开始，生命周期包括七个阶段  其中”验证“，”准备“，”解析“三个部分统称为连接(Linking) 对于初始化，虚拟机是严格规定了有且只有四种情况必须立即对类进行”初始化“  1.遇到 new, getstatic, putstatic, 或invokestatic 这4条字节码指令，如果没有初始化则先初始化。这4条指令对应的java代码场景">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader_process.png">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/09/AndroidViewDispatch/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/06/jvm-classloader/"/>
 
 
 
 
 
-  <title>Android View的事件体系 | Shelton Blog</title>
+  <title>虚拟机类加载机制 | Shelton Blog</title>
   
 
 
@@ -279,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/09/AndroidViewDispatch/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/06/jvm-classloader/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shelton">
@@ -296,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android View的事件体系</h1>
+          <h1 class="post-title" itemprop="name headline">虚拟机类加载机制</h1>
         
 
         <div class="post-meta">
@@ -308,8 +308,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T00:21:41+08:00">
-                2017-07-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-06T18:13:06+08:00">
+                2017-08-06
               </time>
             
 
@@ -331,8 +331,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/java虚拟机/" itemprop="url" rel="index">
+                    <span itemprop="name">java虚拟机</span>
                   </a>
                 </span>
 
@@ -348,7 +348,7 @@
 
           
           
-             <span id="/2017/07/09/AndroidViewDispatch/" class="leancloud_visitors" data-flag-title="Android View的事件体系">
+             <span id="/2017/08/06/jvm-classloader/" class="leancloud_visitors" data-flag-title="虚拟机类加载机制">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -376,50 +376,184 @@
       
 
       
-        <h2 id="View的事件体系"><a href="#View的事件体系" class="headerlink" title="View的事件体系"></a>View的事件体系</h2><h3 id="1-View基础知识"><a href="#1-View基础知识" class="headerlink" title="1.View基础知识"></a>1.View基础知识</h3><h4 id="1-1-View与ViewGroup的关系"><a href="#1-1-View与ViewGroup的关系" class="headerlink" title="1.1 View与ViewGroup的关系"></a>1.1 View与ViewGroup的关系</h4><ul>
-<li>1.View是Android中控件的基类</li>
-<li>2.ViewGroup名字上翻译是控件组，ViewGroup内部包含许多控件，ViewGroup继承View意味着View可以是单个控件也可以是由多个控件组成的一组控件.如LinearLayout不单是view还是ViewGroup.</li>
-</ul>
-<h4 id="1-2-MotionEvent和TouchSlop"><a href="#1-2-MotionEvent和TouchSlop" class="headerlink" title="1.2.MotionEvent和TouchSlop"></a>1.2.MotionEvent和TouchSlop</h4><ul>
-<li>MotionEvent: ACTION_DOWN, ACTION_MOVE, ACTION_UP.通过MotionEvent可以得到点击事件的X,Y坐标。有两组方法</li>
-</ul>
-<pre><code>* getX/getY:返回相对于当前View左上角的X,Y坐标
-* getRawX/getRawY:返回相对于手机屏幕左上角的X,Y坐标。
-</code></pre><ul>
-<li>TouchSlop：系统所识别的滑动的最小距离，是一个常量，和设备有关。不同设备上值是不同的。</li>
-</ul>
-<h4 id="1-3-VelocityTracker-GestureDetector-Scroller"><a href="#1-3-VelocityTracker-GestureDetector-Scroller" class="headerlink" title="1.3 VelocityTracker,GestureDetector,Scroller"></a>1.3 VelocityTracker,GestureDetector,Scroller</h4><ul>
-<li><p>VelocityTracker：用于追踪手指滑动的速度。获取速度之前先computeCurrentVelocity计算速度。不需要的时候需要</p>
-<pre><code>velocityTracker.clear();
-velocityTracker.recycle();
-</code></pre></li>
-<li><p>GestureDetector:手势检测            </p>
-</li>
-<li>Scroller：弹性滑动对象。实现View的弹性滑动</li>
-</ul>
-<h3 id="2-View的滑动"><a href="#2-View的滑动" class="headerlink" title="2.View的滑动"></a>2.View的滑动</h3><h4 id="2-1使用scrollTo-scrollBy"><a href="#2-1使用scrollTo-scrollBy" class="headerlink" title="2.1使用scrollTo/scrollBy"></a>2.1使用scrollTo/scrollBy</h4><h4 id="2-2使用动画"><a href="#2-2使用动画" class="headerlink" title="2.2使用动画"></a>2.2使用动画</h4><p>View平移，或采用属性动画</p>
-<h4 id="2-3改变布局参数"><a href="#2-3改变布局参数" class="headerlink" title="2.3改变布局参数"></a>2.3改变布局参数</h4><p>如marginLeft</p>
-<h3 id="View的事件分发机制"><a href="#View的事件分发机制" class="headerlink" title="View的事件分发机制"></a>View的事件分发机制</h3><p>当一个点击事件产生后，流程如下：<br>Activity-&gt;Window-&gt;顶级View-&gt;处理分发事件。<br>事件首先由Activity的dispatchTouchEvent进行派发，具体工作由Window来完成，Window会将事件传递给DecorView,DecorView是当前页面的底层容器(即setContentView所设置的View的父容器)，然后由该顶级View处理分发。</p>
-<p>如一个Activity的布局如下：<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/Activity%E5%B8%83%E5%B1%80.jpg" alt="Activity布局"><br>事件流程如下：</p>
-<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/08/View%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%A8%8B.jpg" alt="事件分发流程"></p>
-<h3 id="重点：其事件传递的核心规则，可由下面的伪代码来表示："><a href="#重点：其事件传递的核心规则，可由下面的伪代码来表示：" class="headerlink" title="重点：其事件传递的核心规则，可由下面的伪代码来表示："></a>重点：其事件传递的核心规则，可由下面的伪代码来表示：</h3><pre><code>public boolena dispatchTouchEvent(MotionEvent ev){
-    boolena consume = false;
-    if (onInterceptTouchEvent(ev)){
-        consume = onTouchEvent(ev);
-    }else{
-        consume = child.dispatchTouchEvent(ev);
-    }
-    return consume; 
-}
-</code></pre><p>了解了伪代码的流程，也就了解了事件传递的流程</p>
-<h3 id="3-滑动冲突的解决方式："><a href="#3-滑动冲突的解决方式：" class="headerlink" title="3.滑动冲突的解决方式："></a>3.滑动冲突的解决方式：</h3><ul>
-<li><p>外部拦截法：重写父容器的onInterceptTouchEvent 方法</p>
-</li>
-<li><p>内部拦截法：需要重写子元素的dispatchTouchEvent方法并配合requestDisallowInterceptTouchEvent方法来用</p>
-</li>
-</ul>
-<p>参考：<br>《Android开发艺术探索》</p>
+        <font size="4">
 
+<h1 id="类加载的时机"><a href="#类加载的时机" class="headerlink" title="类加载的时机"></a>类加载的时机</h1><p>类从被加载到虚拟机内存开始，到卸载出内存开始，生命周期包括七个阶段</p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader_process.png" alt="类加载工程"></p>
+<p>其中”验证“，”准备“，”解析“三个部分统称为连接(Linking)</p>
+<p>对于初始化，虚拟机是严格规定了有且只有四种情况必须立即对类进行”初始化“</p>
+<ul>
+<li><p>1.遇到 new, getstatic, putstatic, 或invokestatic 这4条字节码指令，如果没有初始化则先初始化。这4条指令对应的java代码场景是：</p>
+<ul>
+<li>使用 new 关键字实例化对象的时候</li>
+<li>读取或设置一个类的静态字段(被final修饰，已在编译期把结果放入常量池的静态字段除外)</li>
+<li>调用一个类的静态方法的时候</li>
+</ul>
+</li>
+<li><p>2.使用 java.long.reflect包的方法对类进行反射调用，如果类没有初始化则先初始化 </p>
+</li>
+<li><p>3.当初始化类时，如发现父类没有初始化，则先初始化父类</p>
+</li>
+<li><p>4.当虚拟机启动，用户需要指定一个执行的主类(包含main()方法的那个类)，虚拟机会先初始化这个主类。</p>
+</li>
+</ul>
+<p>这四种场景称为对一个类进行主动引用。除此之外所有引用称为被动引用，都不会触发初始化。<br>下面的代码是被动引用的例子</p>
+<pre><code>package org.fenixsoft.classloading;
+
+/**
+ * 被动使用类字段演示一：
+* 通过子类引用父类的静态字段，不会导致子类初始化
+ **/
+public class SuperClass {
+
+    static {
+        System.out.println(&quot;SuperClass init!&quot;);//会输出
+    }
+
+    public static int value = 123;
+}
+
+public class SubClass extends SuperClass {
+
+    static {
+        System.out.println(&quot;SubClass init!&quot;);//不会输出
+    }
+}
+
+/**
+ * 非主动使用类字段演示
+ **/
+public class NotInitialization {
+
+    public static void main(String[] args) {
+        System.out.println(SubClass.value);
+    }
+
+}
+</code></pre><p>上面代码只触发父类初始化，子类不会初始化。对于静态字段，只有直接定义这个字段的类才会被初始化。</p>
+<pre><code>package org.fenixsoft.classloading;
+
+/**
+ * 被动使用类字段演示二：
+* 通过数组定义来引用类，不会触发此类的初始化
+ **/
+public class NotInitialization {
+
+    public static void main(String[] args) {
+        SuperClass[] sca = new SuperClass[10];
+    }
+
+}
+</code></pre><p>上述代码没有输出”SuperClass init!”.这段代码触发了名为”[Lorg.fenixsoft.classloading.SuperClass“的类的初始化，这不是合法的类名称，是由java虚拟机自动生成的，直接继承与Object的子类，创建动作由字节码指令newarray触发。</p>
+<p>这个类代表了一个元素类型为”org.fenixsoft.classloading.SuperClass”的一维数组。</p>
+<pre><code>package org.fenixsoft.classloading;
+
+/**
+ * 被动使用类字段演示三：
+* 常量在编译阶段会存入调用类的常量池中，本质上没有直接引用到定义常量的类，因此不会触发定    义常量的类的初始化。
+ **/
+public class ConstClass {
+
+    static {
+        System.out.println(&quot;ConstClass init!&quot;);//不会输出
+    }
+
+    public static final String HELLOWORLD = &quot;hello world&quot;;
+}
+
+/**
+ * 非主动使用类字段演示
+ **/
+public class NotInitialization {
+
+    public static void main(String[] args) {
+        System.out.println(ConstClass.HELLOWORLD);
+    }
+}
+</code></pre><p>上述代码没有输出”ConstClass init!“因为在编译阶段将此常量的值”hello world”存储到NotInitialization类的常量池中了。对常量ConstClass.HELLOWORLD的引用转化成NotInitialization类对自身常量池的引用了。也就是说NotInitialization的class文件之中没有ConstClass类的符号引用入口，这两个类在编译成class之后就不存在任何联系了。</p>
+<p>##接口与类加载的过程有不同，主要区别在于：</p>
+<ul>
+<li>当一个类在初始化时，要求其父类进行初始化。但是当一个接口在初始化时，并不要求其父接口全部都完成初始化，只有在真正使用到父接口的时候(如引用接口中定义的常量)才会初始化。</li>
+</ul>
+<h1 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h1><h2 id="类与类加载器"><a href="#类与类加载器" class="headerlink" title="类与类加载器"></a>类与类加载器</h2><p>比较两个类是否”相等”，只有在这两个类是由同一个类加载器加载的前提下才有意义。否则即使两个类是来源同一个class文件，只要加载它们的类加载器不同，那两个类就必定不相等。</p>
+<p>这里的”相等“包括代表类的class对象的equals()方法，isAssignableFrom(), isInstance()方法的返回结果，也包括了使用instanceof关键字做对象所属关系判定等情况。</p>
+<pre><code>/**
+ * 类加载器与instanceof关键字演示
+ * 
+ * @author zzm
+ */
+public class ClassLoaderTest {
+
+    public static void main(String[] args) throws Exception {
+
+        ClassLoader myLoader = new ClassLoader() {
+            @Override
+            public Class&lt;?&gt; loadClass(String name) throws     ClassNotFoundException {
+            try {
+                String fileName = name.substring(name.lastIndexOf(&quot;.&quot;) + 1) + &quot;.class&quot;;
+                InputStream is = getClass().getResourceAsStream(fileName);
+                if (is == null) {
+                    return super.loadClass(name);
+                }
+                byte[] b = new byte[is.available()];
+                is.read(b);
+                return defineClass(name, b, 0, b.length);
+            } catch (IOException e) {
+                throw new ClassNotFoundException(name);
+            }
+        }
+    };
+
+    Object obj = myLoader.loadClass(&quot;org.fenixsoft.classloading.ClassLoaderTest&quot;).newInstance();
+
+    System.out.println(obj.getClass());
+    System.out.println(obj instanceof org.fenixsoft.classloading.ClassLoaderTest);
+}
+}
+</code></pre><p>运行结果：<br>class org.fenixsoft.classloading.ClassLoaderTest<br>false</p>
+<p>虚拟机中存在两个ClassLoaderTest类，类加载器不同。</p>
+<p>#双亲委派模型</p>
+<ul>
+<li><p>启动类加载器(Bootstrap ClassLoader): C++语言实现，是虚拟机自身的一部分。负责将存放在<java_home>\lib目录中的类库加载到虚拟机内存中。启动器类加载器无法被java程序直接引用。</java_home></p>
+</li>
+<li><p>扩展类加载器(Extension ClassLoader): 负责加载<java_home>\lib\ext目录中的，或者被java.ext.dirs系统变量所指定的路径中的所有类库，开发者可直接使用扩展类加载器。</java_home></p>
+</li>
+<li><p>应用程序类加载器(Application ClassLoader)：由于这个类加载器是ClassLoader中的getSystemClassLoader()方法的返回值，所以一般也称为系统类加载器。它负责加载用户类路径(ClassPath)上所指定的类库，开发者可直接使用这个类加载器。如果应用程序中没有自定义过自己的类加载器，一般情况下这个就是程序中默认的类加载器。</p>
+</li>
+<li><p>自定义类加载器</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader.png" alt="模型"></p>
+<ul>
+<li>流程是当一个classlaoder尝试加载一个类时，它会先抛给父加载器，一层层的往上抛，抛到最上层启动类加载器。如果启动类加载器无法加载，这时会自上而下的抛给其他类加载器，直到可以加载为止</li>
+</ul>
+<p>双亲委派模型的实现</p>
+<pre><code>protected synchronized Class&lt;?&gt; loadClass(String name, boolean resolve)     throws ClassNotFoundException {
+    //首先，检查请求的类是否已经被加载过了
+    Class c = findLoadedClass(name);
+    if (c == null){
+        try{
+            if (parent != null){
+                c = parent.loadClass(name,false);
+            }else {
+                c = findBootstrapClassOrNull(name);
+            }
+        }catch(ClassNotFoundException e){
+            //如果父类加载器抛出异常
+            //说明父类加载器无法完成加载请求
+        }
+        if(c == null){
+            //在父类加载器无法加载的时候
+            //再调用本身的findClass方法来进行类加载
+            c = findClass(name);
+        }
+    }
+    if (resolve){
+        resolveClass(c);
+    }
+    return c ; 
+}
+</code></pre></font>
       
     </div>
 
@@ -448,7 +582,9 @@ velocityTracker.recycle();
       
         <div class="post-tags">
           
-            <a href="/tags/Android开发艺术探索笔记/" rel="tag"># Android开发艺术探索笔记</a>
+            <a href="/tags/深入理解java虚拟机/" rel="tag"># 深入理解java虚拟机</a>
+          
+            <a href="/tags/jvm/" rel="tag"># jvm</a>
           
         </div>
       
@@ -461,8 +597,8 @@ velocityTracker.recycle();
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/06/Android消息机制/" rel="next" title="Android消息机制">
-                <i class="fa fa-chevron-left"></i> Android消息机制
+              <a href="/2017/08/03/万万没想到/" rel="next" title="《万万没想到》读书笔记">
+                <i class="fa fa-chevron-left"></i> 《万万没想到》读书笔记
               </a>
             
           </div>
@@ -470,10 +606,6 @@ velocityTracker.recycle();
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/09/Android-ThreadPool/" rel="prev" title="Android的线程和线程池">
-                Android的线程和线程池 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -602,7 +734,7 @@ velocityTracker.recycle();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#View的事件体系"><span class="nav-number">1.</span> <span class="nav-text">View的事件体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-View基础知识"><span class="nav-number">1.1.</span> <span class="nav-text">1.View基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-View与ViewGroup的关系"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 View与ViewGroup的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-MotionEvent和TouchSlop"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2.MotionEvent和TouchSlop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-VelocityTracker-GestureDetector-Scroller"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 VelocityTracker,GestureDetector,Scroller</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-View的滑动"><span class="nav-number">1.2.</span> <span class="nav-text">2.View的滑动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1使用scrollTo-scrollBy"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1使用scrollTo/scrollBy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2使用动画"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2使用动画</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3改变布局参数"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3改变布局参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View的事件分发机制"><span class="nav-number">1.3.</span> <span class="nav-text">View的事件分发机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重点：其事件传递的核心规则，可由下面的伪代码来表示："><span class="nav-number">1.4.</span> <span class="nav-text">重点：其事件传递的核心规则，可由下面的伪代码来表示：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-滑动冲突的解决方式："><span class="nav-number">1.5.</span> <span class="nav-text">3.滑动冲突的解决方式：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类加载的时机"><span class="nav-number">1.</span> <span class="nav-text">类加载的时机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类加载器"><span class="nav-number">2.</span> <span class="nav-text">类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类与类加载器"><span class="nav-number">2.1.</span> <span class="nav-text">类与类加载器</span></a></li></ol></li></ol></div>
             
 
           </div>
