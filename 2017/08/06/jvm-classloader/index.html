@@ -102,7 +102,7 @@
 <meta property="og:description" content="类加载的时机类从被加载到虚拟机内存开始，到卸载出内存开始，生命周期包括七个阶段  其中”验证“，”准备“，”解析“三个部分统称为连接(Linking) 对于初始化，虚拟机是严格规定了有且只有四种情况必须立即对类进行”初始化“  1.遇到 new, getstatic, putstatic, 或invokestatic 这4条字节码指令，如果没有初始化则先初始化。这4条指令对应的java代码场景">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader_process.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader.png">
-<meta property="og:updated_time" content="2017-08-07T03:28:28.000Z">
+<meta property="og:updated_time" content="2017-08-07T09:42:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟机类加载机制">
 <meta name="twitter:description" content="类加载的时机类从被加载到虚拟机内存开始，到卸载出内存开始，生命周期包括七个阶段  其中”验证“，”准备“，”解析“三个部分统称为连接(Linking) 对于初始化，虚拟机是严格规定了有且只有四种情况必须立即对类进行”初始化“  1.遇到 new, getstatic, putstatic, 或invokestatic 这4条字节码指令，如果没有初始化则先初始化。这4条指令对应的java代码场景">
@@ -512,9 +512,9 @@ public class ClassLoaderTest {
 </code></pre><p>运行结果：<br>class org.fenixsoft.classloading.ClassLoaderTest<br>false</p>
 <p>虚拟机中存在两个ClassLoaderTest类，类加载器不同。</p>
 <h1 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h1><ul>
-<li><p>启动类加载器(Bootstrap ClassLoader): C++语言实现，是虚拟机自身的一部分。负责将存放在<java_home>\lib目录中的类库加载到虚拟机内存中。启动器类加载器无法被java程序直接引用。</java_home></p>
+<li><p>启动类加载器(Bootstrap ClassLoader): C++语言实现，是虚拟机自身的一部分。负责将存放在(JAVA_HOME\lib)目录中的类库加载到虚拟机内存中。启动器类加载器无法被java程序直接引用。</p>
 </li>
-<li><p>扩展类加载器(Extension ClassLoader): 负责加载<java_home>\lib\ext目录中的，或者被java.ext.dirs系统变量所指定的路径中的所有类库，开发者可直接使用扩展类加载器。</java_home></p>
+<li><p>扩展类加载器(Extension ClassLoader): 负责加载(JAVA_HOME\lib\ext)目录中的，或者被java.ext.dirs系统变量所指定的路径中的所有类库，开发者可直接使用扩展类加载器。</p>
 </li>
 <li><p>应用程序类加载器(Application ClassLoader)：由于这个类加载器是ClassLoader中的getSystemClassLoader()方法的返回值，所以一般也称为系统类加载器。它负责加载用户类路径(ClassPath)上所指定的类库，开发者可直接使用这个类加载器。如果应用程序中没有自定义过自己的类加载器，一般情况下这个就是程序中默认的类加载器。</p>
 </li>
