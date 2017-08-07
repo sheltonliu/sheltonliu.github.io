@@ -168,9 +168,9 @@ false
 
 # 双亲委派模型
 
-* 启动类加载器(Bootstrap ClassLoader): C++语言实现，是虚拟机自身的一部分。负责将存放在<JAVA_HOME>\lib目录中的类库加载到虚拟机内存中。启动器类加载器无法被java程序直接引用。
+* 启动类加载器(Bootstrap ClassLoader): C++语言实现，是虚拟机自身的一部分。负责将存放在(JAVA_HOME\lib)目录中的类库加载到虚拟机内存中。启动器类加载器无法被java程序直接引用。
 
-* 扩展类加载器(Extension ClassLoader): 负责加载<JAVA_HOME>\lib\ext目录中的，或者被java.ext.dirs系统变量所指定的路径中的所有类库，开发者可直接使用扩展类加载器。
+* 扩展类加载器(Extension ClassLoader): 负责加载(JAVA_HOME\lib\ext)目录中的，或者被java.ext.dirs系统变量所指定的路径中的所有类库，开发者可直接使用扩展类加载器。
 
 * 应用程序类加载器(Application ClassLoader)：由于这个类加载器是ClassLoader中的getSystemClassLoader()方法的返回值，所以一般也称为系统类加载器。它负责加载用户类路径(ClassPath)上所指定的类库，开发者可直接使用这个类加载器。如果应用程序中没有自定义过自己的类加载器，一般情况下这个就是程序中默认的类加载器。
 
