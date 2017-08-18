@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="深入理解java虚拟机,jvm," />
+  <meta name="keywords" content="kotlin," />
 
 
 
@@ -93,20 +93,17 @@
 
 
 
-<meta name="description" content="类加载的时机类从被加载到虚拟机内存开始，到卸载出内存开始，生命周期包括七个阶段  其中”验证“，”准备“，”解析“三个部分统称为连接(Linking) 对于初始化，虚拟机是严格规定了有且只有四种情况必须立即对类进行”初始化“  1.遇到 new, getstatic, putstatic, 或invokestatic 这4条字节码指令，如果没有初始化则先初始化。这4条指令对应的java代码场景">
-<meta name="keywords" content="深入理解java虚拟机,jvm">
+<meta name="description" content="基础  基本类型数字Kotlin 处理数字在某种程度上接近 Java,但是并不完全相同。例如,对于数字没有隐式拓宽转换(如 Java 中 int 可以隐式转换为 long ⸺译者注),另 外有些情况的字面值略有不同。 Kotlin 提供了如下的内置类型来表示数字(与 Java 很相近): Type Bit width Double    64  Float    32  Long    64  I">
+<meta name="keywords" content="kotlin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="虚拟机类加载机制">
-<meta property="og:url" content="http://yoursite.com/2017/08/06/jvm-classloader/index.html">
+<meta property="og:title" content="kotlin基础(基本类型、控制流)">
+<meta property="og:url" content="http://yoursite.com/2017/08/17/kotlin-01-basic-grammar/index.html">
 <meta property="og:site_name" content="Shelton Blog">
-<meta property="og:description" content="类加载的时机类从被加载到虚拟机内存开始，到卸载出内存开始，生命周期包括七个阶段  其中”验证“，”准备“，”解析“三个部分统称为连接(Linking) 对于初始化，虚拟机是严格规定了有且只有四种情况必须立即对类进行”初始化“  1.遇到 new, getstatic, putstatic, 或invokestatic 这4条字节码指令，如果没有初始化则先初始化。这4条指令对应的java代码场景">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader_process.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader.png">
-<meta property="og:updated_time" content="2017-08-07T09:42:07.000Z">
+<meta property="og:description" content="基础  基本类型数字Kotlin 处理数字在某种程度上接近 Java,但是并不完全相同。例如,对于数字没有隐式拓宽转换(如 Java 中 int 可以隐式转换为 long ⸺译者注),另 外有些情况的字面值略有不同。 Kotlin 提供了如下的内置类型来表示数字(与 Java 很相近): Type Bit width Double    64  Float    32  Long    64  I">
+<meta property="og:updated_time" content="2017-08-18T03:59:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="虚拟机类加载机制">
-<meta name="twitter:description" content="类加载的时机类从被加载到虚拟机内存开始，到卸载出内存开始，生命周期包括七个阶段  其中”验证“，”准备“，”解析“三个部分统称为连接(Linking) 对于初始化，虚拟机是严格规定了有且只有四种情况必须立即对类进行”初始化“  1.遇到 new, getstatic, putstatic, 或invokestatic 这4条字节码指令，如果没有初始化则先初始化。这4条指令对应的java代码场景">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader_process.png">
+<meta name="twitter:title" content="kotlin基础(基本类型、控制流)">
+<meta name="twitter:description" content="基础  基本类型数字Kotlin 处理数字在某种程度上接近 Java,但是并不完全相同。例如,对于数字没有隐式拓宽转换(如 Java 中 int 可以隐式转换为 long ⸺译者注),另 外有些情况的字面值略有不同。 Kotlin 提供了如下的内置类型来表示数字(与 Java 很相近): Type Bit width Double    64  Float    32  Long    64  I">
 
 
 
@@ -134,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/06/jvm-classloader/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/17/kotlin-01-basic-grammar/"/>
 
 
 
 
 
-  <title>虚拟机类加载机制 | Shelton Blog</title>
+  <title>kotlin基础(基本类型、控制流) | Shelton Blog</title>
   
 
 
@@ -279,7 +276,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/06/jvm-classloader/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/17/kotlin-01-basic-grammar/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shelton">
@@ -296,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">虚拟机类加载机制</h1>
+          <h1 class="post-title" itemprop="name headline">kotlin基础(基本类型、控制流)</h1>
         
 
         <div class="post-meta">
@@ -308,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-06T18:13:06+08:00">
-                2017-08-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-17T23:22:46+08:00">
+                2017-08-17
               </time>
             
 
@@ -331,8 +328,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java虚拟机/" itemprop="url" rel="index">
-                    <span itemprop="name">java虚拟机</span>
+                  <a href="/categories/kotlin语言文档/" itemprop="url" rel="index">
+                    <span itemprop="name">kotlin语言文档</span>
                   </a>
                 </span>
 
@@ -348,7 +345,7 @@
 
           
           
-             <span id="/2017/08/06/jvm-classloader/" class="leancloud_visitors" data-flag-title="虚拟机类加载机制">
+             <span id="/2017/08/17/kotlin-01-basic-grammar/" class="leancloud_visitors" data-flag-title="kotlin基础(基本类型、控制流)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -376,183 +373,140 @@
       
 
       
-        <font size="4">
+        <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><font size="4">
 
-<h1 id="类加载的时机"><a href="#类加载的时机" class="headerlink" title="类加载的时机"></a>类加载的时机</h1><p>类从被加载到虚拟机内存开始，到卸载出内存开始，生命周期包括七个阶段</p>
-<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader_process.png" alt="类加载工程"></p>
-<p>其中”验证“，”准备“，”解析“三个部分统称为连接(Linking)</p>
-<p>对于初始化，虚拟机是严格规定了有且只有四种情况必须立即对类进行”初始化“</p>
+<h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>Kotlin 处理数字在某种程度上接近 Java,但是并不完全相同。例如,对于数字没有隐式拓宽转换(如 Java 中 int 可以隐式转换为 long ⸺译者注),另 外有些情况的字面值略有不同。</p>
+<p>Kotlin 提供了如下的内置类型来表示数字(与 Java 很相近):</p>
+<pre><code>Type Bit width
+Double    64 
+Float    32 
+Long    64 
+Int        32 
+Short    16 
+Byte    8
+</code></pre><p>注意在 Kotlin 中字符不是数字</p>
+<h4 id="字面常量"><a href="#字面常量" class="headerlink" title="字面常量"></a>字面常量</h4><p>数值常量字面值有以下几种: </p>
 <ul>
-<li><p>1.遇到 new, getstatic, putstatic, 或invokestatic 这4条字节码指令，如果没有初始化则先初始化。这4条指令对应的java代码场景是：</p>
+<li>— 十进制: 123</li>
+<li>— Long 类型用大写 L 标记: 123L </li>
+<li>— 十六进制: 0x0F</li>
+<li>— 二进制: 0b00001011</li>
+</ul>
+<p>注意: 不支持八进制<br>Kotlin 同样支持浮点数的常规表示方法:</p>
 <ul>
-<li>使用 new 关键字实例化对象的时候</li>
-<li>读取或设置一个类的静态字段(被final修饰，已在编译期把结果放入常量池的静态字段除外)</li>
-<li>调用一个类的静态方法的时候</li>
+<li>— 默认 double:123.5 、123.5e10 </li>
+<li>— Float 用 f 或者 F 标记: 123.5f</li>
 </ul>
-</li>
-<li><p>2.使用 java.long.reflect包的方法对类进行反射调用，如果类没有初始化则先初始化 </p>
-</li>
-<li><p>3.当初始化类时，如发现父类没有初始化，则先初始化父类</p>
-</li>
-<li><p>4.当虚拟机启动，用户需要指定一个执行的主类(包含main()方法的那个类)，虚拟机会先初始化这个主类。</p>
-</li>
-</ul>
-<p>这四种场景称为对一个类进行主动引用。除此之外所有引用称为被动引用，都不会触发初始化。<br>下面的代码是被动引用的例子</p>
-<pre><code>package org.fenixsoft.classloading;
-
-/**
- * 被动使用类字段演示一：
-* 通过子类引用父类的静态字段，不会导致子类初始化
- **/
-public class SuperClass {
-
-    static {
-        System.out.println(&quot;SuperClass init!&quot;);//会输出
-    }
-
-    public static int value = 123;
+<h4 id="数字字面值中的下划线-自-1-1-起"><a href="#数字字面值中的下划线-自-1-1-起" class="headerlink" title="数字字面值中的下划线(自 1.1 起)"></a>数字字面值中的下划线(自 1.1 起)</h4><p>你可以使用下划线使数字常量更易读:</p>
+<pre><code>val oneMillion = 1_000_000
+val creditCardNumber = 1234_5678_9012_3456L
+val socialSecurityNumber = 999_99_9999L
+val hexBytes = 0xFF_EC_DE_5E
+val bytes = 0b11010010_01101001_10010100_10010010
+</code></pre><h4 id="表示方式"><a href="#表示方式" class="headerlink" title="表示方式"></a>表示方式</h4><p>在 Java 平台数字是物理存储为 JVM 的原生类型,除非我们需要一个可空的引用(如 Int? )或泛型。后者情况下会把数字装箱。</p>
+<p>注意数字装箱不必保留同一性:</p>
+<pre><code>val a: Int = 10000
+print(a === a) // 输出“true”
+val boxedA: Int? = a
+val anotherBoxedA: Int? = a
+print(boxedA === anotherBoxedA) // !!!输出“false”!!!
+</code></pre><p>另一方面,它保留了相等性:</p>
+<pre><code>val a: Int = 10000
+print(a == a) // 输出“true”
+val boxedA: Int? = a
+val anotherBoxedA: Int? = a
+print(boxedA == anotherBoxedA) // 输出“true”
+</code></pre><h4 id="显式转换"><a href="#显式转换" class="headerlink" title="显式转换"></a>显式转换</h4><p>由于不同的表示方式,较小类型并不是较大类型的子类型。如果它们是的话,就会出现下述问题:</p>
+<pre><code>// 假想的代码,实际上并不能编译:
+val a: Int? = 1 // 一个装箱的 Int (java.lang.Integer)
+val b: Long? = a // 隐式转换产生一个装箱的 Long (java.lang.Long)
+print(a == b) // 惊!这将打印 &quot;false&quot; 鉴于 Long 的 equals() 检测其他部分也是 Long
+</code></pre><p>所以同一性还有相等性都会在所有地方悄无声息地失去。</p>
+<p>因此较小的类型不能隐式转换为较大的类型。这意味着在不进行显式转换的情况下我们不能把 Byte 型值赋给一个 Int 变量。</p>
+<pre><code>val b: Byte = 1 // OK, 字面值是静态检测的 
+val i: Int = b // 错
+</code></pre><p>我们可以显式转换来拓宽数字</p>
+<pre><code>val i: Int = b.toInt() // OK: 显式拓宽
+</code></pre><p>每个数字类型支持如下的转换:</p>
+<pre><code>— toByte(): Byte
+— toShort(): Short
+— toInt(): Int
+— toLong(): Long
+— toFloat(): Float
+— toDouble(): Double — toChar(): Char
+</code></pre><p>缺乏隐式类型转换并不显著,因为类型会从上下文推断出来,而算术运算会有重载做适当转换,例如:</p>
+<pre><code>val l = 1L + 3 // Long + Int =&gt; Long
+</code></pre><h4 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h4><p>Kotlin支持数字运算的标准集,运算被定义为相应的类成员(但编译器会将函数调用优化为相应的指令)。参⻅运算符重载。 </p>
+<p>对于位运算,没有特殊字符来表示,而只可用中缀方式调用命名函数,例如:</p>
+<pre><code>val x = (1 shl 2) and 0x000FF000
+</code></pre><p>这是完整的位运算列表(只用于 Int 和 Long ):</p>
+<pre><code>— shl(bits) ‒ 有符号左移 (Java 的 &lt;&lt; ) 
+— shr(bits) ‒ 有符号右移 (Java 的 &gt;&gt; ) 
+— ushr(bits) ‒ 无符号右移 (Java 的 &gt;&gt;&gt; ) 
+— and(bits) ‒位与
+— or(bits) ‒位或
+— xor(bits) ‒位异或 
+— inv() ‒位非    
+</code></pre><h3 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h3><p>字符用 Char 类型表示。它们不能直接当作数字</p>
+<pre><code>fun check(c: Char) {
+    if (c == 1) { // 错误:类型不兼容
+    // ......
+} }
+</code></pre><p>字符字面值用单引号括起来: ‘1’ 。特殊字符可以用反斜杠转义。支持这几个转义序列:\t 、\b 、\n 、\r 、\’ 、\” 、\ 和 \$\$。编码其他字符要用 Unicode 转义序列语法:’\uFF00’ 。    </p>
+<p>我们可以显式把字符转换为 Int 数字:</p>
+<pre><code>fun decimalDigitValue(c: Char): Int {
+     if (c !in &apos;0&apos;..&apos;9&apos;) //字符
+         throw IllegalArgumentException(&quot;Out of range&quot;) 
+     return c.toInt() - &apos;0&apos;.toInt() // 显式转换为数字
 }
-
-public class SubClass extends SuperClass {
-
-    static {
-        System.out.println(&quot;SubClass init!&quot;);//不会输出
-    }
+</code></pre><p>当需要可空引用时,像数字、字符会被装箱。装箱操作不会保留同一性。</p>
+<h3 id="布尔"><a href="#布尔" class="headerlink" title="布尔"></a>布尔</h3><p>布尔用 Boolean 类型表示,它有两个值:true 和 false。</p>
+<p>若需要可空引用布尔会被装箱。</p>
+<p>内置的布尔运算有:</p>
+<pre><code>— || ‒短路逻辑或 
+— &amp;&amp; ‒短路逻辑与 
+— ! -逻辑非    
+</code></pre><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>数组在 Kotlin 中使用 Array 类来表示,它定义了 get 和 set 函数(按照运算符重载约定这会转变为 [] )和 size 属性,以及一些其他有用的成员 函数:</p>
+<pre><code>class Array&lt;T&gt; private constructor() { val size: Int
+    operator fun get(index: Int): T
+    operator fun set(index: Int, value: T): Unit
+    operator fun iterator(): Iterator&lt;T&gt;
+    // ......
 }
+</code></pre><p>我们可以使用库函数 arrayOf() 来创建一个数组并传递元素值给它,这样 arrayOf(1, 2, 3) 创建了 array [1, 2, 3]。或者,库函数 arrayOfNulls() 可以用于创建一个指定大小、元素都为空的数组。</p>
+<p>另一个选项是用接受数组大小和一个函数参数的工厂函数,用作参数的函数能够返回 给定索引的每个元素初始值:</p>
+<pre><code>//创建一个 Array&lt;String&gt; 初始化为 [&quot;0&quot;, &quot;1&quot;, &quot;4&quot;, &quot;9&quot;, &quot;16&quot;]
+val asc = Array(5, { i -&gt; (i * i).toString() })
+</code></pre><p>如上所述,[] 运算符代表调用成员函数 get() 和 set() 。</p>
+<p>注意: 与 Java 不同的是,Kotlin 中数组是不型变的(invariant)。这意味着 Kotlin 不让我们把 Array<string> 赋值给 Array<any> ,以防止可能的运<br>行时失败(但是你可以使用 Array<out any=""> , 参⻅类型投影)。</out></any></string></p>
+<p>Kotlin 也有无装箱开销的专⻔的类来表示原生类型数组: ByteArray 、ShortArray 、IntArray 等等。这些类和 Array 并没有继承关系,但是 它<br>们有同样的方法属性集。它们也都有相应的工厂方法:</p>
+<pre><code>val x: IntArray = intArrayOf(1, 2, 3)
 
-/**
- * 非主动使用类字段演示
- **/
-public class NotInitialization {
-
-    public static void main(String[] args) {
-        System.out.println(SubClass.value);
-    }
-
+x[0] = x[1] + x[2]
+</code></pre><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>字符串用 String 类型表示。字符串是不可变的。字符串的元素⸺字符可以使用索引运算符访问: s[i] 。可以用 for 循环迭代字符串:</p>
+<pre><code>for (c in str) {
+     println(c)
 }
-</code></pre><p>上面代码只触发父类初始化，子类不会初始化。对于静态字段，只有直接定义这个字段的类才会被初始化。</p>
-<pre><code>package org.fenixsoft.classloading;
-
-/**
- * 被动使用类字段演示二：
-* 通过数组定义来引用类，不会触发此类的初始化
- **/
-public class NotInitialization {
-
-    public static void main(String[] args) {
-        SuperClass[] sca = new SuperClass[10];
-    }
-
-}
-</code></pre><p>上述代码没有输出”SuperClass init!”.这段代码触发了名为”[Lorg.fenixsoft.classloading.SuperClass“的类的初始化，这不是合法的类名称，是由java虚拟机自动生成的，直接继承与Object的子类，创建动作由字节码指令newarray触发。</p>
-<p>这个类代表了一个元素类型为”org.fenixsoft.classloading.SuperClass”的一维数组。</p>
-<pre><code>package org.fenixsoft.classloading;
-
-/**
- * 被动使用类字段演示三：
-* 常量在编译阶段会存入调用类的常量池中，本质上没有直接引用到定义常量的类，因此不会触发定    义常量的类的初始化。
- **/
-public class ConstClass {
-
-    static {
-        System.out.println(&quot;ConstClass init!&quot;);//不会输出
-    }
-
-    public static final String HELLOWORLD = &quot;hello world&quot;;
-}
-
-/**
- * 非主动使用类字段演示
- **/
-public class NotInitialization {
-
-    public static void main(String[] args) {
-        System.out.println(ConstClass.HELLOWORLD);
-    }
-}
-</code></pre><p>上述代码没有输出”ConstClass init!“因为在编译阶段将此常量的值”hello world”存储到NotInitialization类的常量池中了。对常量ConstClass.HELLOWORLD的引用转化成NotInitialization类对自身常量池的引用了。也就是说NotInitialization的class文件之中没有ConstClass类的符号引用入口，这两个类在编译成class之后就不存在任何联系了。</p>
-<h2 id="接口与类加载的过程有不同，主要区别在于："><a href="#接口与类加载的过程有不同，主要区别在于：" class="headerlink" title="接口与类加载的过程有不同，主要区别在于："></a>接口与类加载的过程有不同，主要区别在于：</h2><ul>
-<li>当一个类在初始化时，要求其父类进行初始化。但是当一个接口在初始化时，并不要求其父接口全部都完成初始化，只有在真正使用到父接口的时候(如引用接口中定义的常量)才会初始化。</li>
-</ul>
-<h1 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h1><h2 id="类与类加载器"><a href="#类与类加载器" class="headerlink" title="类与类加载器"></a>类与类加载器</h2><p>比较两个类是否”相等”，只有在这两个类是由同一个类加载器加载的前提下才有意义。否则即使两个类是来源同一个class文件，只要加载它们的类加载器不同，那两个类就必定不相等。</p>
-<p>这里的”相等“包括代表类的class对象的equals()方法，isAssignableFrom(), isInstance()方法的返回结果，也包括了使用instanceof关键字做对象所属关系判定等情况。</p>
-<pre><code>/**
- * 类加载器与instanceof关键字演示
- * 
- * @author zzm
- */
-public class ClassLoaderTest {
-
-    public static void main(String[] args) throws Exception {
-
-        ClassLoader myLoader = new ClassLoader() {
-            @Override
-            public Class&lt;?&gt; loadClass(String name) throws     ClassNotFoundException {
-            try {
-                String fileName = name.substring(name.lastIndexOf(&quot;.&quot;) + 1) + &quot;.class&quot;;
-                InputStream is = getClass().getResourceAsStream(fileName);
-                if (is == null) {
-                    return super.loadClass(name);
-                }
-                byte[] b = new byte[is.available()];
-                is.read(b);
-                return defineClass(name, b, 0, b.length);
-            } catch (IOException e) {
-                throw new ClassNotFoundException(name);
-            }
-        }
-    };
-
-    Object obj = myLoader.loadClass(&quot;org.fenixsoft.classloading.ClassLoaderTest&quot;).newInstance();
-
-    System.out.println(obj.getClass());
-    System.out.println(obj instanceof org.fenixsoft.classloading.ClassLoaderTest);
-}
-}
-</code></pre><p>运行结果：<br>class org.fenixsoft.classloading.ClassLoaderTest<br>false</p>
-<p>虚拟机中存在两个ClassLoaderTest类，类加载器不同。</p>
-<h1 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h1><ul>
-<li><p>启动类加载器(Bootstrap ClassLoader): C++语言实现，是虚拟机自身的一部分。负责将存放在(JAVA_HOME\lib)目录中的类库加载到虚拟机内存中。启动器类加载器无法被java程序直接引用。</p>
-</li>
-<li><p>扩展类加载器(Extension ClassLoader): 负责加载(JAVA_HOME\lib\ext)目录中的，或者被java.ext.dirs系统变量所指定的路径中的所有类库，开发者可直接使用扩展类加载器。</p>
-</li>
-<li><p>应用程序类加载器(Application ClassLoader)：由于这个类加载器是ClassLoader中的getSystemClassLoader()方法的返回值，所以一般也称为系统类加载器。它负责加载用户类路径(ClassPath)上所指定的类库，开发者可直接使用这个类加载器。如果应用程序中没有自定义过自己的类加载器，一般情况下这个就是程序中默认的类加载器。</p>
-</li>
-<li><p>自定义类加载器</p>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/07/14/android_classloader.png" alt="模型"></p>
-<ul>
-<li>流程是当一个classlaoder尝试加载一个类时，它会先抛给父加载器，一层层的往上抛，抛到最上层启动类加载器。如果启动类加载器无法加载，这时会自上而下的抛给其他类加载器，直到可以加载为止</li>
-</ul>
-<p>双亲委派模型的实现</p>
-<pre><code>protected synchronized Class&lt;?&gt; loadClass(String name, boolean resolve)     throws ClassNotFoundException {
-    //首先，检查请求的类是否已经被加载过了
-    Class c = findLoadedClass(name);
-    if (c == null){
-        try{
-            if (parent != null){
-                c = parent.loadClass(name,false);
-            }else {
-                c = findBootstrapClassOrNull(name);
-            }
-        }catch(ClassNotFoundException e){
-            //如果父类加载器抛出异常
-            //说明父类加载器无法完成加载请求
-        }
-        if(c == null){
-            //在父类加载器无法加载的时候
-            //再调用本身的findClass方法来进行类加载
-            c = findClass(name);
-        }
-    }
-    if (resolve){
-        resolveClass(c);
-    }
-    return c ; 
-}
-</code></pre><p>参考：</p>
-<p>《深入理解java虚拟机》周志明 著</p>
+</code></pre><h4 id="字符串字面值"><a href="#字符串字面值" class="headerlink" title="字符串字面值　"></a>字符串字面值　</h4><p>Kotlin 有两种类型的字符串字面值: 转义字符串可以有转义字符,以及原生字符串可以包含换行和任意文本。转义字符串很像 Java 字符串:</p>
+<pre><code>val s = &quot;Hello, world!\n&quot;
+</code></pre><p>转义采用传统的反斜杠方式。参⻅上面的 字符 查看支持的转义序列。</p>
+<p>原生字符串 使用三个引号( “”” )分界符括起来,内部没有转义并且可以包含换行和任何其他字符:</p>
+<pre><code>val text = &quot;&quot;&quot;
+for (c in &quot;foo&quot;)
+print(c) &quot;&quot;&quot;    
+</code></pre><p>你可以通过 trimMargin() 函数去除前导空格:</p>
+<pre><code>val text = &quot;&quot;&quot;
+    |Tell me and I forget. 
+    |Teach me and I remember. 
+    |Involve me and I learn. 
+    |(Benjamin Franklin) &quot;&quot;&quot;.trimMargin()
+</code></pre><p>默认 | 用作边界前缀,但你可以选择其他字符并作为参数传入,比如 trimMargin(“&gt;”) 。 </p>
+<h4 id="字符串模板"><a href="#字符串模板" class="headerlink" title="字符串模板"></a>字符串模板</h4><pre><code>val i = 10
+val s = &quot;i = $i&quot; // 求值结果为 i = 10
+</code></pre><p>或者用花括号扩起来的任意表达式:</p>
+<pre><code>val s = &quot;abc&quot;
+val str = &quot;$s.length is ${s.length}&quot; // 求值结果为 &quot;abc.length is 3&quot;
+</code></pre><p>原生字符串和转义字符串内部都支持模板。如果你需要在原生字符串中表示字面值 “$”字符(它不支持反斜杠转义),你可以用下列语法:<br>￼<br>    val price = “””<br>    ${‘$’}9.99<br>    “””    </p>
 </font>
       
     </div>
@@ -582,9 +536,7 @@ public class ClassLoaderTest {
       
         <div class="post-tags">
           
-            <a href="/tags/深入理解java虚拟机/" rel="tag"># 深入理解java虚拟机</a>
-          
-            <a href="/tags/jvm/" rel="tag"># jvm</a>
+            <a href="/tags/kotlin/" rel="tag"># kotlin</a>
           
         </div>
       
@@ -597,8 +549,8 @@ public class ClassLoaderTest {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/03/万万没想到/" rel="next" title="《万万没想到》读书笔记">
-                <i class="fa fa-chevron-left"></i> 《万万没想到》读书笔记
+              <a href="/2017/08/06/jvm-classloader/" rel="next" title="虚拟机类加载机制">
+                <i class="fa fa-chevron-left"></i> 虚拟机类加载机制
               </a>
             
           </div>
@@ -606,10 +558,6 @@ public class ClassLoaderTest {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/17/kotlin-01-basic-grammar/" rel="prev" title="kotlin基础(基本类型、控制流)">
-                kotlin基础(基本类型、控制流) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -738,7 +686,7 @@ public class ClassLoaderTest {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类加载的时机"><span class="nav-number">1.</span> <span class="nav-text">类加载的时机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口与类加载的过程有不同，主要区别在于："><span class="nav-number">1.1.</span> <span class="nav-text">接口与类加载的过程有不同，主要区别在于：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类加载器"><span class="nav-number">2.</span> <span class="nav-text">类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类与类加载器"><span class="nav-number">2.1.</span> <span class="nav-text">类与类加载器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#双亲委派模型"><span class="nav-number">3.</span> <span class="nav-text">双亲委派模型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本类型"><span class="nav-number">1.1.</span> <span class="nav-text">基本类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数字"><span class="nav-number">1.1.1.</span> <span class="nav-text">数字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字面常量"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">字面常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数字字面值中的下划线-自-1-1-起"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">数字字面值中的下划线(自 1.1 起)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表示方式"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">表示方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显式转换"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">显式转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运算"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">运算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符"><span class="nav-number">1.1.2.</span> <span class="nav-text">字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布尔"><span class="nav-number">1.1.3.</span> <span class="nav-text">布尔</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组"><span class="nav-number">1.1.4.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">1.1.5.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串字面值"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">字符串字面值　</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串模板"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">字符串模板</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
