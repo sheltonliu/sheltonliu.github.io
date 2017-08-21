@@ -1,5 +1,5 @@
 ---
-title: kotlin基础(基本类型、控制流)
+title: kotlin-01基础(基本类型、控制流、返回和跳转)
 date: 2017-08-17 23:22:46
 categories: "kotlin语言文档"
 tags:
@@ -249,6 +249,7 @@ for 循环可以对任何提供迭代器(iterator)的对象进行遍历,语法�
 
 	for ((index, value) in array.withIndex()){  
 		println("the element at (美刀符)index is (美刀符)value") 	}		
+	
 
 
 ### 4.While循环
