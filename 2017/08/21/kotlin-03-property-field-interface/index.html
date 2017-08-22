@@ -1,0 +1,1048 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kotlin," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1.属性和字段  1.1声明属性Kotlin的类可以有属性。属性可以用关键字var 声明为可变的,否则使用只读关键字val。 class Address {     var name: String = ......      var street: String = ......      var city: String = ......      var state: String? = .">
+<meta name="keywords" content="kotlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin-03-类和对象(属性和字段、接口、可见性修饰符)">
+<meta property="og:url" content="http://yoursite.com/2017/08/21/kotlin-03-property-field-interface/index.html">
+<meta property="og:site_name" content="Shelton Blog">
+<meta property="og:description" content="1.属性和字段  1.1声明属性Kotlin的类可以有属性。属性可以用关键字var 声明为可变的,否则使用只读关键字val。 class Address {     var name: String = ......      var street: String = ......      var city: String = ......      var state: String? = .">
+<meta property="og:updated_time" content="2017-08-22T07:57:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin-03-类和对象(属性和字段、接口、可见性修饰符)">
+<meta name="twitter:description" content="1.属性和字段  1.1声明属性Kotlin的类可以有属性。属性可以用关键字var 声明为可变的,否则使用只读关键字val。 class Address {     var name: String = ......      var street: String = ......      var city: String = ......      var state: String? = .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/21/kotlin-03-property-field-interface/"/>
+
+
+
+
+
+  <title>kotlin-03-类和对象(属性和字段、接口、可见性修饰符) | Shelton Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shelton Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/21/kotlin-03-property-field-interface/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shelton">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shelton Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kotlin-03-类和对象(属性和字段、接口、可见性修饰符)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T16:39:43+08:00">
+                2017-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kotlin语言文档/" itemprop="url" rel="index">
+                    <span itemprop="name">kotlin语言文档</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/08/21/kotlin-03-property-field-interface/" class="leancloud_visitors" data-flag-title="kotlin-03-类和对象(属性和字段、接口、可见性修饰符)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-属性和字段"><a href="#1-属性和字段" class="headerlink" title="1.属性和字段"></a>1.属性和字段</h1><font size="4">
+
+<h2 id="1-1声明属性"><a href="#1-1声明属性" class="headerlink" title="1.1声明属性"></a>1.1声明属性</h2><p>Kotlin的类可以有属性。属性可以用关键字var 声明为可变的,否则使用只读关键字val。</p>
+<pre><code>class Address {
+    var name: String = ...... 
+    var street: String = ...... 
+    var city: String = ...... 
+    var state: String? = ...... 
+    var zip: String = ......
+}
+</code></pre><p>要使用一个属性,只要用名称引用它即可,就像 Java 中的字段:</p>
+<pre><code>fun copyAddress(address: Address): Address {
+    val result = Address() // Kotlin 中没有“new”关键字         
+    result.name = address.name // 将调用访问器         
+    result.street = address.street
+    // ......
+    return result
+}    
+</code></pre><h2 id="1-2Getters和Setters"><a href="#1-2Getters和Setters" class="headerlink" title="1.2Getters和Setters"></a>1.2Getters和Setters</h2><p>声明一个属性的完整语法是</p>
+<pre><code>var &lt;propertyName&gt;[: &lt;PropertyType&gt;] [= &lt;property_initializer&gt;] 
+    [&lt;getter&gt;]    
+    [&lt;setter&gt;]
+</code></pre><p>其初始器(initializer)、getter 和 setter 都是可选的。属性类型如果可以从初始器(或者从其 getter 返回值,如下文所示)中推断出来,也可以省略。 </p>
+<p>例如:</p>
+<pre><code>￼var allByDefault: Int? // 错误:需要显式初始化器,隐含默认 getter 和 setter 
+var initialized = 1 // 类型 Int、默认 getter 和 setter    
+</code></pre><p>一个只读属性的语法和一个可变的属性的语法有两方面的不同:1、只读属性的用 val 开始代替 var 2、只读属性不允许 setter</p>
+<pre><code>￼val simple: Int? // 类型 Int、默认 getter、必须在构造函数中初始化 
+val inferredType = 1 // 类型 Int 、默认 getter    
+</code></pre><p>自定义getter</p>
+<pre><code>￼val isEmpty: Boolean
+    get() = this.size == 0    
+</code></pre><p>自定义的 setter </p>
+<pre><code>var stringRepresentation: String 
+    get() = this.toString() 
+    set(value) {
+        setDataFromString(value) // 解析字符串并赋值给其他属性 
+    }    
+</code></pre><p>按照惯例,setter 参数的名称是 value ,但是如果你喜欢你可以选择一个不同的名称。</p>
+<p>自 Kotlin 1.1 起,如果可以从 getter 推断出属性类型,则可以省略它:</p>
+<pre><code>val isEmpty get() = this.size == 0 // 具有类型 Boolean
+</code></pre><p>如果你需要改变一个访问器的可⻅性或者对其注解,但是不需要改变默认的实现,你可以定义访问器而不定义其实现:</p>
+<pre><code>var setterVisibility: String = &quot;abc&quot;
+    private set // 此 setter 是私有的并且有默认实现
+
+var setterWithAnnotation: Any? = null 
+    @Inject set // 用 Inject 注解此 setter
+</code></pre><h3 id="幕后字段"><a href="#幕后字段" class="headerlink" title="幕后字段"></a>幕后字段</h3><p>Kotlin 中类不能有字段。然而,当使用自定义访问器时,有时有一个幕后字段(backing field)有时是必要的。为此 Kotlin 提供 一个自动幕后字段,它可通 过使用 field 标识符访问。</p>
+<pre><code>var counter = 0 // 此初始器值直接写入到幕后字段         
+    set(value) {
+        if (value &gt;= 0) field = value
+    }
+</code></pre><p>field 标识符只能用在属性的访问器内。</p>
+<p>如果属性至少一个访问器使用默认实现,或者自定义访问器通过 field 引用幕后字段,将会为该属性生成一个幕后字段。</p>
+<p>例如,下面的情况下,就没有幕后字段:</p>
+<pre><code>val isEmpty: Boolean
+    get() = this.size == 0
+</code></pre><h3 id="幕后属性"><a href="#幕后属性" class="headerlink" title="幕后属性"></a>幕后属性</h3><p>如果你的需求不符合这套“隐式的幕后字段”方案,那么总可以使用 幕后属性(backing property):</p>
+<pre><code>private var _table: Map&lt;String, Int&gt;? = null 
+public val table: Map&lt;String, Int&gt;
+    get() {
+        if (_table == null) {
+            _table = HashMap() // 类型参数已推断出 
+        }
+        return _table ?: throw AssertionError(&quot;Set to null by another thread&quot;) 
+    }
+</code></pre><h2 id="1-3编译期常量"><a href="#1-3编译期常量" class="headerlink" title="1.3编译期常量"></a>1.3编译期常量</h2><p>已知值的属性可以使用 const 修饰符标记为编译期常量。这些属性需要满足以下要求:</p>
+<ul>
+<li>— 位于顶层或者是 object 的一个成员 </li>
+<li>— 用 String 或原生类型 值初始化</li>
+<li>— 没有自定义 getter</li>
+</ul>
+<p>这些属性可以用在注解中:<br>    const val SUBSYSTEM_DEPRECATED: String = “This subsystem is deprecated”<br>    @Deprecated(SUBSYSTEM_DEPRECATED) fun foo() { …… }</p>
+<h2 id="1-4惰性初始化属性"><a href="#1-4惰性初始化属性" class="headerlink" title="1.4惰性初始化属性"></a>1.4惰性初始化属性</h2><p>一般地,属性声明为非空类型必须在构造函数中初始化。然而,这经常不方便。例如:属性可以通过依赖注入来初始化,或者在单元测试的 setup 方法中初 始化。这种情况下,你不能在构造函数内提供一个非空初始器。但你仍然想在类体中引用该属性时避免空检查。</p>
+<p>为处理这种情况,你可以用 lateinit 修饰符标记该属性:</p>
+<pre><code>public class MyTest {
+    lateinit var subject: TestSubject
+    @SetUp fun setup() { 
+        subject = TestSubject()
+    }
+
+    @Test fun test() { 
+        subject.method() // 直接解引用
+    } 
+}
+</code></pre><p>该修饰符只能用于在类体中(不是在主构造函数中)声明的 var 属性,并且仅 当该属性没有自定义 getter 或 setter 时。该属性必须是非空类型,并且不 能是 原生类型。</p>
+<p>在初始化前访问一个 lateinit 属性会抛出一个特定异常,该异常明确标识该属性 被访问及它没有初始化的事实。</p>
+<h1 id="2-接口"><a href="#2-接口" class="headerlink" title="2.接口"></a>2.接口</h1><p>Kotlin 的接口与 Java 8 类似,既包含抽象方法的声明,也包含 实现。与抽象类不同的是,接口无法保存状态。它可以有 属性但必须声明为抽象或提供访问器实现。</p>
+<p>使用关键字 interface 来定义接口</p>
+<pre><code>interface MyInterface { 
+    fun bar() //没有方法体时默认为抽象方法。
+    fun foo() {
+        // 可选的方法体
+    } 
+}
+</code></pre><h2 id="2-1实现接口"><a href="#2-1实现接口" class="headerlink" title="2.1实现接口"></a>2.1实现接口</h2><p>一个类或者对象可以实现一个或多个接口。</p>
+<pre><code>class Child : MyInterface { 
+    override fun bar() { //实现抽象方法
+        // 方法体 
+    }
+}
+</code></pre><h2 id="2-2接口中的属性"><a href="#2-2接口中的属性" class="headerlink" title="2.2接口中的属性"></a>2.2接口中的属性</h2><p>你可以在接口中定义属性。在接口中声明的属性要么是抽象的,要么提供 访问器的实现。在接口中声明的属性不能有幕后字段(backing field),因此接口 中声明的访问器 不能引用它们。</p>
+<pre><code>interface MyInterface { 
+    val prop: Int // 抽象的
+    val propertyWithImplementation: String 
+        get() = &quot;foo&quot;
+    fun foo() { 
+        print(prop)
+    } 
+}
+
+class Child : MyInterface { 
+    override val prop: Int = 29
+}    
+</code></pre><h2 id="2-3解决覆盖冲突"><a href="#2-3解决覆盖冲突" class="headerlink" title="2.3解决覆盖冲突"></a>2.3解决覆盖冲突</h2><p>实现多个接口时,可能会遇到同一方法继承多个实现的问题。例如</p>
+<pre><code>interface A {
+    fun foo() { print(&quot;A&quot;) } 
+    fun bar() //没有方法体，抽象方法.
+}
+interface B {
+    fun foo() { print(&quot;B&quot;) } 
+    fun bar() { print(&quot;bar&quot;) }
+}
+
+class C : A {
+    override fun bar() { print(&quot;bar&quot;) }
+}
+
+class D : A, B { 
+    override fun foo() {
+        super&lt;A&gt;.foo()
+        super&lt;B&gt;.foo() 
+    }
+    override fun bar() { 
+        super&lt;B&gt;.bar()
+    } 
+}
+</code></pre><p>上例中,接口 A 和 B 都定义了方法 foo() 和 bar()。两者都实现了 foo(), 但是只有 B 实现了 bar() (bar() 在 A 中没有标记为抽象,因为没有方法体时默认 为抽象)。因为 C 是一个实现了 A 的具体类,所以必须要重写 bar() 并 实现这个抽象方法。</p>
+<p>然而,如果我们从 A 和 B 派生 D,我们需要实现 我们从多个接口继承的所有方法,并指明 D 应该如何实现它们。这一规则 既适用于继承单个实现(bar())的 方法也适用于继承多个实现(foo())的方法。</p>
+<h1 id="3-可见性修饰符"><a href="#3-可见性修饰符" class="headerlink" title="3.可见性修饰符"></a>3.可见性修饰符</h1><p>kotlin有四个可见性饰符:private 、protected 、internal 和 public 。如果没有显式指定修饰符的话,默认可⻅性是 public 。 下面将根据声明作用域的不同来解释。</p>
+<h2 id="3-1包名"><a href="#3-1包名" class="headerlink" title="3.1包名"></a>3.1包名</h2><p>函数、属性和类、对象和接口可以在顶层声明,即直接在包内:</p>
+<pre><code>//文件名:example.kt 
+package foo
+
+fun baz() {} 
+class Bar {}
+</code></pre><ul>
+<li>— 如果你不指定任何可⻅性修饰符,默认为 public ,这意味着你的声明 将随处可⻅; </li>
+<li>— 如果你声明为 private ,它只会在声明它的文件内可⻅;</li>
+<li>— 如果你声明为 internal ,它会在相同模块内随处可⻅;</li>
+<li>— protected 不适用于顶层声明。</li>
+</ul>
+<p>例如：</p>
+<pre><code>// 文件名:example.kt 
+package foo
+private fun foo() {} // 在 example.kt 内可⻅ 
+public var bar: Int = 5 // 该属性随处可⻅
+private set // setter 只在 example.kt 内可⻅ 
+internal val baz = 6 // 相同模块内可⻅
+</code></pre><h2 id="3-2类和接口"><a href="#3-2类和接口" class="headerlink" title="3.2类和接口"></a>3.2类和接口</h2><p>对于类内部声明的成员:</p>
+<ul>
+<li>— private 意味着只在这个类内部(包含其所有成员)可⻅;</li>
+<li>— protected ⸺ 和 private 一样 + 在子类中可⻅。</li>
+<li>— internal ⸺ 能⻅到类声明的 本模块内 的任何客戶端都可⻅其 internal 成员; </li>
+<li>— public ⸺ 能⻅到类声明的任何客戶端都可⻅其 public 成员。</li>
+</ul>
+<p>注意 对于Java用戶:Kotlin 中外部类不能访问内部类的 private 成员。</p>
+<p>如果你覆盖一个 protected 成员并且没有显式指定其可⻅性,该成员还会是 protected 可⻅性。</p>
+<p>例子：</p>
+<pre><code>open class Outer {
+    private val a = 1 
+    protected open val b = 2 
+    internal val c = 3 
+    val d=4 //默认public
+
+    protected class Nested { 
+        public val e: Int = 5
+    } 
+}
+
+class Subclass : Outer() { 
+    // a 不可⻅
+    // b、c、d 可⻅
+    // Nested 和 e 可⻅
+
+    override val b = 5 // “b”为 protected 
+}
+
+class Unrelated(o: Outer) { 
+    // o.a、o.b 不可⻅
+    // o.c 和 o.d 可⻅(相同模块)
+    // Outer.Nested 不可⻅,Nested::e 也不可⻅ 
+}
+</code></pre><p>构造函数</p>
+<p>要指定一个类的的主构造函数的可⻅性,使用以下语法(注意你需要添加一个 显式 constructor 关键字):</p>
+<pre><code>class C private constructor(a: Int) { ...... }
+</code></pre><p>这里的构造函数是私有的。默认情况下,所有构造函数都是 public,这实际上等于类可⻅的地方它就可⻅(即一个 internal 类的构造函数只能在相 同模块内可⻅).</p>
+<h2 id="3-3模块"><a href="#3-3模块" class="headerlink" title="3.3模块"></a>3.3模块</h2><p>可⻅性修饰符 internal 意味着该成员只在相同模块内可⻅。更具体地说,一个模块是编译在一起的一套 Kotlin 文件:</p>
+<ul>
+<li>— 一个 IntelliJ IDEA 模块;</li>
+<li>— 一个 Maven 或者 Gradle 项目;</li>
+<li>— 一次 <kotlinc> Ant 任务执行所编译的一套文件。</kotlinc></li>
+</ul>
+</font>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kotlin/" rel="tag"># kotlin</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/20/kotlin-02-class-object/" rel="next" title="kotlin-02类和对象(类和继承)">
+                <i class="fa fa-chevron-left"></i> kotlin-02类和对象(类和继承)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Shelton" />
+          <p class="site-author-name" itemprop="name">Shelton</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-属性和字段"><span class="nav-number">1.</span> <span class="nav-text">1.属性和字段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1声明属性"><span class="nav-number">1.1.</span> <span class="nav-text">1.1声明属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2Getters和Setters"><span class="nav-number">1.2.</span> <span class="nav-text">1.2Getters和Setters</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#幕后字段"><span class="nav-number">1.2.1.</span> <span class="nav-text">幕后字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#幕后属性"><span class="nav-number">1.2.2.</span> <span class="nav-text">幕后属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3编译期常量"><span class="nav-number">1.3.</span> <span class="nav-text">1.3编译期常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4惰性初始化属性"><span class="nav-number">1.4.</span> <span class="nav-text">1.4惰性初始化属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-接口"><span class="nav-number">2.</span> <span class="nav-text">2.接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1实现接口"><span class="nav-number">2.1.</span> <span class="nav-text">2.1实现接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2接口中的属性"><span class="nav-number">2.2.</span> <span class="nav-text">2.2接口中的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3解决覆盖冲突"><span class="nav-number">2.3.</span> <span class="nav-text">2.3解决覆盖冲突</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-可见性修饰符"><span class="nav-number">3.</span> <span class="nav-text">3.可见性修饰符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1包名"><span class="nav-number">3.1.</span> <span class="nav-text">3.1包名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2类和接口"><span class="nav-number">3.2.</span> <span class="nav-text">3.2类和接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3模块"><span class="nav-number">3.3.</span> <span class="nav-text">3.3模块</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shelton</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kYWyghHVCnlYtXmdxjow7e4g-gzGzoHsz", "itdf6RTHxM4V4210wuukDwTp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
