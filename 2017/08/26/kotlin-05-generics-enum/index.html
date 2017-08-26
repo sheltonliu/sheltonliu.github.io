@@ -1,0 +1,1037 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kotlin," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="泛型   与 Java 类似,Kotlin 中的类也可以有类型参数: class Box&amp;lt;T&amp;gt;(t: T) {      var value = t } 一般来说,要创建这样类的实例,我们需要提供类型参数: val box: Box&amp;lt;Int&amp;gt; = Box&amp;lt;Int&amp;gt;(1) 但是如果类型参数可以推断出来,例如从构造函数的参数或者从其他途径,允许省略类型参数: val">
+<meta name="keywords" content="kotlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin-05-类和对象(泛型、嵌套类、枚举类)">
+<meta property="og:url" content="http://yoursite.com/2017/08/26/kotlin-05-generics-enum/index.html">
+<meta property="og:site_name" content="Shelton Blog">
+<meta property="og:description" content="泛型   与 Java 类似,Kotlin 中的类也可以有类型参数: class Box&amp;lt;T&amp;gt;(t: T) {      var value = t } 一般来说,要创建这样类的实例,我们需要提供类型参数: val box: Box&amp;lt;Int&amp;gt; = Box&amp;lt;Int&amp;gt;(1) 但是如果类型参数可以推断出来,例如从构造函数的参数或者从其他途径,允许省略类型参数: val">
+<meta property="og:updated_time" content="2017-08-26T12:22:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin-05-类和对象(泛型、嵌套类、枚举类)">
+<meta name="twitter:description" content="泛型   与 Java 类似,Kotlin 中的类也可以有类型参数: class Box&amp;lt;T&amp;gt;(t: T) {      var value = t } 一般来说,要创建这样类的实例,我们需要提供类型参数: val box: Box&amp;lt;Int&amp;gt; = Box&amp;lt;Int&amp;gt;(1) 但是如果类型参数可以推断出来,例如从构造函数的参数或者从其他途径,允许省略类型参数: val">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/26/kotlin-05-generics-enum/"/>
+
+
+
+
+
+  <title>kotlin-05-类和对象(泛型、嵌套类、枚举类) | Shelton Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shelton Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/26/kotlin-05-generics-enum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shelton">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shelton Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kotlin-05-类和对象(泛型、嵌套类、枚举类)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-26T14:47:01+08:00">
+                2017-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kotlin语言文档/" itemprop="url" rel="index">
+                    <span itemprop="name">kotlin语言文档</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/08/26/kotlin-05-generics-enum/" class="leancloud_visitors" data-flag-title="kotlin-05-类和对象(泛型、嵌套类、枚举类)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h1><font size="4">
+
+
+<p>与 Java 类似,Kotlin 中的类也可以有类型参数:</p>
+<pre><code>class Box&lt;T&gt;(t: T) { 
+    var value = t
+}
+</code></pre><p>一般来说,要创建这样类的实例,我们需要提供类型参数:</p>
+<pre><code>val box: Box&lt;Int&gt; = Box&lt;Int&gt;(1)
+</code></pre><p>但是如果类型参数可以推断出来,例如从构造函数的参数或者从其他途径,允许省略类型参数:</p>
+<pre><code>val box = Box(1) // 1 具有类型 Int,所以编译器知道我们说的是 Box&lt;Int&gt;。
+</code></pre><h2 id="型变"><a href="#型变" class="headerlink" title="型变"></a>型变</h2><pre><code>// Java
+List&lt;String&gt; strs = new ArrayList&lt;String&gt;();
+List&lt;Object&gt; objs = strs; // !即将来临的问题的原因就在这里。Java 禁止这样! 
+objs.add(1); // 这里我们把一个整数放入一个字符串列表
+String s = strs.get(0); // !ClassCastException:无法将整数转换为字符串
+</code></pre><p>因此,Java 禁止这样的事情以保证运行时的安全。但这样会有一些影响。例如,考虑 Collection 接口中的 addAll() 方法。该方法的签名应该是什 么?直觉上,我们会这样:</p>
+<pre><code>// Java
+interface Collection&lt;E&gt; ...... {
+    void addAll(Collection&lt;E&gt; items);
+}
+</code></pre><p>但随后,我们将无法做到以下简单的事情(这是完全安全):</p>
+<pre><code>// Java
+void copyAll(Collection&lt;Object&gt; to, Collection&lt;String&gt; from) { 
+    to.addAll(from); // !对于这种简单声明的 addAll 将不能编译:
+    //Collection&lt;String&gt; 不是 Collection&lt;Object&gt; 的子类型
+}
+</code></pre><p>这就是为什么 addAll() 的实际签名是以下这样:</p>
+<pre><code>// Java
+interface Collection&lt;E&gt; ...... {
+    void addAll(Collection&lt;? extends E&gt; items);
+}
+</code></pre><h3 id="声明处形变"><a href="#声明处形变" class="headerlink" title="声明处形变"></a>声明处形变</h3><p>在 Kotlin 中,有一种方法向编译器解释这种情况。这称为声明处型变:我们可以标注 Source 的类型参数 T 来确保它仅从 Source<t> 成员中返回(生 产),并从不被消费。为此,我们提供 out 修饰符:</t></p>
+<pre><code>abstract class Source&lt;out T&gt; { 
+    abstract fun nextT(): T
+}
+
+fun demo(strs: Source&lt;String&gt;) {
+    val objects: Source&lt;Any&gt; = strs // 这个没问题,因为 T 是一个 out-参数 // ......
+}
+</code></pre><p>关于Out操作符，我的理解就是：Source&lt;? extends T&gt; 可以向上转型为T。</p>
+<p>in 操作符    </p>
+<pre><code>abstract class Comparable&lt;in T&gt; { 
+    abstract fun compareTo(other: T): Int
+}
+
+fun demo(x: Comparable&lt;Number&gt;) {
+    x.compareTo(1.0) // 1.0 拥有类型 Double,它是 Number 的子类型 
+    // 因此,我们可以将 x 赋给类型为 Comparable &lt;Double&gt; 的变量
+    val y: Comparable&lt;Double&gt; = x // OK!
+}
+</code></pre><p>关于in操作符，可以向下转型</p>
+<h2 id="类型投影"><a href="#类型投影" class="headerlink" title="类型投影"></a>类型投影</h2><p>将类型参数 T 声明为 out 非常方便,并且能避免使用处子类型化的麻烦,但是有些类实际上不能限制为只返回 T !一个很好的例子是 Array:</p>
+<pre><code>class Array&lt;T&gt;(val size: Int) {
+    fun get(index: Int): T { ///* ...... */ }
+    fun set(index: Int, value: T) { ///* ...... */ 
+
+    }
+}
+</code></pre><p>该类在 T 上既不能是协变的也不能是逆变的。这造成了一些不灵活性。考虑下述函数:</p>
+<pre><code>fun copy(from: Array&lt;Any&gt;, to: Array&lt;Any&gt;) { 
+    assert(from.size == to.size)
+    for (i in from.indices)
+        to[i] = from[i]
+}
+</code></pre><p>这个函数应该将项目从一个数组复制到另一个数组。让我们尝试在实践中应用它:</p>
+<pre><code>val ints: Array&lt;Int&gt; = arrayOf(1, 2, 3)
+val any = Array&lt;Any&gt;(3)
+copy(ints, any) // 错误:期望 (Array&lt;Any&gt;, Array&lt;Any&gt;)
+</code></pre><p>那么,我们唯一要确保的是 copy() 不会做任何坏事。我们想阻止它写到 from ,我们可以:</p>
+<pre><code>fun copy(from: Array&lt;out Any&gt;, to: Array&lt;Any&gt;) { 
+    // ......
+}    
+</code></pre><p>结合上面的代码，out关键字：对应于 Java 的 Array&lt;? extends Object&gt;        </p>
+<p>你也可以使用 in 投影一个类型:</p>
+<pre><code>fun fill(dest: Array&lt;in String&gt;, value: String) { 
+    // ......
+}    
+</code></pre><p>Array<in string=""> 对应于 Java 的 Array&lt;? super String&gt; ,也就是说,你可以传递一个 CharSequence 数组或一个 Object 数组给 fill() 函数。    </in></p>
+<h2 id="星投影"><a href="#星投影" class="headerlink" title="星投影"></a>星投影</h2><p>Kotlin 为此提供了所谓的星投影语法:</p>
+<pre><code>— 对于 Foo &lt;out T&gt; ,其中 T 是一个具有上界 TUpper 的协变类型参数,
+Foo &lt;*&gt; 等价于 Foo &lt;out TUpper&gt; 。
+这意味着当 T 未知时,你可以安全地从 Foo &lt;*&gt; 读取 TUpper 的值。
+
+— 对于 Foo &lt;in T&gt;,其中 T 是一个逆变类型参数,
+Foo &lt;*&gt; 等价于 Foo &lt;in Nothing&gt;。
+这意味着当 T 未知时,没有什么可以以安全的方式写入 Foo &lt;*&gt; 。
+
+— 对于 Foo &lt;T&gt;,其中 T 是一个具有上界 TUpper 的不型变类型参数,
+Foo&lt;*&gt; 对于读取值时等价于 Foo&lt;out TUpper&gt; 而对于写值时等价于Foo&lt;in Nothing&gt; 。
+</code></pre><p>如果泛型类型具有多个类型参数,则每个类型参数都可以单独投影。例如,如果类型被声明为 interface Function <in t,="" out="" u="">,我们可以想<br>象以下星投影:</in></p>
+<pre><code>— Function&lt;*, String&gt; 表示 Function&lt;in Nothing, String&gt; ; 
+
+— Function&lt;Int, *&gt; 表示 Function&lt;Int, out Any?&gt; ;
+
+— Function&lt;*, *&gt; 表示 Function&lt;in Nothing, out Any?&gt;。
+</code></pre><h2 id="泛型函数"><a href="#泛型函数" class="headerlink" title="泛型函数"></a>泛型函数</h2><p>不仅类可以有类型参数。函数也可以有。类型参数要放在函数名称之前:</p>
+<pre><code>fun &lt;T&gt; singletonList(item: T): List&lt;T&gt; { 
+    // ......
+}
+
+fun &lt;T&gt; T.basicToString() : String { // 扩展函数 
+    // ......
+}        
+</code></pre><p>要调用泛型函数,在调用处函数名之后指定类型参数即可:</p>
+<pre><code>val l = singletonList&lt;Int&gt;(1)
+</code></pre><h2 id="泛型约束"><a href="#泛型约束" class="headerlink" title="泛型约束"></a>泛型约束</h2><p>能够替换给定类型参数的所有可能类型的集合可以由泛型约束限制。</p>
+<h3 id="上界"><a href="#上界" class="headerlink" title="上界"></a>上界</h3><p>最常⻅的约束类型是与 Java 的 extends 关键字对应的 上界:</p>
+<pre><code>fun &lt;T : Comparable&lt;T&gt;&gt; sort(list: List&lt;T&gt;) { 
+    // ......
+}
+</code></pre><p>冒号之后指定的类型是上界:只有 Comparable<t> 的子类型可以替代 T 。例如</t></p>
+<pre><code>sort(listOf(1, 2, 3)) // OK。Int 是 Comparable&lt;Int&gt; 的子类型
+
+sort(listOf(HashMap&lt;Int, String&gt;())) // 错误:HashMap&lt;Int, String&gt; 不是 Comparable&lt;HashMap&lt;Int, String&gt;&gt; 的子 类型
+</code></pre><p>默认的上界(如果没有声明)是 Any? 。在尖括号中只能指定一个上界。如果同一类型参数需要多个上界,我们需要一个单独的 where-子句:</p>
+<pre><code>fun &lt;T&gt; cloneWhenGreater(list: List&lt;T&gt;, threshold: T): List&lt;T&gt; 
+    where T : Comparable,
+           T : Cloneable {
+    return list.filter { it &gt; threshold }.map { it.clone() }
+}
+</code></pre><h1 id="嵌套类"><a href="#嵌套类" class="headerlink" title="嵌套类"></a>嵌套类</h1><p>类可以嵌套在其他类中</p>
+<pre><code>class Outer {
+    private val bar: Int = 1 
+    class Nested {
+        fun foo() = 2 
+    }
+}    
+
+val demo = Outer.Nested().foo() // == 2
+</code></pre><h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>类可以标记为 inner 以便能够访问外部类的成员。内部类会带有一个对外部类的对象的引用:</p>
+<pre><code>class Outer {
+    private val bar: Int = 1 
+    inner class Inner {
+        fun foo() = bar 
+    }
+}
+
+val demo = Outer().Inner().foo() // == 1
+</code></pre><p>参⻅限定的 this 表达式以了解内部类中的 this 的消歧义用法。</p>
+<h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><p>使用对象表达式创建匿名内部类实例:</p>
+<pre><code>window.addMouseListener(object: MouseAdapter() { 
+    override fun mouseClicked(e: MouseEvent) {
+        // ......
+    }
+
+    override fun mouseEntered(e: MouseEvent) { 
+        // ......
+    } 
+})
+</code></pre><p>如果对象是函数式 Java 接口(即具有单个抽象方法的 Java 接口)的实例,你可以使用带接口类型前缀的lambda表达式创建它：</p>
+<pre><code>val listener = ActionListener { println(&quot;clicked&quot;) }
+</code></pre><h1 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h1><p>枚举类的最基本的用法是实现类型安全的枚举</p>
+<pre><code>enum class Direction { 
+    NORTH, SOUTH, WEST, EAST
+}    
+</code></pre><p>每个枚举常量都是一个对象。枚举常量用逗号分隔。</p>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>因为每一个枚举都是枚举类的实例,所以他们可以是初始化过的。</p>
+<pre><code>enum class Color(val rgb: Int) { 
+    RED(0xFF0000),
+    GREEN(0x00FF00),
+    BLUE(0x0000FF)
+}
+</code></pre><h2 id="匿名类"><a href="#匿名类" class="headerlink" title="匿名类"></a>匿名类</h2><p>枚举常量也可以声明自己的匿名类</p>
+<pre><code>enum class ProtocolState { 
+    WAITING {
+        override fun signal() = TALKING 
+    },
+
+    TALKING {
+        override fun signal() = WAITING
+    };
+
+    abstract fun signal(): ProtocolState 
+}
+</code></pre><p>及相应的方法、以及覆盖基类的方法。注意,如果枚举类定义任何 成员,要使用分号将成员定义中的枚举常量定义分隔开,就像 在 Java 中一样。</p>
+<h2 id="枚举常量"><a href="#枚举常量" class="headerlink" title="枚举常量"></a>枚举常量</h2><p>就像在 Java 中一样,Kotlin 中的枚举类也有合成方法允许列出 定义的枚举常量以及通过名称获取枚举常量。这些方法的 签名如下(假设枚举类的名称是<br>EnumClass ):</p>
+<pre><code>￼EnumClass.valueOf(value: String): EnumClass 
+EnumClass.values(): Array&lt;EnumClass&gt;
+</code></pre><p>如果指定的名称与类中定义的任何枚举常量均不匹配,valueOf() 方法将抛出 IllegalArgumentException 异常。 </p>
+<p>自 Kotlin 1.1 起,可以使用 enumValues<t>() 和 enumValueOf<t>() 函数以泛型的方式访问枚举类中的常量 :</t></t></p>
+<pre><code>enum class RGB { RED, GREEN, BLUE }
+
+inline fun &lt;reified T : Enum&lt;T&gt;&gt; printAllValues() { 
+    print(enumValues&lt;T&gt;().joinToString { it.name })
+}
+
+printAllValues&lt;RGB&gt;() // 输出 RED, GREEN, BLUE
+</code></pre><p>每个枚举常量都具有在枚举类声明中获取其名称和位置的属性:</p>
+<pre><code>val name: String 
+val ordinal: Int
+</code></pre><p>枚举常量还实现了 Comparable 接口,其中自然顺序是它们在枚举类中定义的顺序。</p>
+</font>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kotlin/" rel="tag"># kotlin</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/22/kotlin-04-expand/" rel="next" title="kotlin-04-类和对象(扩展、数据类、密封类)">
+                <i class="fa fa-chevron-left"></i> kotlin-04-类和对象(扩展、数据类、密封类)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Shelton" />
+          <p class="site-author-name" itemprop="name">Shelton</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型"><span class="nav-number">1.</span> <span class="nav-text">泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#型变"><span class="nav-number">1.1.</span> <span class="nav-text">型变</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明处形变"><span class="nav-number">1.1.1.</span> <span class="nav-text">声明处形变</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型投影"><span class="nav-number">1.2.</span> <span class="nav-text">类型投影</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#星投影"><span class="nav-number">1.3.</span> <span class="nav-text">星投影</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型函数"><span class="nav-number">1.4.</span> <span class="nav-text">泛型函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型约束"><span class="nav-number">1.5.</span> <span class="nav-text">泛型约束</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上界"><span class="nav-number">1.5.1.</span> <span class="nav-text">上界</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#嵌套类"><span class="nav-number">2.</span> <span class="nav-text">嵌套类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内部类"><span class="nav-number">2.1.</span> <span class="nav-text">内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名内部类"><span class="nav-number">2.2.</span> <span class="nav-text">匿名内部类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#枚举类"><span class="nav-number">3.</span> <span class="nav-text">枚举类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化"><span class="nav-number">3.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名类"><span class="nav-number">3.2.</span> <span class="nav-text">匿名类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举常量"><span class="nav-number">3.3.</span> <span class="nav-text">枚举常量</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shelton</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kYWyghHVCnlYtXmdxjow7e4g-gzGzoHsz", "itdf6RTHxM4V4210wuukDwTp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
