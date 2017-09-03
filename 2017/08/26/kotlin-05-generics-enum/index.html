@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/26/kotlin-05-generics-enum/index.html">
 <meta property="og:site_name" content="Shelton Blog">
 <meta property="og:description" content="泛型   与 Java 类似,Kotlin 中的类也可以有类型参数: class Box&amp;lt;T&amp;gt;(t: T) {      var value = t } 一般来说,要创建这样类的实例,我们需要提供类型参数: val box: Box&amp;lt;Int&amp;gt; = Box&amp;lt;Int&amp;gt;(1) 但是如果类型参数可以推断出来,例如从构造函数的参数或者从其他途径,允许省略类型参数: val">
-<meta property="og:updated_time" content="2017-08-26T12:22:01.000Z">
+<meta property="og:updated_time" content="2017-08-26T12:23:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kotlin-05-类和对象(泛型、嵌套类、枚举类)">
 <meta name="twitter:description" content="泛型   与 Java 类似,Kotlin 中的类也可以有类型参数: class Box&amp;lt;T&amp;gt;(t: T) {      var value = t } 一般来说,要创建这样类的实例,我们需要提供类型参数: val box: Box&amp;lt;Int&amp;gt; = Box&amp;lt;Int&amp;gt;(1) 但是如果类型参数可以推断出来,例如从构造函数的参数或者从其他途径,允许省略类型参数: val">
@@ -405,7 +405,7 @@ void copyAll(Collection&lt;Object&gt; to, Collection&lt;String&gt; from) {
 interface Collection&lt;E&gt; ...... {
     void addAll(Collection&lt;? extends E&gt; items);
 }
-</code></pre><h3 id="声明处形变"><a href="#声明处形变" class="headerlink" title="声明处形变"></a>声明处形变</h3><p>在 Kotlin 中,有一种方法向编译器解释这种情况。这称为声明处型变:我们可以标注 Source 的类型参数 T 来确保它仅从 Source<t> 成员中返回(生 产),并从不被消费。为此,我们提供 out 修饰符:</t></p>
+</code></pre><h3 id="声明处型变"><a href="#声明处型变" class="headerlink" title="声明处型变"></a>声明处型变</h3><p>在 Kotlin 中,有一种方法向编译器解释这种情况。这称为声明处型变:我们可以标注 Source 的类型参数 T 来确保它仅从 Source<t> 成员中返回(生 产),并从不被消费。为此,我们提供 out 修饰符:</t></p>
 <pre><code>abstract class Source&lt;out T&gt; { 
     abstract fun nextT(): T
 }
@@ -617,6 +617,10 @@ val ordinal: Int
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/09/01/kotlin-06-object-delegate/" rel="prev" title="kotlin-06-对象表达式/对象声明/委托">
+                kotlin-06-对象表达式/对象声明/委托 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -687,7 +691,7 @@ val ordinal: Int
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -744,7 +748,7 @@ val ordinal: Int
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型"><span class="nav-number">1.</span> <span class="nav-text">泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#型变"><span class="nav-number">1.1.</span> <span class="nav-text">型变</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明处形变"><span class="nav-number">1.1.1.</span> <span class="nav-text">声明处形变</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型投影"><span class="nav-number">1.2.</span> <span class="nav-text">类型投影</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#星投影"><span class="nav-number">1.3.</span> <span class="nav-text">星投影</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型函数"><span class="nav-number">1.4.</span> <span class="nav-text">泛型函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型约束"><span class="nav-number">1.5.</span> <span class="nav-text">泛型约束</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上界"><span class="nav-number">1.5.1.</span> <span class="nav-text">上界</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#嵌套类"><span class="nav-number">2.</span> <span class="nav-text">嵌套类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内部类"><span class="nav-number">2.1.</span> <span class="nav-text">内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名内部类"><span class="nav-number">2.2.</span> <span class="nav-text">匿名内部类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#枚举类"><span class="nav-number">3.</span> <span class="nav-text">枚举类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化"><span class="nav-number">3.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名类"><span class="nav-number">3.2.</span> <span class="nav-text">匿名类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举常量"><span class="nav-number">3.3.</span> <span class="nav-text">枚举常量</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型"><span class="nav-number">1.</span> <span class="nav-text">泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#型变"><span class="nav-number">1.1.</span> <span class="nav-text">型变</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明处型变"><span class="nav-number">1.1.1.</span> <span class="nav-text">声明处型变</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型投影"><span class="nav-number">1.2.</span> <span class="nav-text">类型投影</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#星投影"><span class="nav-number">1.3.</span> <span class="nav-text">星投影</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型函数"><span class="nav-number">1.4.</span> <span class="nav-text">泛型函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型约束"><span class="nav-number">1.5.</span> <span class="nav-text">泛型约束</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上界"><span class="nav-number">1.5.1.</span> <span class="nav-text">上界</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#嵌套类"><span class="nav-number">2.</span> <span class="nav-text">嵌套类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内部类"><span class="nav-number">2.1.</span> <span class="nav-text">内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名内部类"><span class="nav-number">2.2.</span> <span class="nav-text">匿名内部类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#枚举类"><span class="nav-number">3.</span> <span class="nav-text">枚举类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化"><span class="nav-number">3.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名类"><span class="nav-number">3.2.</span> <span class="nav-text">匿名类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举常量"><span class="nav-number">3.3.</span> <span class="nav-text">枚举常量</span></a></li></ol></li></ol></div>
             
 
           </div>
