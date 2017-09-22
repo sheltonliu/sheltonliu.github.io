@@ -6,6 +6,11 @@ tags:
 	- "kotlin"
 ---
 
+参考kotlin中文网站：
+
+[kotlin中文网站](https://www.kotlincn.net/docs/reference/)
+
+
 # 1.对象表达式和对象声明
 <font size=4>
 ## 1.1对象表达式

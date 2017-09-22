@@ -6,6 +6,10 @@ tags:
 	- "kotlin"
 ---
 
+参考kotlin中文网站：
+
+[kotlin中文网站](https://www.kotlincn.net/docs/reference/)
+
 # 基础
 
 <font size=4>
