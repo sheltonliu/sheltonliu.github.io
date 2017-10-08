@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/10/08/cmake-introduction/index.html">
 <meta property="og:site_name" content="Shelton Blog">
 <meta property="og:description" content="cmake简介  以下是CMakeLists.txt的内容 cmake_minimum_required(VERSION 2.6)  #myapp:main.o 定义工程名称为myapp  PROJECT(myapp)  #导入头文件 INCLUDE_DIRECTORIES( include )  #指定源文件的目录 AUX_SOURCE_DIRECTORY(src DIR_SRCS)  #把可执">
-<meta property="og:updated_time" content="2017-10-08T08:01:15.000Z">
+<meta property="og:updated_time" content="2017-10-08T11:00:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cmake 简介">
 <meta name="twitter:description" content="cmake简介  以下是CMakeLists.txt的内容 cmake_minimum_required(VERSION 2.6)  #myapp:main.o 定义工程名称为myapp  PROJECT(myapp)  #导入头文件 INCLUDE_DIRECTORIES( include )  #指定源文件的目录 AUX_SOURCE_DIRECTORY(src DIR_SRCS)  #把可执">
@@ -402,7 +402,95 @@ ADD_EXECUTABLE(${PROJECT_NAME} ${TEST_MATH})
 <p>1.然后进入build目录(cd build) 然后执行cmake .. 其实就是执行上层目录下CMakeLists.txt中的命令</p>
 <p>2 在build目录中会看到 Makefile文件， 然后执行make命令，会生成myapp的可执行文件</p>
 <p>3 执行./myapp展现出程序的结果</p>
-<p>最后：相关目录解构可以参考：<br><a href="https://github.com/sheltonliu/Unix_Code_Project/tree/master/cmake/cmake" target="_blank" rel="external">目录结构参考</a></p>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><ul>
+<li><p>1: #注释</p>
+</li>
+<li><p>2:  变量：使用set命令显式定义及赋值，在非if语句中，使用${}引用，if中直接使用变量名引用；后续的set命令会清理变量原来的值；</p>
+</li>
+<li><p>3: command (args …)  #命令不分大小写，参数使用空格分隔，使用双引号引起参数中空格</p>
+</li>
+<li><p>4: set(var a;b;c) &lt;=&gt; set(var a b c)  #定义变量var并赋值为a;b;c这样一个string list</p>
+</li>
+<li><p>5:</p>
+<pre><code>Add_executable(${var}) &lt;=&gt; Add_executable(a b c)   #变量使用${xxx}引用
+</code></pre></li>
+<li><p>6: 条件语句：</p>
+<pre><code>if(var) #var 非empty 0 N No OFF FALSE... #非运算使用NOT
+
+   …
+
+else()/elseif() … endif(var)
+</code></pre></li>
+</ul>
+<ul>
+<li><p>7: 循环语句</p>
+<pre><code>Set(VAR a b c)
+
+Foreach(f ${VAR})       …Endforeach(f)
+</code></pre></li>
+<li><p>8:循环语句</p>
+<pre><code>WHILE() … ENDWHILE()
+</code></pre></li>
+</ul>
+<h1 id="内部变量"><a href="#内部变量" class="headerlink" title="内部变量"></a>内部变量</h1><pre><code>CMAKE_C_COMPILER：指定C编译器
+
+CMAKE_CXX_COMPILER：
+
+CMAKE_C_FLAGS：编译C文件时的选项，如-g；也可以通过add_definitions添加编译选项
+
+EXECUTABLE_OUTPUT_PATH：可执行文件的存放路径
+
+LIBRARY_OUTPUT_PATH：库文件路径
+
+CMAKE_BUILD_TYPE:：build 类型(Debug, Release, ...)，
+CMAKE_BUILD_TYPE=Debug
+
+BUILD_SHARED_LIBS：Switch between shared and static libraries
+</code></pre><p>内置变量的使用：</p>
+<h1 id="命令-1"><a href="#命令-1" class="headerlink" title="命令(1)"></a>命令(1)</h1><pre><code>project (HELLO)   #指定项目名称，生成的VC项目的名称；
+
+    &gt;&gt;使用${HELLO_SOURCE_DIR}表示项目根目录
+
+include_directories：指定头文件的搜索路径，相当于指定gcc的-I参数
+
+    &gt;&gt; include_directories (${HELLO_SOURCE_DIR}/Hello)  #增加Hello为include目录
+
+link_directories：动态链接库或静态链接库的搜索路径，相当于gcc的-L参数
+
+   &gt;&gt; link_directories (${HELLO_BINARY_DIR}/Hello)     #增加Hello为link目录
+
+add_subdirectory：包含子目录
+
+   &gt;&gt; add_subdirectory (Hello)
+
+add_executable：编译可执行程序，指定编译，好像也可以添加.o文件
+
+   &gt;&gt; add_executable (helloDemo demo.cxx demo_b.cxx)   #将cxx编译成可执行文件——
+</code></pre><h1 id="命令-2"><a href="#命令-2" class="headerlink" title="命令(2)"></a>命令(2)</h1><pre><code>add_definitions：添加编译参数
+
+&gt;&gt; add_definitions(-DDEBUG)将在gcc命令行添加DEBUG宏定义；
+
+&gt;&gt; add_definitions( “-Wall -ansi –pedantic –g”)
+
+target_link_libraries：添加链接库,相同于指定-l参数
+
+&gt;&gt; target_link_libraries(demo Hello) #将可执行文件与Hello连接成最终文件demo
+
+add_library:
+
+&gt;&gt; add_library(Hello hello.cxx)  #将hello.cxx编译成静态库如libHello.a
+
+add_custom_target:
+
+message( status|fatal_error, “message”):
+
+#在指定目录下搜索一个库, 保存在变量MY_LIB中
+find_ibrary(MY_LIB libmylib.a ./)
+
+set_target_properties( ... ): lots of properties... OUTPUT_NAME, VERSION, ....
+
+link_libraries( lib1 lib2 ...): All targets link with the same set of libs
+</code></pre><p>最后：相关目录解构可以参考：<br><a href="https://github.com/sheltonliu/Unix_Code_Project/tree/master/cmake/cmake" target="_blank" rel="external">目录结构参考</a></p>
 <p>关于cmake更详细的内容可以参见<a href="https://github.com/sheltonliu/Unix_Code_Project/tree/master/cmake" target="_blank" rel="external">cmake实战</a></p>
 </font>
       
@@ -583,7 +671,7 @@ ADD_EXECUTABLE(${PROJECT_NAME} ${TEST_MATH})
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cmake简介"><span class="nav-number">1.</span> <span class="nav-text">cmake简介</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cmake简介"><span class="nav-number">1.</span> <span class="nav-text">cmake简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法"><span class="nav-number">2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部变量"><span class="nav-number">3.</span> <span class="nav-text">内部变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令-1"><span class="nav-number">4.</span> <span class="nav-text">命令(1)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令-2"><span class="nav-number">5.</span> <span class="nav-text">命令(2)</span></a></li></ol></div>
             
 
           </div>
