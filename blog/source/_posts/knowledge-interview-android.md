@@ -407,3 +407,78 @@ RequestManager:图片请求管理类，实现生命周期的方法
  * 是对java的一种扩展
  * kotlin 支持函数式编程
  * kotlin 类与java类能相互调用
+
+ 
+ 
+
+## 7.框架原理分析 
+
+### EventBus
+
+EventBus.getDefault().register(this);//订阅事件
+EventBus.getDefault().post(object);//发布事件
+EventBus.getDefault().unregister(this);//取消订阅
+
+
+EventBus中的观察者通常有四种订阅函数
+
+* （1）onEvent
+	* 使用onEvent作为订阅函数，那么该事件在哪个线程发布出来的，onEvent就会在这个线程中运行，也就是说发布事件和接收事件线程在同一个线程。
+* （2）onEventMainThread
+	* 无论事件在哪个线程发布出来的，始终在UI线程中执行订阅事件的操作。 
+* （3）onEventBackground 
+	* 无论事件在哪个线程发布出来的，始终在工作线程中执行订阅事件的操作。
+* （4）onEventAsync 
+	* 使用这个函数作为订阅函数，那么无论事件在哪个线程发布，都会创建新的子线程在执行onEventAsync.
+
+
+
+这四种订阅函数都是使用onEvent开头的，它们的功能稍有不同,在介绍不同之前先介绍两个概念： 
+
+* （1）告知观察者事件发生时通过EventBus.post函数实现，这个过程叫做事件的发布； 
+* （2）观察者被告知事件发生叫做事件的接收，是通过下面的四种订阅函数实现的。
+
+
+参考:  
+
+[EventBus](http://blog.csdn.net/happy_horse/article/category/5911087)
+
+
+
+### 怎样用通俗的语言解释REST，以及RESTful？
+
+URL定位资源，用HTTP动词（GET,POST,DELETE,DETC）描述操作。
+
+[知乎总结](https://www.zhihu.com/question/28557115)
+
+
+
+### Android  HTTPS 
+
+[csdn https](http://blog.csdn.net/yanzhenjie1003/article/details/50731272)
+
+[阿里移动安全  Android安全开发之安全使用HTTPS ](http://www.cnblogs.com/alisecurity/p/5939336.html)
+
+
+### 安卓4.4采用了新的虚拟机
+
+从Dalvik换成了ART虚拟机。
+
+因为android是根据linux开发的，linux大部分是用c语言写的，java不是本地语言，所以想要跨平台的话就要借助于虚拟机，
+
+用Dalvik的时候，每次运行就会重新编译一次，这就耗费了大量的性能。而ios系统与开发的程序的语言都是一样的，不用经过这步，所以总感觉很高配置的android手机没有ios流畅。
+
+
+而换成ART虚拟机后，程序会在安装的时候直接预编译到手机上，即只需编译一次，这样带来的就是效率的提高，第一次安装时间会变长，而且同样的以空间换时间为代价，安装程序之后的应用程序所占的内存将偏大，但是对于现在的手机配置来说，这些都不算什么。
+
+
+### SurfaceView 介绍
+
+
+SurfaceView介绍
+
+通常情况程序的View和用户响应都是在同一个线程中处理的，这也是为什么处理长时间事件（例如访问网络）需要放到另外的线程中去（防止阻塞当前UI线程的操作和绘制）。但是在其他线程中却不能修改UI元素，例如用后台线程更新自定义View（调用View的在自定义View中的onDraw函数）是不允许的。
+
+如果需要在另外的线程绘制界面、需要迅速的更新界面或则渲染UI界面需要较长的时间，这种情况就要使用SurfaceView了。SurfaceView中包含一个Surface对象，而Surface是可以在后台线程中绘制的。Surface属于
+
+
