@@ -26,7 +26,7 @@ tags:
 	#define LOGE(FORMAT,...) __android_log_print(ANDROID_LOG_ERROR,"jason",FORMAT,##__VA_ARGS__);
 	extern "C"
 	JNIEXPORT void JNICALL
-	Java_com_dongnao_ffmpegdemo_VideoView_render(JNIEnv *env, jobject instance, jstring input_,
+	Java_com_mytest_ffmpegdemo_VideoView_render(JNIEnv *env, jobject instance, jstring input_,
                                              jobject surface) {
     const char *input = env->GetStringUTFChars(input_,false);
     av_register_all();
