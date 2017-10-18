@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="ffmpeg," />
 
 
 
@@ -93,12 +93,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Shelton Blog">
-<meta property="og:url" content="http://yoursite.com/tags/jvm/index.html">
+<meta name="description" content="#include &amp;lt;jni.h&amp;gt; #include &amp;lt;string&amp;gt; #include &amp;lt;android/log.h&amp;gt; extern &amp;quot;C&amp;quot; { //编码 #include &amp;quot;libavcodec/avcodec.h&amp;quot; //封装格式处理 #include &amp;quot;libavformat/avformat.h&amp;quo">
+<meta name="keywords" content="ffmpeg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FFmpeg将视频文件输出到手机屏幕">
+<meta property="og:url" content="http://yoursite.com/2017/10/17/ffmpeg-rgba-to-window/index.html">
 <meta property="og:site_name" content="Shelton Blog">
+<meta property="og:description" content="#include &amp;lt;jni.h&amp;gt; #include &amp;lt;string&amp;gt; #include &amp;lt;android/log.h&amp;gt; extern &amp;quot;C&amp;quot; { //编码 #include &amp;quot;libavcodec/avcodec.h&amp;quot; //封装格式处理 #include &amp;quot;libavformat/avformat.h&amp;quo">
+<meta property="og:updated_time" content="2017-10-17T10:53:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Shelton Blog">
+<meta name="twitter:title" content="FFmpeg将视频文件输出到手机屏幕">
+<meta name="twitter:description" content="#include &amp;lt;jni.h&amp;gt; #include &amp;lt;string&amp;gt; #include &amp;lt;android/log.h&amp;gt; extern &amp;quot;C&amp;quot; { //编码 #include &amp;quot;libavcodec/avcodec.h&amp;quot; //封装格式处理 #include &amp;quot;libavformat/avformat.h&amp;quo">
 
 
 
@@ -126,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/jvm/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/17/ffmpeg-rgba-to-window/"/>
 
 
 
 
 
-  <title>标签: jvm | Shelton Blog</title>
+  <title>FFmpeg将视频文件输出到手机屏幕 | Shelton Blog</title>
   
 
 
@@ -157,7 +162,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -261,44 +266,323 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>jvm<small>标签</small>
-      </h1>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/17/ffmpeg-rgba-to-window/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shelton">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shelton Blog">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">FFmpeg将视频文件输出到手机屏幕</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T15:57:43+08:00">
+                2017-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/音视频/" itemprop="url" rel="index">
+                    <span itemprop="name">音视频</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/10/17/ffmpeg-rgba-to-window/" class="leancloud_visitors" data-flag-title="FFmpeg将视频文件输出到手机屏幕">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <font size="4">
 
-      <h2 class="post-title">
+<pre><code>#include &lt;jni.h&gt;
+#include &lt;string&gt;
+#include &lt;android/log.h&gt;
+extern &quot;C&quot; {
+//编码
+#include &quot;libavcodec/avcodec.h&quot;
+//封装格式处理
+#include &quot;libavformat/avformat.h&quot;
+//像素处理
+#include &quot;libswscale/swscale.h&quot;
+#include &lt;android/native_window_jni.h&gt;
+#include &lt;unistd.h&gt;
+}
+
+#define LOGI(FORMAT,...) __android_log_print(ANDROID_LOG_INFO,&quot;jason&quot;,FORMAT,##__VA_ARGS__);
+#define LOGE(FORMAT,...) __android_log_print(ANDROID_LOG_ERROR,&quot;jason&quot;,FORMAT,##__VA_ARGS__);
+extern &quot;C&quot;
+JNIEXPORT void JNICALL
+Java_com_mytest_ffmpegdemo_VideoView_render(JNIEnv *env, jobject instance, jstring input_,
+                                         jobject surface) {
+const char *input = env-&gt;GetStringUTFChars(input_,false);
+av_register_all();
+
+AVFormatContext *pFormatCtx = avformat_alloc_context();
+//第四个参数是 可以传一个 字典   是一个入参出参对象
+if (avformat_open_input(&amp;pFormatCtx, input, NULL, NULL) != 0) {
+    LOGE(&quot;%s&quot;,&quot;打开输入视频文件失败&quot;);
+}
+//3.获取视频信息
+if(avformat_find_stream_info(pFormatCtx,NULL) &lt; 0){
+    LOGE(&quot;%s&quot;,&quot;获取视频信息失败&quot;);
+    return;
+}
+
+
+int vidio_stream_idx=-1;
+int i=0;
+for (int i = 0; i &lt; pFormatCtx-&gt;nb_streams; ++i) {
+    if (pFormatCtx-&gt;streams[i]-&gt;codec-&gt;codec_type == AVMEDIA_TYPE_VIDEO) {
+        LOGE(&quot;  找到视频id %d&quot;, pFormatCtx-&gt;streams[i]-&gt;codec-&gt;codec_type);
+        vidio_stream_idx=i;
+        break;
+    }
+}
+
+//获取视频编解码器
+AVCodecContext *pCodecCtx=pFormatCtx-&gt;streams[vidio_stream_idx]-&gt;codec;
+LOGE(&quot;获取视频编码器上下文 %p  &quot;,pCodecCtx);
+//加密的用不了
+AVCodec *pCodex = avcodec_find_decoder(pCodecCtx-&gt;codec_id);
+LOGE(&quot;获取视频编码 %p&quot;,pCodex);
+//版本升级了
+if (avcodec_open2(pCodecCtx, pCodex, NULL)&lt;0) {
+
+
+}
+AVPacket *packet = (AVPacket *)av_malloc(sizeof(AVPacket));
+//av_init_packet(packet);
+//像素数据
+AVFrame *frame;
+frame = av_frame_alloc();
+//RGB
+AVFrame *rgb_frame = av_frame_alloc();
+//给缓冲区分配内存
+//只有指定了AVFrame的像素格式、画面大小才能真正分配内存
+//缓冲区分配内存
+uint8_t   *out_buffer= (uint8_t *) av_malloc(avpicture_get_size(AV_PIX_FMT_RGBA, pCodecCtx-&gt;width, pCodecCtx-&gt;height));
+LOGE(&quot;宽  %d,  高  %d  &quot;,pCodecCtx-&gt;width,pCodecCtx-&gt;height);
+//设置yuvFrame的缓冲区，像素格式
+int re= avpicture_fill((AVPicture *) rgb_frame, out_buffer, AV_PIX_FMT_RGBA, pCodecCtx-&gt;width, pCodecCtx-&gt;height);
+LOGE(&quot;申请内存%d   &quot;,re);
+
+//输出需要改变
+int length=0;
+int got_frame;
+//输出文件
+int frameCount=0;
+SwsContext *swsContext = sws_getContext(pCodecCtx-&gt;width,pCodecCtx-&gt;height,pCodecCtx-&gt;pix_fmt,
+                                        pCodecCtx-&gt;width,pCodecCtx-&gt;height,AV_PIX_FMT_RGBA,SWS_BICUBIC,NULL,NULL,NULL
+);
+ANativeWindow *nativeWindow = ANativeWindow_fromSurface(env, surface);
+//视频缓冲区
+ANativeWindow_Buffer outBuffer;
+//ANativeWindow
+while (av_read_frame(pFormatCtx, packet)&gt;=0) {
+    //AvFrame
+    if (packet-&gt;stream_index == vidio_stream_idx) {
+        length = avcodec_decode_video2(pCodecCtx, frame, &amp;got_frame, packet);
+        LOGE(&quot; 获得长度   %d &quot;, length);
+
+        //非零 正在解码
+        if (got_frame) {
+            //绘制之前   配置一些信息  比如宽高   格式
+            ANativeWindow_setBuffersGeometry(nativeWindow, pCodecCtx-&gt;width, pCodecCtx-&gt;height,
+                                             WINDOW_FORMAT_RGBA_8888);
+            //第一步: 加锁  绘制
+            ANativeWindow_lock(nativeWindow, &amp;outBuffer, NULL);
+            LOGI(&quot;解码%d帧&quot;,frameCount++);
+
+            //转为指定的RGBA格式
+            sws_scale(swsContext, (const uint8_t *const *) frame-&gt;data, frame-&gt;linesize, 0
+                    , pCodecCtx-&gt;height, rgb_frame-&gt;data,
+                      rgb_frame-&gt;linesize);
+
+            //第二步: 缓冲区赋值
+            //rgb_frame是有画面数据
+            uint8_t *dst= (uint8_t *) outBuffer.bits;
+            //拿到一行有多少个字节 RGBA
+            int destStride=outBuffer.stride*4;
+            //像素数据的首地址
+            uint8_t * src= (uint8_t *) rgb_frame-&gt;data[0];
+            //实际内存一行数量
+            int srcStride = rgb_frame-&gt;linesize[0];
+            int i=0;
+            for (int i = 0; i &lt; pCodecCtx-&gt;height; ++i) {
+                //memcpy(void *dest, const void *src, size_t n)
+                memcpy(dst + i * destStride,  src + i * srcStride, srcStride);
+            }
+
+            //第三步: 解锁
+            ANativeWindow_unlockAndPost(nativeWindow);
+            usleep(1000 * 16);
+        }
+    }
+    av_free_packet(packet);
+}
+ANativeWindow_release(nativeWindow);
+av_frame_free(&amp;frame);
+avcodec_close(pCodecCtx);
+avformat_free_context(pFormatCtx);
+env-&gt;ReleaseStringUTFChars(input_, input);
+}
+</code></pre><p>这个是ffmpeg解封装视频文件，转化成RGBA格式，然后赋值给ANativeWindow_Buffer缓冲区，通过ANativeWindow来显示(ANativeWindow需要surface对象)</p>
+<p>显示的步骤主要分三步：</p>
+<pre><code>//第一步: 加锁  绘制
+ANativeWindow_lock(nativeWindow, &amp;outBuffer, NULL);
+
+//第二步: 缓冲区赋值
+
+//第三步: 解锁
+ANativeWindow_unlockAndPost(nativeWindow);    
+</code></pre></font>
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/08/06/jvm-classloader/" itemprop="url">
-              
-                <span itemprop="name">虚拟机类加载机制</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-06T18:13:06+08:00"
-              content="2017-08-06" >
-          08-06
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/13/open-class-wangyangming/" rel="next" title="王阳明与阳明心学">
+                <i class="fa fa-chevron-left"></i> 王阳明与阳明心学
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -306,6 +590,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -501,10 +789,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
