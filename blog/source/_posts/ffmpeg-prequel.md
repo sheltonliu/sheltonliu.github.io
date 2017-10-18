@@ -1,5 +1,5 @@
 ---
-title: ffmpeg音视频前传
+title: FFmpeg音视频前传
 date: 2017-10-10 14:00:08
 categories: "音视频"
 tags:

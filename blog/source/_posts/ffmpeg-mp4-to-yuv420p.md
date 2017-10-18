@@ -1,5 +1,5 @@
 ---
-title: 视频解码原理-MP4转YUV420P
+title: FFmpeg 视频解码原理-MP4转YUV420P
 date: 2017-10-10 12:14:51
 categories: "音视频"
 tags:
