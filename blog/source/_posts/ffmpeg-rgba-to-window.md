@@ -152,7 +152,9 @@ tags:
     
     //第三步: 解锁
     ANativeWindow_unlockAndPost(nativeWindow);	
-    
+
+注意第三部解锁之后需要休眠 usleep(1000 * 16);
+如果不休眠的话，一瞬间就都播放完了。    
     
 
 	
