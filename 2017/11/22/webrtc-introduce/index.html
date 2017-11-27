@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="webrtc," />
 
 
 
@@ -93,12 +93,21 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Shelton Blog">
-<meta property="og:url" content="http://yoursite.com/categories/知识点总结/index.html">
+<meta name="description" content="webRTC的整体框架 三个服务器 webRTC的呼叫流程 上述序列中，标注的场景是ClientA向ClientB发起对聊请求，调用描述如下： ·ClientA首先创建PeerConnection对象，然后打开本地音视频设备，将音视频数据封装成MediaStream添加到PeerConnection中。 ·ClientA调用PeerConnection的CreateOffer方法创建一个用于o">
+<meta name="keywords" content="webrtc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebRTC 介绍">
+<meta property="og:url" content="http://yoursite.com/2017/11/22/webrtc-introduce/index.html">
 <meta property="og:site_name" content="Shelton Blog">
+<meta property="og:description" content="webRTC的整体框架 三个服务器 webRTC的呼叫流程 上述序列中，标注的场景是ClientA向ClientB发起对聊请求，调用描述如下： ·ClientA首先创建PeerConnection对象，然后打开本地音视频设备，将音视频数据封装成MediaStream添加到PeerConnection中。 ·ClientA调用PeerConnection的CreateOffer方法创建一个用于o">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/11/27/webrtc-01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/11/27/webrtc-03.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/11/27/webrtc-02.png">
+<meta property="og:updated_time" content="2017-11-27T08:54:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Shelton Blog">
+<meta name="twitter:title" content="WebRTC 介绍">
+<meta name="twitter:description" content="webRTC的整体框架 三个服务器 webRTC的呼叫流程 上述序列中，标注的场景是ClientA向ClientB发起对聊请求，调用描述如下： ·ClientA首先创建PeerConnection对象，然后打开本地音视频设备，将音视频数据封装成MediaStream添加到PeerConnection中。 ·ClientA调用PeerConnection的CreateOffer方法创建一个用于o">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/11/27/webrtc-01.png">
 
 
 
@@ -126,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/知识点总结/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/11/22/webrtc-introduce/"/>
 
 
 
 
 
-  <title>分类: 知识点总结 | Shelton Blog</title>
+  <title>WebRTC 介绍 | Shelton Blog</title>
   
 
 
@@ -157,7 +166,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -261,101 +270,206 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>知识点总结<small>分类</small>
-      </h1>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/18/knowledge-interview-android/" itemprop="url">
-              
-                <span itemprop="name">知识点总结--android相关</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-18T18:08:13+08:00"
-              content="2017-07-18" >
-          07-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/18/knowledge-interview-java/" itemprop="url">
-              
-                <span itemprop="name">知识点总结--java高级</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-18T18:08:01+08:00"
-              content="2017-07-18" >
-          07-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/15/knowledge-interview-network/" itemprop="url">
-              
-                <span itemprop="name">知识点总结--网络协议</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-15T18:30:14+08:00"
-              content="2017-07-15" >
-          07-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/22/webrtc-introduce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shelton">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shelton Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">WebRTC 介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-22T13:20:34+08:00">
+                2017-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webrtc/" itemprop="url" rel="index">
+                    <span itemprop="name">webrtc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/11/22/webrtc-introduce/" class="leancloud_visitors" data-flag-title="WebRTC 介绍">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font size="4">
+
+<p>webRTC的整体框架<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/11/27/webrtc-01.png" alt="图1"></p>
+<p>三个服务器<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/11/27/webrtc-03.png" alt="三个服务器"></p>
+<p>webRTC的呼叫流程<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2017/11/27/webrtc-02.png" alt="图2"></p>
+<p>上述序列中，标注的场景是ClientA向ClientB发起对聊请求，调用描述如下：</p>
+<p>·ClientA首先创建PeerConnection对象，然后打开本地音视频设备，将音视频数据封装成MediaStream添加到PeerConnection中。</p>
+<p>·ClientA调用PeerConnection的CreateOffer方法创建一个用于offer的SDP对象，SDP对象中保存当前音视频的相关参数。ClientA通过PeerConnection的SetLocalDescription方法将该SDP对象保存起来，并通过Signal服务器发送给ClientB。</p>
+<p>·ClientB接收到ClientA发送过的offer SDP对象，通过PeerConnection的SetRemoteDescription方法将其保存起来，并调用PeerConnection的CreateAnswer方法创建一个应答的SDP对象，通过PeerConnection的SetLocalDescription的方法保存该应答SDP对象并将它通过Signal服务器发送给ClientA。<br>·ClientA接收到ClientB发送过来的应答SDP对象，将其通过PeerConnection的SetRemoteDescription方法保存起来。</p>
+<p>·在SDP信息的offer/answer流程中，ClientA和ClientB已经根据SDP信息创建好相应的音频Channel和视频Channel并开启Candidate数据的收集，Candidate数据可以简单地理解成Client端的IP地址信息（本地IP地址、公网IP地址、Relay服务端分配的地址）。</p>
+<p>·当ClientA收集到Candidate信息后，PeerConnection会通过OnIceCandidate接口给ClientA发送通知，ClientA将收到的Candidate信息通过Signal服务器发送给ClientB，ClientB通过PeerConnection的AddIceCandidate方法保存起来。同样的操作ClientB对ClientA再来一次。</p>
+<p>·这样ClientA和ClientB就已经建立了音视频传输的P2P通道，ClientB接收到ClientA传送过来的音视频流，会通过PeerConnection的OnAddStream回调接口返回一个标识ClientA端音视频流的MediaStream对象，在ClientB端渲染出来即可。同样操作也适应ClientB到ClientA的音视频流的传输。</p>
+<p>注：这里的sdp和Candidate都是本地生成的。sdp是本地native方法生成的，Candidate是本地方法监听回调的对象。需要将这两个描述符通过服务端进行P2P连接</p>
+<p>客户端代码长连接采用的websocket</p>
+<p>参考：</p>
+<p><a href="https://webrtc.org/" target="_blank" rel="external">webrtc官网</a></p>
+<p><a href="http://blog.csdn.net/chenhande1990chenhan/article/details/70862208" target="_blank" rel="external">WebRTC之Android客户端代码介绍</a></p>
+<p><a href="https://www.webrtc-experiment.com/" target="_blank" rel="external">WebRTC Experiments &amp; Demos</a></p>
+<p><a href="http://blog.csdn.net/youmingyu/article/details/53192714" target="_blank" rel="external">WebRTC 的 Android 2 Android 实现: CSDN上的demo</a></p>
+<p><a href="https://cloud.tencent.com/community/article/566106" target="_blank" rel="external">WebRTC 前端实时通信技术: 腾讯云文章</a></p>
+<p><a href="http://blog.hszofficial.site/TutorialForWebTech/http%E6%9C%8D%E5%8A%A1/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF/html5/%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E9%80%9A%E4%BF%A1.html" target="_blank" rel="external">github book http服务/前端技术/html5/与服务器端通讯：： 这个介绍的很全面,socket-io,websocket都有介绍</a></p>
+<p><a href="http://blog.sina.com.cn/s/blog_724faf110102vnf0.html" target="_blank" rel="external">WebRTC学习笔记（二）之文档学习：：这个是一系列的文章,介绍的也很好</a></p>
+<p><a href="http://blog.sina.com.cn/s/blog_724faf110102vnhc.html" target="_blank" rel="external">WebRTC学习笔记（三）之NAT类型</a></p>
+<p>官网推荐的文档《WebRTC - APIs and RTCWEB Protocols of the HTML5 Real-Time Web 》</p>
+<p>小记：关于技术方面的文档,google比百度靠谱的多</p>
+<p>//coturn服务器的配置<br><a href="http://www.linuxdiyf.com/linux/32285.html" target="_blank" rel="external">http://www.linuxdiyf.com/linux/32285.html</a></p>
+</font>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webrtc/" rel="tag"># webrtc</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/19/ffmpeg-synchronization/" rel="next" title="FFmpeg音视频同步">
+                <i class="fa fa-chevron-left"></i> FFmpeg音视频同步
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -363,6 +477,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -558,10 +676,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
