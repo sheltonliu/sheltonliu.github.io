@@ -50,6 +50,7 @@ git rebase upstream/master
 
 注意：这个同步仓库是upstream的仓库同步到自己本地的远端仓库，git fetch upstream 之后需要 git pull 一下，将自己本地远端的仓库更新到本地代码
 
+注：公司的项目用的是GitLab,这个和GitHub有所不同。GitLab更新的话，需要 git fetch upstream, 然后 git merge upstream/master(master可指定为某一具体分支)
 
 
 
@@ -87,3 +88,5 @@ tips. 如果出现"Could not execute editor"  则设置 git config即可，git c
 [Git从fork分支开始的过程整理-chercher](https://www.cnblogs.com/chercher/p/5587979.html)
 
 [github使用-一只小菜鸟](http://www.jianshu.com/p/79454cf00945)
+
+[GitLab Fork项目同步源项目更新-熊皮皮](http://www.jianshu.com/p/3053b25a50e2)
