@@ -58,6 +58,8 @@ webRTC的呼叫流程
 
 [WebRTC学习笔记（三）之NAT类型](http://blog.sina.com.cn/s/blog_724faf110102vnhc.html)
 
+[基于WebRtc实现安卓视频一对一聊天-安久哲丶(csdn)](http://blog.csdn.net/qq_35054800/article/details/78647545)
+
 官网推荐的文档《WebRTC - APIs and RTCWEB Protocols of the HTML5 Real-Time Web 》
 
 小记：关于技术方面的文档,google比百度靠谱的多
