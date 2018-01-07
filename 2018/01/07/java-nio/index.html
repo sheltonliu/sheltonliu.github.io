@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="读书笔记," />
+  <meta name="keywords" content="java nio,nio," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="这本书让我有收获的是第二部分中的”读书”和”练习一万小时”这几篇文章 练习一万小时这里的练习指的是”刻意练习”，总结为以下四点：  1.只在”学习区”练习 2.把训练的内容分成有针对性的小块，对每一个小块进行重复练习 3.在整个练习过程中，随时能获得有效的反馈 4.练习时注意力必须高度集中  1.只在”学习区”练习心理学家把人的知识和技能分为层层嵌套的三个圆形区域:最内一层是”舒适区”，是我们已经">
-<meta name="keywords" content="读书笔记">
+<meta name="description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间） NIO 完成高速IO，而无需编写自定义native代码  directionBuffer      Unsafe 不会占用jvm中堆的空间，但是会占用操作系统空间">
+<meta name="keywords" content="java nio,nio">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《万万没想到》读书笔记">
-<meta property="og:url" content="http://yoursite.com/2017/08/03/万万没想到/index.html">
+<meta property="og:title" content="java-nio">
+<meta property="og:url" content="http://yoursite.com/2018/01/07/java-nio/index.html">
 <meta property="og:site_name" content="Shelton Blog">
-<meta property="og:description" content="这本书让我有收获的是第二部分中的”读书”和”练习一万小时”这几篇文章 练习一万小时这里的练习指的是”刻意练习”，总结为以下四点：  1.只在”学习区”练习 2.把训练的内容分成有针对性的小块，对每一个小块进行重复练习 3.在整个练习过程中，随时能获得有效的反馈 4.练习时注意力必须高度集中  1.只在”学习区”练习心理学家把人的知识和技能分为层层嵌套的三个圆形区域:最内一层是”舒适区”，是我们已经">
-<meta property="og:updated_time" content="2017-10-13T00:35:53.000Z">
+<meta property="og:description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间） NIO 完成高速IO，而无需编写自定义native代码  directionBuffer      Unsafe 不会占用jvm中堆的空间，但是会占用操作系统空间">
+<meta property="og:updated_time" content="2018-01-07T08:05:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《万万没想到》读书笔记">
-<meta name="twitter:description" content="这本书让我有收获的是第二部分中的”读书”和”练习一万小时”这几篇文章 练习一万小时这里的练习指的是”刻意练习”，总结为以下四点：  1.只在”学习区”练习 2.把训练的内容分成有针对性的小块，对每一个小块进行重复练习 3.在整个练习过程中，随时能获得有效的反馈 4.练习时注意力必须高度集中  1.只在”学习区”练习心理学家把人的知识和技能分为层层嵌套的三个圆形区域:最内一层是”舒适区”，是我们已经">
+<meta name="twitter:title" content="java-nio">
+<meta name="twitter:description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间） NIO 完成高速IO，而无需编写自定义native代码  directionBuffer      Unsafe 不会占用jvm中堆的空间，但是会占用操作系统空间">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/03/万万没想到/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/07/java-nio/"/>
 
 
 
 
 
-  <title>《万万没想到》读书笔记 | Shelton Blog</title>
+  <title>java-nio | Shelton Blog</title>
   
 
 
@@ -276,7 +276,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/03/万万没想到/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/07/java-nio/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shelton">
@@ -293,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">《万万没想到》读书笔记</h1>
+          <h1 class="post-title" itemprop="name headline">java-nio</h1>
         
 
         <div class="post-meta">
@@ -305,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-03T19:41:21+08:00">
-                2017-08-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-07T11:01:11+08:00">
+                2018-01-07
               </time>
             
 
@@ -328,8 +328,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
+                  <a href="/categories/java-NIO/" itemprop="url" rel="index">
+                    <span itemprop="name">java-NIO</span>
                   </a>
                 </span>
 
@@ -345,7 +345,7 @@
 
           
           
-             <span id="/2017/08/03/万万没想到/" class="leancloud_visitors" data-flag-title="《万万没想到》读书笔记">
+             <span id="/2018/01/07/java-nio/" class="leancloud_visitors" data-flag-title="java-nio">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -373,47 +373,56 @@
       
 
       
-        <p><font size="4"><br>这本书让我有收获的是第二部分中的”读书”和”练习一万小时”这几篇文章</font></p>
-<h1 id="练习一万小时"><a href="#练习一万小时" class="headerlink" title="练习一万小时"></a>练习一万小时</h1><p>这里的练习指的是”刻意练习”，总结为以下四点：</p>
-<ul>
-<li>1.只在”学习区”练习</li>
-<li>2.把训练的内容分成有针对性的小块，对每一个小块进行重复练习</li>
-<li>3.在整个练习过程中，随时能获得有效的反馈</li>
-<li>4.练习时注意力必须高度集中</li>
-</ul>
-<h2 id="1-只在”学习区”练习"><a href="#1-只在”学习区”练习" class="headerlink" title="1.只在”学习区”练习"></a>1.只在”学习区”练习</h2><p>心理学家把人的知识和技能分为层层嵌套的三个圆形区域:最内一层是”舒适区”，是我们已经熟练掌握的各种技能。最外层是”恐慌区”，是我们暂时无法学会的技能，二者中间是”学习区”</p>
-<ul>
-<li>练习的精髓是持续地做自己做不好的事。</li>
-<li>在舒适区做事，叫生活；在学习区做事，才叫练习。</li>
-<li>练习时间的长短并不是最重要的，真正的关键是你”刻意练习”，哪怕仅仅是”单独练习”的时间。</li>
-</ul>
-<h2 id="2-掌握套路"><a href="#2-掌握套路" class="headerlink" title="2.掌握套路"></a>2.掌握套路</h2><ul>
-<li>必须进行大量的重复训练</li>
-<li>训练必须有高度的针对性</li>
-</ul>
-<h2 id="3-随时获得反馈"><a href="#3-随时获得反馈" class="headerlink" title="3.随时获得反馈"></a>3.随时获得反馈</h2><ul>
-<li>练习者必须要对错误极度敏感，一旦发现自己错了就会感到非常不舒服，一直练习到改正为止。</li>
-<li>老师的作用就是提供及时的反馈。      </li>
-</ul>
-<h1 id="用强力研读书"><a href="#用强力研读书" class="headerlink" title="用强力研读书"></a>用强力研读书</h1><p>强力研读跟”刻意练习”有三个共同点：</p>
-<ul>
-<li>第一，不好玩。”强力研读”是非常严肃认真的态度，需要把知识融会贯通，写读书笔记是一个非常正经的工作</li>
-<li>第二，用时少。这里指有强度的训练，要把精力充沛而又不受打扰的时间段留给最好的书</li>
-<li>第三，不追求快。读书的关键在于对不同的读物采取不同的阅读速度，在于吸收知识。</li>
-</ul>
-<h2 id="新书要读两边"><a href="#新书要读两边" class="headerlink" title="新书要读两边"></a>新书要读两边</h2><p>新书最有效率的阅读是读完一遍马上再读一遍</p>
-<ul>
-<li>第一遍正常通读</li>
-<li>第二遍，写下读书笔记，专注于思想脉络。</li>
-</ul>
-<h2 id="什么是好的读书笔记"><a href="#什么是好的读书笔记" class="headerlink" title="什么是好的读书笔记"></a>什么是好的读书笔记</h2><ul>
-<li>1.清晰的表现每一章的逻辑脉络</li>
-<li>2.带走书中所有的亮点</li>
-<li>3.有大量的自己的看法和心得</li>
-<li>4.发现这本书和以前读过的其他书或文章的联系。</li>
-</ul>
-<p>能做到1，2两点就已经不错了，要做到3，4点就需要不断的积累了。</p>
+        <font size="4">
 
+<p>heap              //堆</p>
+<p>non-heap     //非堆（jvm中堆以外的空间–method area,stack）</p>
+<p>off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间）</p>
+<h3 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h3><ul>
+<li><p>完成高速IO，而无需编写自定义native代码</p>
+</li>
+<li><p>directionBuffer    </p>
+<ul>
+<li>Unsafe</li>
+<li>不会占用jvm中堆的空间，但是会占用操作系统空间</li>
+</ul>
+</li>
+</ul>
+<h3 id="Stream-vs-Block"><a href="#Stream-vs-Block" class="headerlink" title="Stream vs Block"></a>Stream vs Block</h3><ul>
+<li><p>java io包 基于stream技术，按照一个字节处理</p>
+</li>
+<li><p>java NIO基于Block,使用分块处理数据，比流更快捷，但是编程不易</p>
+</li>
+</ul>
+<h3 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h3><ul>
+<li>打开的连接(硬件，File, Socket,程序)</li>
+<li>Channel和Buffer是NIO的核心对象</li>
+<li>类似stream,数据通过Channel传输</li>
+<li>实现：<ul>
+<li>FileChannel</li>
+<li>SocketChannel     //tcp</li>
+<li>DatagramChannel   //udp     </li>
+</ul>
+</li>
+</ul>
+<h3 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h3><ul>
+<li>缓冲区数组</li>
+<li>是容器对象的核心</li>
+<li>从Channel中读取的数据进入buffer中</li>
+<li>NIO必须通过Buffer完成数据读写，跟踪读写过程</li>
+<li>术语：<ul>
+<li>mark        //标记</li>
+<li>capacity     //容量</li>
+<li>limit         //限制，第一个不能读写的元素索引</li>
+<li>position     //位置，读写下一个元素的索引</li>
+<li>mark &lt;=pos&lt;=limit&lt;=capacity </li>
+<li>cliaring    //清除</li>
+<li>flipping    //拍板</li>
+<li>rewinding   //回绕</li>
+</ul>
+</li>
+</ul>
+</font>
       
     </div>
 
@@ -442,7 +451,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+            <a href="/tags/java-nio/" rel="tag"># java nio</a>
+          
+            <a href="/tags/nio/" rel="tag"># nio</a>
           
         </div>
       
@@ -455,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/30/java-memory-model/" rel="next" title="Java内存模型">
-                <i class="fa fa-chevron-left"></i> Java内存模型
+              <a href="/2018/01/04/jvm-RuntimeData-area/" rel="next" title="jvm数据分区">
+                <i class="fa fa-chevron-left"></i> jvm数据分区
               </a>
             
           </div>
@@ -464,10 +475,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/06/jvm-classloader/" rel="prev" title="虚拟机类加载机制">
-                虚拟机类加载机制 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -596,7 +603,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#练习一万小时"><span class="nav-number">1.</span> <span class="nav-text">练习一万小时</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-只在”学习区”练习"><span class="nav-number">1.1.</span> <span class="nav-text">1.只在”学习区”练习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-掌握套路"><span class="nav-number">1.2.</span> <span class="nav-text">2.掌握套路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-随时获得反馈"><span class="nav-number">1.3.</span> <span class="nav-text">3.随时获得反馈</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用强力研读书"><span class="nav-number">2.</span> <span class="nav-text">用强力研读书</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#新书要读两边"><span class="nav-number">2.1.</span> <span class="nav-text">新书要读两边</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是好的读书笔记"><span class="nav-number">2.2.</span> <span class="nav-text">什么是好的读书笔记</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NIO"><span class="nav-number">1.</span> <span class="nav-text">NIO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream-vs-Block"><span class="nav-number">2.</span> <span class="nav-text">Stream vs Block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel"><span class="nav-number">3.</span> <span class="nav-text">Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer"><span class="nav-number">4.</span> <span class="nav-text">Buffer</span></a></li></ol></div>
             
 
           </div>
