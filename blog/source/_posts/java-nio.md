@@ -1,5 +1,5 @@
 ---
-title: java-nio
+title: NIO-ByteBuffer-DirectByteBuffer
 date: 2018-01-07 11:01:11
 categories: "java-NIO"
 tags:
@@ -17,6 +17,8 @@ off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统�
 ### NIO
 
 * 完成高速IO，而无需编写自定义native代码
+
+* HeapByteBuffer
 
 * directionBuffer    
 	* Unsafe
@@ -50,16 +52,56 @@ off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统�
 	* limit		 //限制，第一个不能读写的元素索引
 	* position	 //位置，读写下一个元素的索引
 	* mark <=pos<=limit<=capacity 
-	* cliaring    //清除
-	* flipping    //拍板
-	* rewinding   //回绕
+	
+* cliaring    //清除
+
+* flipping    //拍板
+
+* rewinding   //回绕
+
+
+![03](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/myhexo/blog/MarkdownPhotos/2018/01/07/java-nio-003.png)
+
+
+![01](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/myhexo/blog/MarkdownPhotos/2018/01/07/java-nio-01.png)
+
+![02](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/myhexo/blog/MarkdownPhotos/2018/01/07/java-nio-002.png)
+
+![04](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/myhexo/blog/MarkdownPhotos/2018/01/07/java-nio-004.png)
+
+![05](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/myhexo/blog/MarkdownPhotos/2018/01/07/java-nio-005.png)
 
 
 
+### HeapByteBuffer
+
+![06](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-06.png)
+
+
+### allocateDirect
+
+* 直接字节缓冲区，off-heap(离堆，jvm之外的空间)内存
+
+![07](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-07.png)
 
 
 
+### 总结
 
+![08](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-08.png)
+
+
+![09](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-09.png)
+
+![10](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-10.png)
+
+![11](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-11.png)
+
+![12](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-12.png)
+
+![13](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-13.png)
+
+![14](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-14.png)
 
 
 
