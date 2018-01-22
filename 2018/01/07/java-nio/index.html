@@ -114,7 +114,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-12.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-13.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-14.png">
-<meta property="og:updated_time" content="2018-01-08T06:30:50.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_01.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_03.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_02.jpg">
+<meta property="og:updated_time" content="2018-01-22T16:10:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NIO-ByteBuffer-DirectByteBuffer">
 <meta name="twitter:description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间） NIO 完成高速IO，而无需编写自定义native代码  HeapByteBuffer  directionBuffer      Unsafe 不会占用jvm中堆的">
@@ -453,13 +456,18 @@
 <li>直接字节缓冲区，off-heap(离堆，jvm之外的空间)内存</li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-07.png" alt="07"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-08.png" alt="08"></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-08.png" alt="08"></p>
 <p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-09.png" alt="09"></p>
 <p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-10.png" alt="10"></p>
 <p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-11.png" alt="11"></p>
 <p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-12.png" alt="12"></p>
 <p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-13.png" alt="13"></p>
 <p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-14.png" alt="14"></p>
+<h3 id="Memory-Mapped-Files"><a href="#Memory-Mapped-Files" class="headerlink" title="Memory-Mapped Files"></a>Memory-Mapped Files</h3><p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_01.jpg" alt="内存映射"></p>
+<p>也就是将物理文件(整个或者一部分)映射到内存，通过对内存的读写进而改变物理文件。</p>
+<p>这里所占用的内存空间是操作系统的，非jvm</p>
+<p>加载文件到内存的用法，如下：<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_03.jpg" alt="读"></p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_02.jpg" alt="写"><br>注意：FileChannel需要close</p>
 </font>
       
     </div>
@@ -641,7 +649,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NIO"><span class="nav-number">1.</span> <span class="nav-text">NIO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream-vs-Block"><span class="nav-number">2.</span> <span class="nav-text">Stream vs Block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel"><span class="nav-number">3.</span> <span class="nav-text">Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer"><span class="nav-number">4.</span> <span class="nav-text">Buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HeapByteBuffer"><span class="nav-number">5.</span> <span class="nav-text">HeapByteBuffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#allocateDirect"><span class="nav-number">6.</span> <span class="nav-text">allocateDirect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NIO"><span class="nav-number">1.</span> <span class="nav-text">NIO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream-vs-Block"><span class="nav-number">2.</span> <span class="nav-text">Stream vs Block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel"><span class="nav-number">3.</span> <span class="nav-text">Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer"><span class="nav-number">4.</span> <span class="nav-text">Buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HeapByteBuffer"><span class="nav-number">5.</span> <span class="nav-text">HeapByteBuffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#allocateDirect"><span class="nav-number">6.</span> <span class="nav-text">allocateDirect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory-Mapped-Files"><span class="nav-number">8.</span> <span class="nav-text">Memory-Mapped Files</span></a></li></ol></div>
             
 
           </div>
