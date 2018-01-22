@@ -86,7 +86,7 @@ off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统�
 
 
 
-### 总结
+### 小结
 
 ![08](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-08.png)
 
@@ -103,6 +103,17 @@ off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统�
 
 ![14](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/07/java-nio-14.png)
 
+### Memory-Mapped Files
 
+![内存映射](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_01.jpg)
 
+也就是将物理文件(整个或者一部分)映射到内存，通过对内存的读写进而改变物理文件。
+
+这里所占用的内存空间是操作系统的，非jvm
+
+加载文件到内存的用法，如下：
+![读](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_03.jpg)
+
+![写](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_02.jpg)
+注意：FileChannel需要close
 
