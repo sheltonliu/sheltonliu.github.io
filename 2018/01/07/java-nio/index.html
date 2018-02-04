@@ -96,7 +96,7 @@
 <meta name="description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间） NIO 完成高速IO，而无需编写自定义native代码  HeapByteBuffer  directionBuffer      Unsafe 不会占用jvm中堆的">
 <meta name="keywords" content="java nio,nio">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NIO-ByteBuffer-DirectByteBuffer">
+<meta property="og:title" content="NIO-ByteBuffer-DirectByteBuffer-内存映射-SocketChannel">
 <meta property="og:url" content="http://yoursite.com/2018/01/07/java-nio/index.html">
 <meta property="og:site_name" content="Shelton Blog">
 <meta property="og:description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间） NIO 完成高速IO，而无需编写自定义native代码  HeapByteBuffer  directionBuffer      Unsafe 不会占用jvm中堆的">
@@ -117,9 +117,16 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_01.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_03.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_02.jpg">
-<meta property="og:updated_time" content="2018-01-22T16:10:00.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-04.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-05.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-11.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-06.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-10.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-13.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-12.jpg">
+<meta property="og:updated_time" content="2018-01-24T15:24:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NIO-ByteBuffer-DirectByteBuffer">
+<meta name="twitter:title" content="NIO-ByteBuffer-DirectByteBuffer-内存映射-SocketChannel">
 <meta name="twitter:description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间） NIO 完成高速IO，而无需编写自定义native代码  HeapByteBuffer  directionBuffer      Unsafe 不会占用jvm中堆的">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/myhexo/blog/MarkdownPhotos/2018/01/07/java-nio-003.png">
 
@@ -155,7 +162,7 @@
 
 
 
-  <title>NIO-ByteBuffer-DirectByteBuffer | Shelton Blog</title>
+  <title>NIO-ByteBuffer-DirectByteBuffer-内存映射-SocketChannel | Shelton Blog</title>
   
 
 
@@ -311,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">NIO-ByteBuffer-DirectByteBuffer</h1>
+          <h1 class="post-title" itemprop="name headline">NIO-ByteBuffer-DirectByteBuffer-内存映射-SocketChannel</h1>
         
 
         <div class="post-meta">
@@ -363,7 +370,7 @@
 
           
           
-             <span id="/2018/01/07/java-nio/" class="leancloud_visitors" data-flag-title="NIO-ByteBuffer-DirectByteBuffer">
+             <span id="/2018/01/07/java-nio/" class="leancloud_visitors" data-flag-title="NIO-ByteBuffer-DirectByteBuffer-内存映射-SocketChannel">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -468,6 +475,15 @@
 <p>这里所占用的内存空间是操作系统的，非jvm</p>
 <p>加载文件到内存的用法，如下：<br><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_03.jpg" alt="读"></p>
 <p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_02.jpg" alt="写"><br>注意：FileChannel需要close</p>
+<h3 id="SocketChannels"><a href="#SocketChannels" class="headerlink" title="SocketChannels"></a>SocketChannels</h3><p>可配置阻塞与非阻塞</p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-04.jpg" alt="简介"></p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-05.jpg" alt="基本操作"></p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-11.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-06.jpg" alt="server"></p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-10.jpg" alt="server2"></p>
+<p>服务端配置非阻塞模式，通过轮询的方式接收客户端</p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-13.jpg" alt=""><br>客户端也是可以通过阻塞与非阻塞两种模式进行配置</p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-12.jpg" alt=""><br>服务端与客户端通过非阻塞的模式建立成功，形成通道，通道是双向的，都是可以进行读写的。</p>
 </font>
       
     </div>
@@ -521,6 +537,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/24/java-nio-2/" rel="prev" title="NIO-Selector">
+                NIO-Selector <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -592,7 +612,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -649,7 +669,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NIO"><span class="nav-number">1.</span> <span class="nav-text">NIO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream-vs-Block"><span class="nav-number">2.</span> <span class="nav-text">Stream vs Block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel"><span class="nav-number">3.</span> <span class="nav-text">Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer"><span class="nav-number">4.</span> <span class="nav-text">Buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HeapByteBuffer"><span class="nav-number">5.</span> <span class="nav-text">HeapByteBuffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#allocateDirect"><span class="nav-number">6.</span> <span class="nav-text">allocateDirect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory-Mapped-Files"><span class="nav-number">8.</span> <span class="nav-text">Memory-Mapped Files</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NIO"><span class="nav-number">1.</span> <span class="nav-text">NIO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream-vs-Block"><span class="nav-number">2.</span> <span class="nav-text">Stream vs Block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel"><span class="nav-number">3.</span> <span class="nav-text">Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer"><span class="nav-number">4.</span> <span class="nav-text">Buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HeapByteBuffer"><span class="nav-number">5.</span> <span class="nav-text">HeapByteBuffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#allocateDirect"><span class="nav-number">6.</span> <span class="nav-text">allocateDirect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory-Mapped-Files"><span class="nav-number">8.</span> <span class="nav-text">Memory-Mapped Files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SocketChannels"><span class="nav-number">9.</span> <span class="nav-text">SocketChannels</span></a></li></ol></div>
             
 
           </div>
