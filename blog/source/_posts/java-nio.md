@@ -1,5 +1,5 @@
 ---
-title: NIO-ByteBuffer-DirectByteBuffer
+title: NIO-ByteBuffer-DirectByteBuffer-内存映射-SocketChannel
 date: 2018-01-07 11:01:11
 categories: "java-NIO"
 tags:
@@ -116,4 +116,29 @@ off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统�
 
 ![写](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/22/nio_02.jpg)
 注意：FileChannel需要close
+
+
+### SocketChannels
+
+可配置阻塞与非阻塞
+
+![简介](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-04.jpg)
+
+![基本操作](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-05.jpg)
+
+![](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-11.jpg)
+
+![server](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-06.jpg)
+
+![server2](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-10.jpg)
+
+服务端配置非阻塞模式，通过轮询的方式接收客户端
+
+![](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-13.jpg)
+客户端也是可以通过阻塞与非阻塞两种模式进行配置
+
+![](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-12.jpg)
+服务端与客户端通过非阻塞的模式建立成功，形成通道，通道是双向的，都是可以进行读写的。
+
+
 
