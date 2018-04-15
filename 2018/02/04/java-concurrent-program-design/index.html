@@ -1,0 +1,1040 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java 高并发程序设计," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="第三章 JDK并发包重入锁 ReentrantLock. 在jdk5.0版本中性能好于synchronized. 但是在jkd6.0之后两者性能差距并不大  怎么理解重入锁？这中锁是可以反复进入的，这里的反复仅仅局限与一个线程 lock.lock(); lock.lock(); try{     i++; }finally{     lock.unlock();     lock.unlock">
+<meta name="keywords" content="java 高并发程序设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java 高并发程序设计">
+<meta property="og:url" content="http://yoursite.com/2018/02/04/java-concurrent-program-design/index.html">
+<meta property="og:site_name" content="Shelton Blog">
+<meta property="og:description" content="第三章 JDK并发包重入锁 ReentrantLock. 在jdk5.0版本中性能好于synchronized. 但是在jkd6.0之后两者性能差距并不大  怎么理解重入锁？这中锁是可以反复进入的，这里的反复仅仅局限与一个线程 lock.lock(); lock.lock(); try{     i++; }finally{     lock.unlock();     lock.unlock">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/03/17/jdk_thread_01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/04/15/ThreadLocalMap_01.jpeg">
+<meta property="og:updated_time" content="2018-04-15T10:30:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java 高并发程序设计">
+<meta name="twitter:description" content="第三章 JDK并发包重入锁 ReentrantLock. 在jdk5.0版本中性能好于synchronized. 但是在jkd6.0之后两者性能差距并不大  怎么理解重入锁？这中锁是可以反复进入的，这里的反复仅仅局限与一个线程 lock.lock(); lock.lock(); try{     i++; }finally{     lock.unlock();     lock.unlock">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/03/17/jdk_thread_01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/04/java-concurrent-program-design/"/>
+
+
+
+
+
+  <title>java 高并发程序设计 | Shelton Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shelton Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/04/java-concurrent-program-design/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shelton">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shelton Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java 高并发程序设计</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-04T12:27:20+08:00">
+                2018-02-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java并发编程/" itemprop="url" rel="index">
+                    <span itemprop="name">java并发编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/02/04/java-concurrent-program-design/" class="leancloud_visitors" data-flag-title="java 高并发程序设计">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font size="4">
+
+<h1 id="第三章-JDK并发包"><a href="#第三章-JDK并发包" class="headerlink" title="第三章 JDK并发包"></a>第三章 JDK并发包</h1><h2 id="重入锁"><a href="#重入锁" class="headerlink" title="重入锁"></a>重入锁</h2><ul>
+<li><p>ReentrantLock. 在jdk5.0版本中性能好于synchronized. 但是在jkd6.0之后两者性能差距并不大</p>
+</li>
+<li><p>怎么理解重入锁？这中锁是可以反复进入的，这里的反复仅仅局限与一个线程</p>
+<pre><code>lock.lock();
+lock.lock();
+try{
+    i++;
+}finally{
+    lock.unlock();
+    lock.unlock();
+}    
+</code></pre></li>
+</ul>
+<p>一个线程连续两次获得同一把锁是允许的。 注意在释放锁的时候，需要释放相同的次数</p>
+<ul>
+<li><p>中断响应</p>
+<pre><code>lock.lockInterruptibly();        
+</code></pre></li>
+<li><p>lock(); 获得锁，如果锁已经被占用则等待</p>
+</li>
+<li>lockInterruptibly();获得锁，但优先响应中断</li>
+<li>tryLock();该方法立即返回。获得锁成功返回true,失败返回false</li>
+<li>tryLock(long time,TimeUnit unit);在给定时间内尝试获得锁</li>
+<li><p>unlock();释放锁</p>
+</li>
+<li><p>公平锁</p>
+<ul>
+<li><p>重入锁允许设置锁的公平性</p>
+<ul>
+<li><p>在构造方法中 fair为true表示公平</p>
+<pre><code>public ReentrantLock(boolean fair);
+</code></pre></li>
+</ul>
+</li>
+<li>synchronized 产生的锁是非公平性的</li>
+<li>特点：不会产生饥饿现象。按时间的先后顺序保证公平，只要你排队是可以获得资源的</li>
+</ul>
+</li>
+<li><p>就重入锁的实现来看，主要集中在java层面。包含三要素</p>
+<ul>
+<li>原子状态。原子状态使用CAS操作(第四章)来存储当前锁的状态        </li>
+</ul>
+</li>
+</ul>
+<h3 id="重入锁的搭档：Condition条件"><a href="#重入锁的搭档：Condition条件" class="headerlink" title="重入锁的搭档：Condition条件"></a>重入锁的搭档：Condition条件</h3><p>condition是与重入锁相关联的。类似Object.wait() Object.notify</p>
+<ul>
+<li>await() :使当前线程等待，同时释放当前锁。当其他线程中使用signal()或者signalAll()方法时，线程会重新获得锁并继续执行。或者当线程被中断时也能跳出等待。这和Object.wait()方法类似</li>
+<li>awaitUninterruptibly() 和 await()基本相同。但它不会在等待过程中响应中断</li>
+<li>singal()唤醒一个在等待中的线程</li>
+<li>singalAll()唤醒所有在等待中线程</li>
+</ul>
+<h3 id="允许多个线程同时访问：信号量-Semaphore"><a href="#允许多个线程同时访问：信号量-Semaphore" class="headerlink" title="允许多个线程同时访问：信号量(Semaphore)"></a>允许多个线程同时访问：信号量(Semaphore)</h3><p>信号量是对锁的扩展。无论是内部锁synchronized还是重入锁ReentrantLock一次都只允许一个线程访问一个资源。信号量却可以指定多个线程同时访问某一个资源。</p>
+<pre><code>public Semaphore(int permits)
+public Semaphore(int permits, boolean fair) //第二个参数指定是否公平
+
+
+public void acquire():尝试获得一个准入许可。
+        若无法获得则线程等待。直到线程释放一个许可，或当前线程被中断
+
+public void acquireUninterruptibly() 与acquire类似但不响应中断
+
+public boolean tryAcquire() 尝试获得一个许可，不会进行等待 立即返回
+
+public boolean tryAcquire(long timeout, TimeUnit unit)    
+
+public void release() 用于在线程访问资源后释放许可，使其他线程可以访问
+</code></pre><h3 id="ReadWriteLock-读写锁"><a href="#ReadWriteLock-读写锁" class="headerlink" title="ReadWriteLock 读写锁"></a>ReadWriteLock 读写锁</h3><p>JDK提供的读写分离锁</p>
+<pre><code>| 读            | 写              
+</code></pre><p>————- | ————- | ————-<br>读            |非阻塞          | 阻塞<br>写            |阻塞            | 阻塞</p>
+<p>在系统中，读操作远大于写操作。则读写锁就可以发挥最大功效，提升系统性能</p>
+<h3 id="倒计时器：CountDownLatch"><a href="#倒计时器：CountDownLatch" class="headerlink" title="倒计时器：CountDownLatch"></a>倒计时器：CountDownLatch</h3><p>我的理解就是主线程可以等待其他线程都处理完之后 在往下进行</p>
+<h3 id="循环栅栏：CyclicBarrier"><a href="#循环栅栏：CyclicBarrier" class="headerlink" title="循环栅栏：CyclicBarrier"></a>循环栅栏：CyclicBarrier</h3><p>这个计数器可以反复使用。 我的理解比如士兵集合完毕后触发CyclicBarrier构造里面的Runnable方法， 士兵任务完成之后触发Runnable方法，</p>
+<h2 id="线程复用：线程池"><a href="#线程复用：线程池" class="headerlink" title="线程复用：线程池"></a>线程复用：线程池</h2><p>线程本身也是占用内存空间的，大量的线程可能会导致OOM，所以对线程需要统一的管理</p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/03/17/jdk_thread_01.png" alt="Executor框架"><br><br>其中ThreadPoolExecutor表示一个线程池。Executors类扮演线程池工厂的角色。通过Executor可以获得一个特定功能的线程池。Executor框架提供一下方法</p>
+<ul>
+<li><p>newFixedThreadPool()方法。 返回一个固定线程数量的线程池，线程池中的线程数量始终不变</p>
+<ul>
+<li>提交一个任务<ul>
+<li>线程池中有空闲线程–&gt;立即执行</li>
+<li>线程池中无空闲线程–&gt;放入任务队列(待线程空闲时处理任务队列的任务)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>newSingleThreadExecutor(): 返回只有一个线程的线程池。若多余一个任务被提交到该线程池，任务会被保存在队列中，待线程空闲按顺序执行队列中的任务</p>
+</li>
+<li><p>newCachedThreadPool(): 返回可调整线程数量的线程池。所有线程在当前任务执行完毕后，将返回线程池进行复用</p>
+</li>
+<li><p>newSingleThreadScheduledExecutor():返回ScheduledExecutorService对象，线程池大小1. 主要定时执行某个任务或周期性执行某个任务</p>
+</li>
+<li><p>newScheduledThreadPool(): 返回ScheduledExecutorService对象。该线程池可以指定线程数量               </p>
+</li>
+</ul>
+<h1 id="第四章-锁的优化及注意事项"><a href="#第四章-锁的优化及注意事项" class="headerlink" title="第四章 锁的优化及注意事项"></a>第四章 锁的优化及注意事项</h1><h2 id="提高“锁”性能的几点建议："><a href="#提高“锁”性能的几点建议：" class="headerlink" title="提高“锁”性能的几点建议："></a>提高“锁”性能的几点建议：</h2><ul>
+<li>减少锁持有的时间。在具体的方法中添加锁</li>
+<li>减小锁粒度。典型的使用场景就是ConcurrentHashMap.  默认有16个段。幸运的话可同时接受16个线程同时插入。 注意size()会对所有段进行加锁</li>
+<li>读写分离锁，来替换独占锁（在读多写少的场合使用读写锁来提升系统性能）</li>
+<li>锁分离 LinkedBlockingQueue,分离的put() take() 操作。两个操作分别作用于队列的前端和尾端。 通过takeLock和putLock两把锁，实现了数据的读写分离</li>
+</ul>
+<h2 id="java虚拟机对锁优化做出的努力"><a href="#java虚拟机对锁优化做出的努力" class="headerlink" title="java虚拟机对锁优化做出的努力"></a>java虚拟机对锁优化做出的努力</h2><ul>
+<li><p>锁偏向。 是一种对加锁操作的优化手段。 核心思想：如果一个线程获得了锁，那就进入偏向模式。当这个线程再次请求锁时，无需在做任何同步操作，从而提高性能。</p>
+<ul>
+<li>如果每次都是不同的线程来请求相同的锁，这样偏向模式就会失效，因此还不如不启动偏向锁。 -XX:+UseBiasedLocking 可以开启偏向锁</li>
+</ul>
+</li>
+<li><p>轻量级锁。 偏向锁失败后，虚拟机不会立即挂起线程。会使用轻量级锁。它只是简单的将对象头部作为指针，指向持有锁的线程堆栈内部，来判断该线程是否持有对象锁。如果线程获得轻量级锁成功，则顺利进入临界区，否则膨胀为重量级锁</p>
+</li>
+<li><p>自旋锁</p>
+<ul>
+<li>锁膨胀后，虚拟机做最后的努力：自旋锁。虚拟机会让当前线程做几个空循环(自旋的含义)经过若干循环后如果可以得到锁，则进入临界区。否则在操作系统层面挂起</li>
+</ul>
+</li>
+<li><p>锁消除</p>
+<pre><code>public String[] createString(){
+    Vector&lt;String&gt; v = new Vector&lt;String&gt;();
+    for(int i=0; i&lt;100; i++){
+        v.add(Integer.toString(i));
+    }
+    return v.toArray(new String[]{});
+}          
+</code></pre><ul>
+<li>上述代码v是一个单纯的局部变量。局部变量是在线程栈上分配的，属于线程私有数据，因此不可能被其他线程访问。所以此时Vector加锁没有必要。</li>
+<li>锁消除 涉及关键技术：逃逸分析。就是观察某一个变量是否逃出了某一个作用域。上述代码虚拟机会将v内部的加锁操作去除。 如果返回的是v本身，那变量v逃出了该函数，其他线程可以访问到v. 那虚拟机就不会消除v内部的锁操作。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>ThreadLocal中的set方法，也是存放的new出来的新实例。使得每个线程都有自己的实例</p>
+<p>注意：</p>
+<ul>
+<li>为每个线程分配不同的对象，需要在应用层面保证。ThreadLocal只是起到了简单的容器作用</li>
+<li>只要线程不退出，那对象的引用就会一直存在。如果希望及时回收对象，最好使用ThreadLocal.remove()方法移除</li>
+<li>ThreadLocal内部是由ThreadLocalMap来实现的。 ThreadLocalMap使用了弱引用。java虚拟机进行垃圾回收时，发现弱引用，就会立即回收。</li>
+<li>为每个线程分配独立的对象，典型的案例就是：多线程下产生随机数。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/04/15/ThreadLocalMap_01.jpeg" alt=""></p>
+<h2 id="无锁-CAS"><a href="#无锁-CAS" class="headerlink" title="无锁  CAS"></a>无锁  CAS</h2><ul>
+<li>无锁操作是一种乐观的策略。 采用的是比较交换的技术。</li>
+<li><p>cas算法：包含三个参数CAS(V,E,N) </p>
+<ul>
+<li>v:表示要更新的变量</li>
+<li>e:表示预期值</li>
+<li>n:表示新值</li>
+<li>如果 V ＝ E， 则 V ＝ N;</li>
+</ul>
+</li>
+<li><p>AtomicInteger 等</p>
+</li>
+<li>AtomicReference(无锁的对象引用) <ul>
+<li>注意会存在ABA问题. 就是从A修改到B，再从B修改为A。最后其他线程取到的还是A值，但是这期间是修改过的了。</li>
+</ul>
+</li>
+<li>AtomicStampedReference(带有时间戳的对象引用) 来解决上面的问题<ul>
+<li>记录对象修改的状态 </li>
+</ul>
+</li>
+<li><p>AtomicIntegerFieldUpdater(让普通变量也享受原子操作)</p>
+<ul>
+<li>注意事项：<ul>
+<li>Updater只能修改它可见范围内的变量。如果变量修改为private，就是不行的</li>
+<li>声明的变量必须是volatile类型的。确保对象被正确的读取。</li>
+<li>不支持static静态字段。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>无锁的有点：</p>
+<ul>
+<li>具有更好的性能</li>
+<li>避免死锁        </li>
+</ul>
+</li>
+</ul>
+<h2 id="有关死锁的问题"><a href="#有关死锁的问题" class="headerlink" title="有关死锁的问题"></a>有关死锁的问题</h2><ul>
+<li><p>死锁的表现：相关的进程不再工作，并且CPU占用为0（死锁的线程不占用CPU）</p>
+<ul>
+<li>可以通过jps命令得到进程id,然后使用jstack命令得到线程堆栈</li>
+</ul>
+</li>
+<li><p>避免死锁</p>
+<ul>
+<li>采用无锁CAS操作</li>
+<li>采用重入锁<ul>
+<li>锁中断</li>
+<li>限时等待      </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="第六章-java8与并发"><a href="#第六章-java8与并发" class="headerlink" title="第六章 java8与并发"></a>第六章 java8与并发</h1></font>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java-高并发程序设计/" rel="tag"># java 高并发程序设计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/24/java-nio-2/" rel="next" title="NIO-Selector">
+                <i class="fa fa-chevron-left"></i> NIO-Selector
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Shelton" />
+          <p class="site-author-name" itemprop="name">Shelton</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章-JDK并发包"><span class="nav-number">1.</span> <span class="nav-text">第三章 JDK并发包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重入锁"><span class="nav-number">1.1.</span> <span class="nav-text">重入锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重入锁的搭档：Condition条件"><span class="nav-number">1.1.1.</span> <span class="nav-text">重入锁的搭档：Condition条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#允许多个线程同时访问：信号量-Semaphore"><span class="nav-number">1.1.2.</span> <span class="nav-text">允许多个线程同时访问：信号量(Semaphore)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReadWriteLock-读写锁"><span class="nav-number">1.1.3.</span> <span class="nav-text">ReadWriteLock 读写锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#倒计时器：CountDownLatch"><span class="nav-number">1.1.4.</span> <span class="nav-text">倒计时器：CountDownLatch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环栅栏：CyclicBarrier"><span class="nav-number">1.1.5.</span> <span class="nav-text">循环栅栏：CyclicBarrier</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程复用：线程池"><span class="nav-number">1.2.</span> <span class="nav-text">线程复用：线程池</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第四章-锁的优化及注意事项"><span class="nav-number">2.</span> <span class="nav-text">第四章 锁的优化及注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#提高“锁”性能的几点建议："><span class="nav-number">2.1.</span> <span class="nav-text">提高“锁”性能的几点建议：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java虚拟机对锁优化做出的努力"><span class="nav-number">2.2.</span> <span class="nav-text">java虚拟机对锁优化做出的努力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">2.3.</span> <span class="nav-text">ThreadLocal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无锁-CAS"><span class="nav-number">2.4.</span> <span class="nav-text">无锁  CAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有关死锁的问题"><span class="nav-number">2.5.</span> <span class="nav-text">有关死锁的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第六章-java8与并发"><span class="nav-number">3.</span> <span class="nav-text">第六章 java8与并发</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shelton</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kYWyghHVCnlYtXmdxjow7e4g-gzGzoHsz", "itdf6RTHxM4V4210wuukDwTp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
