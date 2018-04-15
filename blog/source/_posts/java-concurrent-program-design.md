@@ -98,8 +98,109 @@ JDK提供的读写分离锁
 
 
 ## 线程复用：线程池
+线程本身也是占用内存空间的，大量的线程可能会导致OOM，所以对线程需要统一的管理
 
+![Executor框架](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/03/17/jdk_thread_01.png)
 
+其中ThreadPoolExecutor表示一个线程池。Executors类扮演线程池工厂的角色。通过Executor可以获得一个特定功能的线程池。Executor框架提供一下方法
+
+* newFixedThreadPool()方法。 返回一个固定线程数量的线程池，线程池中的线程数量始终不变
+	* 提交一个任务
+		* 线程池中有空闲线程-->立即执行
+		* 线程池中无空闲线程-->放入任务队列(待线程空闲时处理任务队列的任务)
+                
+* newSingleThreadExecutor(): 返回只有一个线程的线程池。若多余一个任务被提交到该线程池，任务会被保存在队列中，待线程空闲按顺序执行队列中的任务
+
+* newCachedThreadPool(): 返回可调整线程数量的线程池。所有线程在当前任务执行完毕后，将返回线程池进行复用
+
+* newSingleThreadScheduledExecutor():返回ScheduledExecutorService对象，线程池大小1. 主要定时执行某个任务或周期性执行某个任务
+
+* newScheduledThreadPool(): 返回ScheduledExecutorService对象。该线程池可以指定线程数量               
+                
+                
+
+
+# 第四章 锁的优化及注意事项
+
+## 提高“锁”性能的几点建议：
+
+* 减少锁持有的时间。在具体的方法中添加锁
+* 减小锁粒度。典型的使用场景就是ConcurrentHashMap.  默认有16个段。幸运的话可同时接受16个线程同时插入。 注意size()会对所有段进行加锁
+* 读写分离锁，来替换独占锁（在读多写少的场合使用读写锁来提升系统性能）
+* 锁分离 LinkedBlockingQueue,分离的put() take() 操作。两个操作分别作用于队列的前端和尾端。 通过takeLock和putLock两把锁，实现了数据的读写分离
+
+## java虚拟机对锁优化做出的努力
+
+* 锁偏向。 是一种对加锁操作的优化手段。 核心思想：如果一个线程获得了锁，那就进入偏向模式。当这个线程再次请求锁时，无需在做任何同步操作，从而提高性能。
+	* 如果每次都是不同的线程来请求相同的锁，这样偏向模式就会失效，因此还不如不启动偏向锁。 -XX:+UseBiasedLocking 可以开启偏向锁
+
+* 轻量级锁。 偏向锁失败后，虚拟机不会立即挂起线程。会使用轻量级锁。它只是简单的将对象头部作为指针，指向持有锁的线程堆栈内部，来判断该线程是否持有对象锁。如果线程获得轻量级锁成功，则顺利进入临界区，否则膨胀为重量级锁
+
+* 自旋锁
+	* 锁膨胀后，虚拟机做最后的努力：自旋锁。虚拟机会让当前线程做几个空循环(自旋的含义)经过若干循环后如果可以得到锁，则进入临界区。否则在操作系统层面挂起
+
+* 锁消除
+		
+		public String[] createString(){
+			Vector<String> v = new Vector<String>();
+			for(int i=0; i<100; i++){
+				v.add(Integer.toString(i));
+			}
+			return v.toArray(new String[]{});
+		}  		
+
+	* 上述代码v是一个单纯的局部变量。局部变量是在线程栈上分配的，属于线程私有数据，因此不可能被其他线程访问。所以此时Vector加锁没有必要。
+	* 锁消除 涉及关键技术：逃逸分析。就是观察某一个变量是否逃出了某一个作用域。上述代码虚拟机会将v内部的加锁操作去除。 如果返回的是v本身，那变量v逃出了该函数，其他线程可以访问到v. 那虚拟机就不会消除v内部的锁操作。
+
+
+## ThreadLocal
+
+ThreadLocal中的set方法，也是存放的new出来的新实例。使得每个线程都有自己的实例
+
+注意：
+
+* 为每个线程分配不同的对象，需要在应用层面保证。ThreadLocal只是起到了简单的容器作用
+* 只要线程不退出，那对象的引用就会一直存在。如果希望及时回收对象，最好使用ThreadLocal.remove()方法移除
+* ThreadLocal内部是由ThreadLocalMap来实现的。 ThreadLocalMap使用了弱引用。java虚拟机进行垃圾回收时，发现弱引用，就会立即回收。
+* 为每个线程分配独立的对象，典型的案例就是：多线程下产生随机数。
+
+![](https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/04/15/ThreadLocalMap_01.jpeg)
+
+## 无锁  CAS
+
+* 无锁操作是一种乐观的策略。 采用的是比较交换的技术。
+* cas算法：包含三个参数CAS(V,E,N) 
+	* v:表示要更新的变量
+	* e:表示预期值
+	* n:表示新值
+	* 如果 V ＝ E， 则 V ＝ N;
+
+* AtomicInteger 等
+* AtomicReference(无锁的对象引用) 
+	* 注意会存在ABA问题. 就是从A修改到B，再从B修改为A。最后其他线程取到的还是A值，但是这期间是修改过的了。
+* AtomicStampedReference(带有时间戳的对象引用) 来解决上面的问题
+	* 记录对象修改的状态 
+* AtomicIntegerFieldUpdater(让普通变量也享受原子操作)
+	* 注意事项：
+		* Updater只能修改它可见范围内的变量。如果变量修改为private，就是不行的
+		* 声明的变量必须是volatile类型的。确保对象被正确的读取。
+		* 不支持static静态字段。
+
+* 无锁的有点：
+	* 具有更好的性能
+	* 避免死锁		
+
+
+## 有关死锁的问题
+
+* 死锁的表现：相关的进程不再工作，并且CPU占用为0（死锁的线程不占用CPU）
+	* 可以通过jps命令得到进程id,然后使用jstack命令得到线程堆栈
+
+* 避免死锁
+	* 采用无锁CAS操作
+	* 采用重入锁
+		* 锁中断
+		* 限时等待	  
 
 
 # 第六章 java8与并发
