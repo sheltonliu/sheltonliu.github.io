@@ -93,13 +93,13 @@
 
 
 
-<meta name="description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间） NIO 完成高速IO，而无需编写自定义native代码  HeapByteBuffer  directionBuffer      Unsafe 不会占用jvm中堆的">
+<meta name="description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间）  一般来说，直接内存的访问速度（读写方面）会快于堆内存 在申请内存空间时，堆内存速度高于直接内存 直接内存适合申请次数少，访问频繁的场合。 如果内存空间需要频繁申请，">
 <meta name="keywords" content="java nio,nio">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NIO-ByteBuffer-DirectByteBuffer-内存映射-SocketChannel">
 <meta property="og:url" content="http://yoursite.com/2018/01/07/java-nio/index.html">
 <meta property="og:site_name" content="Shelton Blog">
-<meta property="og:description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间） NIO 完成高速IO，而无需编写自定义native代码  HeapByteBuffer  directionBuffer      Unsafe 不会占用jvm中堆的">
+<meta property="og:description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间）  一般来说，直接内存的访问速度（读写方面）会快于堆内存 在申请内存空间时，堆内存速度高于直接内存 直接内存适合申请次数少，访问频繁的场合。 如果内存空间需要频繁申请，">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/myhexo/blog/MarkdownPhotos/2018/01/07/java-nio-003.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/myhexo/blog/MarkdownPhotos/2018/01/07/java-nio-01.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/myhexo/blog/MarkdownPhotos/2018/01/07/java-nio-002.png">
@@ -124,10 +124,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-10.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-13.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/01/24/nio-12.jpg">
-<meta property="og:updated_time" content="2018-01-24T15:24:19.000Z">
+<meta property="og:updated_time" content="2018-10-09T02:54:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NIO-ByteBuffer-DirectByteBuffer-内存映射-SocketChannel">
-<meta name="twitter:description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间） NIO 完成高速IO，而无需编写自定义native代码  HeapByteBuffer  directionBuffer      Unsafe 不会占用jvm中堆的">
+<meta name="twitter:description" content="heap              //堆 non-heap     //非堆（jvm中堆以外的空间–method area,stack） off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间）  一般来说，直接内存的访问速度（读写方面）会快于堆内存 在申请内存空间时，堆内存速度高于直接内存 直接内存适合申请次数少，访问频繁的场合。 如果内存空间需要频繁申请，">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/myhexo/blog/MarkdownPhotos/2018/01/07/java-nio-003.png">
 
 
@@ -403,6 +403,11 @@
 <p>heap              //堆</p>
 <p>non-heap     //非堆（jvm中堆以外的空间–method area,stack）</p>
 <p>off-heap     //离堆，jvm之外的空间（nio中用到，用的操作系统的空间）</p>
+<ul>
+<li>一般来说，直接内存的访问速度（读写方面）会快于堆内存</li>
+<li>在申请内存空间时，堆内存速度高于直接内存</li>
+<li>直接内存适合申请次数少，访问频繁的场合。 如果内存空间需要频繁申请，则不适合直接内存</li>
+</ul>
 <h3 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h3><ul>
 <li><p>完成高速IO，而无需编写自定义native代码</p>
 </li>
@@ -612,7 +617,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -634,7 +639,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

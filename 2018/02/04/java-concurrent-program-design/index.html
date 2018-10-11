@@ -102,7 +102,7 @@
 <meta property="og:description" content="第三章 JDK并发包重入锁 ReentrantLock. 在jdk5.0版本中性能好于synchronized. 但是在jkd6.0之后两者性能差距并不大  怎么理解重入锁？这中锁是可以反复进入的，这里的反复仅仅局限与一个线程 lock.lock(); lock.lock(); try{     i++; }finally{     lock.unlock();     lock.unlock">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/03/17/jdk_thread_01.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2018/04/15/ThreadLocalMap_01.jpeg">
-<meta property="og:updated_time" content="2018-04-15T10:30:22.000Z">
+<meta property="og:updated_time" content="2018-10-09T02:53:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java 高并发程序设计">
 <meta name="twitter:description" content="第三章 JDK并发包重入锁 ReentrantLock. 在jdk5.0版本中性能好于synchronized. 但是在jkd6.0之后两者性能差距并不大  怎么理解重入锁？这中锁是可以反复进入的，这里的反复仅仅局限与一个线程 lock.lock(); lock.lock(); try{     i++; }finally{     lock.unlock();     lock.unlock">
@@ -620,6 +620,10 @@ public void release() 用于在线程访问资源后释放许可，使其他线�
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/04/20/java-jvm-in-action/" rel="prev" title="实战java虚拟机与性能优化">
+                实战java虚拟机与性能优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -690,7 +694,7 @@ public void release() 用于在线程访问资源后释放许可，使其他线�
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -712,7 +716,7 @@ public void release() 用于在线程访问资源后释放许可，使其他线�
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
