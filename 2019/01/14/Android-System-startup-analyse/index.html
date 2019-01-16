@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/01/14/Android-System-startup-analyse/index.html">
 <meta property="og:site_name" content="Shelton Blog">
 <meta property="og:description" content="第一个系统进程init Android设备的启动必须经历三个阶段：Boot Loader, Linux Kernel和 Android系统服务。 默认情况下他们都有自己的启动画面。严格说Android系统是运行在Linux内核之上的一系列”服务进程”，并不是完整意义的”操作系统”。这些进程是维持设备正常工作的关键，它们的”老祖宗”就是init.  作为Android中第一个被启动的进程，ini">
-<meta property="og:updated_time" content="2019-01-15T03:34:56.000Z">
+<meta property="og:updated_time" content="2019-01-16T07:58:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android系统启动过程分析">
 <meta name="twitter:description" content="第一个系统进程init Android设备的启动必须经历三个阶段：Boot Loader, Linux Kernel和 Android系统服务。 默认情况下他们都有自己的启动画面。严格说Android系统是运行在Linux内核之上的一系列”服务进程”，并不是完整意义的”操作系统”。这些进程是维持设备正常工作的关键，它们的”老祖宗”就是init.  作为Android中第一个被启动的进程，ini">
@@ -388,6 +388,11 @@
 <li>Services(服务)</li>
 <li>Options(选项)</li>
 </ul>
+<h3 id="init进程启动总结"><a href="#init进程启动总结" class="headerlink" title="init进程启动总结"></a>init进程启动总结</h3><ul>
+<li>创建和挂载启动所需的文件目录</li>
+<li>初始化和启动属性服务</li>
+<li>解析init.rc配置文件，并启动Zygote进程</li>
+</ul>
 <h2 id="系统关键服务的启动简析"><a href="#系统关键服务的启动简析" class="headerlink" title="系统关键服务的启动简析"></a>系统关键服务的启动简析</h2><ul>
 <li>init作为Android系统的第一个进程，它通过解析init.rc来陆续启动其他关键系统进程。 这其中最重要的就是ServiceManager, Zygote, SystemServer.</li>
 </ul>
@@ -441,10 +446,12 @@ if (startVm(&amp;mJavaVm, &amp;env) != 0 ){//启动虚拟机
 }
 onVmCreated(env); //虚拟机启动后的回调
 </code></pre><ul>
-<li>zygote的作用：<ul>
-<li>其具体执行是通过zygoteInit来处理的。ZygoteInit是运行在java虚拟机之上的。 </li>
+<li>zygote总结：<ul>
+<li>创建AppRuntime,并调用start()方法，启动zygote进程</li>
+<li>创建java虚拟机，并为java虚拟机注册jni方法</li>
+<li>通过jni调用zygoteinit中main方法，进入zygote的java框架层(之前都是在native本底层)</li>
 <li>开辟一个进程处理启动systemserver，来处理系统进程（创建系统进程）</li>
-<li>完成上面操作之后，会进入无线循环来处理客户端相应。如果接受到新的应用，则开辟新的应用进程来处理。 （创建应用进程）</li>
+<li>通过registerZygoteSocket方法创建服务器端socket, 然后通过无限循环监听AMS的请求，收到之后创建新的应用进程</li>
 </ul>
 </li>
 </ul>
@@ -648,7 +655,7 @@ onVmCreated(env); //虚拟机启动后的回调
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个系统进程init"><span class="nav-number">1.</span> <span class="nav-text">第一个系统进程init</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-rc语法"><span class="nav-number">1.1.</span> <span class="nav-text">init.rc语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统关键服务的启动简析"><span class="nav-number">2.</span> <span class="nav-text">系统关键服务的启动简析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Android的”DNS服务器”-ServiceManager"><span class="nav-number">2.1.</span> <span class="nav-text">1.Android的”DNS服务器” ServiceManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-”孕育”新的线程和进程-Zygote"><span class="nav-number">2.2.</span> <span class="nav-text">2.”孕育”新的线程和进程 Zygote</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Android的”系统服务”–-SystemServer"><span class="nav-number">2.3.</span> <span class="nav-text">3.Android的”系统服务”– SystemServer</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个系统进程init"><span class="nav-number">1.</span> <span class="nav-text">第一个系统进程init</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-rc语法"><span class="nav-number">1.1.</span> <span class="nav-text">init.rc语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init进程启动总结"><span class="nav-number">1.2.</span> <span class="nav-text">init进程启动总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统关键服务的启动简析"><span class="nav-number">2.</span> <span class="nav-text">系统关键服务的启动简析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Android的”DNS服务器”-ServiceManager"><span class="nav-number">2.1.</span> <span class="nav-text">1.Android的”DNS服务器” ServiceManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-”孕育”新的线程和进程-Zygote"><span class="nav-number">2.2.</span> <span class="nav-text">2.”孕育”新的线程和进程 Zygote</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Android的”系统服务”–-SystemServer"><span class="nav-number">2.3.</span> <span class="nav-text">3.Android的”系统服务”– SystemServer</span></a></li></ol></li></ol></div>
             
 
           </div>
