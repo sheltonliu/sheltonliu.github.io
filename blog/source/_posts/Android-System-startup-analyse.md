@@ -22,6 +22,12 @@ categories: "Android"
 * Services(服务)
 * Options(选项)
 
+### init进程启动总结
+* 创建和挂载启动所需的文件目录
+* 初始化和启动属性服务
+* 解析init.rc配置文件，并启动Zygote进程
+
+
 ## 系统关键服务的启动简析
 * init作为Android系统的第一个进程，它通过解析init.rc来陆续启动其他关键系统进程。 这其中最重要的就是ServiceManager, Zygote, SystemServer.
 
@@ -91,11 +97,14 @@ runtime是一个变量，它实际上是一个AndroidRuntime对象。其start函
 	onVmCreated(env); //虚拟机启动后的回调
 	
 
-* zygote的作用：
-	* 其具体执行是通过zygoteInit来处理的。ZygoteInit是运行在java虚拟机之上的。 
+* zygote总结：
+	* 创建AppRuntime,并调用start()方法，启动zygote进程
+	* 创建java虚拟机，并为java虚拟机注册jni方法
+	* 通过jni调用zygoteinit中main方法，进入zygote的java框架层(之前都是在native本底层)
 	* 开辟一个进程处理启动systemserver，来处理系统进程（创建系统进程）
-	* 完成上面操作之后，会进入无线循环来处理客户端相应。如果接受到新的应用，则开辟新的应用进程来处理。 （创建应用进程）
+	* 通过registerZygoteSocket方法创建服务器端socket, 然后通过无限循环监听AMS的请求，收到之后创建新的应用进程
 
+	
 
 
 ### 3.Android的"系统服务"-- SystemServer
