@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/01/14/Android-System-startup-analyse/index.html">
 <meta property="og:site_name" content="Shelton Blog">
 <meta property="og:description" content="第一个系统进程init Android设备的启动必须经历三个阶段：Boot Loader, Linux Kernel和 Android系统服务。 默认情况下他们都有自己的启动画面。严格说Android系统是运行在Linux内核之上的一系列”服务进程”，并不是完整意义的”操作系统”。这些进程是维持设备正常工作的关键，它们的”老祖宗”就是init.  作为Android中第一个被启动的进程，ini">
-<meta property="og:updated_time" content="2019-01-16T07:58:23.000Z">
+<meta property="og:updated_time" content="2019-01-19T04:17:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android系统启动过程分析">
 <meta name="twitter:description" content="第一个系统进程init Android设备的启动必须经历三个阶段：Boot Loader, Linux Kernel和 Android系统服务。 默认情况下他们都有自己的启动画面。严格说Android系统是运行在Linux内核之上的一系列”服务进程”，并不是完整意义的”操作系统”。这些进程是维持设备正常工作的关键，它们的”老祖宗”就是init.  作为Android中第一个被启动的进程，ini">
@@ -473,7 +473,12 @@ onVmCreated(env); //虚拟机启动后的回调
 </ul>
 </li>
 </ul>
-<p>后续会分析具体的系统服务。ActivityManagerService是导致Launcher被启动的关键，后面会在分析的。</p>
+<h3 id="4-Launcher启动过程"><a href="#4-Launcher启动过程" class="headerlink" title="4.Launcher启动过程"></a>4.Launcher启动过程</h3><p>Launcher就是Android系统的桌面，其特点如下：</p>
+<ul>
+<li>作为android系统的启动器，用于启动应用程序。</li>
+<li>用于显示和管理应用程序快捷图标，或者其他桌面组件。</li>
+</ul>
+<p>被Systemserver进程启动的AMS会启动Launcher,Launcher启动后会将应用程序快捷图标显示到桌面上。</p>
 </font>
       
     </div>
@@ -655,7 +660,7 @@ onVmCreated(env); //虚拟机启动后的回调
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个系统进程init"><span class="nav-number">1.</span> <span class="nav-text">第一个系统进程init</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-rc语法"><span class="nav-number">1.1.</span> <span class="nav-text">init.rc语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init进程启动总结"><span class="nav-number">1.2.</span> <span class="nav-text">init进程启动总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统关键服务的启动简析"><span class="nav-number">2.</span> <span class="nav-text">系统关键服务的启动简析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Android的”DNS服务器”-ServiceManager"><span class="nav-number">2.1.</span> <span class="nav-text">1.Android的”DNS服务器” ServiceManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-”孕育”新的线程和进程-Zygote"><span class="nav-number">2.2.</span> <span class="nav-text">2.”孕育”新的线程和进程 Zygote</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Android的”系统服务”–-SystemServer"><span class="nav-number">2.3.</span> <span class="nav-text">3.Android的”系统服务”– SystemServer</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个系统进程init"><span class="nav-number">1.</span> <span class="nav-text">第一个系统进程init</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-rc语法"><span class="nav-number">1.1.</span> <span class="nav-text">init.rc语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init进程启动总结"><span class="nav-number">1.2.</span> <span class="nav-text">init进程启动总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统关键服务的启动简析"><span class="nav-number">2.</span> <span class="nav-text">系统关键服务的启动简析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Android的”DNS服务器”-ServiceManager"><span class="nav-number">2.1.</span> <span class="nav-text">1.Android的”DNS服务器” ServiceManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-”孕育”新的线程和进程-Zygote"><span class="nav-number">2.2.</span> <span class="nav-text">2.”孕育”新的线程和进程 Zygote</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Android的”系统服务”–-SystemServer"><span class="nav-number">2.3.</span> <span class="nav-text">3.Android的”系统服务”– SystemServer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Launcher启动过程"><span class="nav-number">2.4.</span> <span class="nav-text">4.Launcher启动过程</span></a></li></ol></li></ol></div>
             
 
           </div>
