@@ -100,10 +100,12 @@
 <meta property="og:url" content="http://yoursite.com/2019/01/14/Android-System-startup-analyse/index.html">
 <meta property="og:site_name" content="Shelton Blog">
 <meta property="og:description" content="第一个系统进程init Android设备的启动必须经历三个阶段：Boot Loader, Linux Kernel和 Android系统服务。 默认情况下他们都有自己的启动画面。严格说Android系统是运行在Linux内核之上的一系列”服务进程”，并不是完整意义的”操作系统”。这些进程是维持设备正常工作的关键，它们的”老祖宗”就是init.  作为Android中第一个被启动的进程，ini">
-<meta property="og:updated_time" content="2019-01-19T04:17:13.000Z">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5944729-2c1f6add3384bd4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-01-19T07:13:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android系统启动过程分析">
 <meta name="twitter:description" content="第一个系统进程init Android设备的启动必须经历三个阶段：Boot Loader, Linux Kernel和 Android系统服务。 默认情况下他们都有自己的启动画面。严格说Android系统是运行在Linux内核之上的一系列”服务进程”，并不是完整意义的”操作系统”。这些进程是维持设备正常工作的关键，它们的”老祖宗”就是init.  作为Android中第一个被启动的进程，ini">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5944729-2c1f6add3384bd4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -478,7 +480,8 @@ onVmCreated(env); //虚拟机启动后的回调
 <li>作为android系统的启动器，用于启动应用程序。</li>
 <li>用于显示和管理应用程序快捷图标，或者其他桌面组件。</li>
 </ul>
-<p>被Systemserver进程启动的AMS会启动Launcher,Launcher启动后会将应用程序快捷图标显示到桌面上。</p>
+<p>被Systemserver进程启动的AMS会启动Launcher,Launcher启动后会将应用程序快捷图标显示到桌面上.</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5944729-2c1f6add3384bd4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Android系统启动流程"></p>
 </font>
       
     </div>
