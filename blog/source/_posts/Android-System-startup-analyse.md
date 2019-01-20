@@ -124,21 +124,16 @@ SystemServer是Android进入Launcher前的最后准备，它提供了众多由ja
 				}
 			} 		
 
-后续会分析具体的系统服务。ActivityManagerService是导致Launcher被启动的关键，后面会在分析的。
+### 4.Launcher启动过程
+
+Launcher就是Android系统的桌面，其特点如下：
+
+ * 作为android系统的启动器，用于启动应用程序。
+ * 用于显示和管理应用程序快捷图标，或者其他桌面组件。
+
+被Systemserver进程启动的AMS会启动Launcher,Launcher启动后会将应用程序快捷图标显示到桌面上.
 
 
 
-	
-
-		
-		
-
-
-					  
-			
-		
-		
-
-
- 
+![Android系统启动流程](http://upload-images.jianshu.io/upload_images/5944729-2c1f6add3384bd4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
