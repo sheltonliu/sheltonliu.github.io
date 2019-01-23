@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ffmpeg," />
+  <meta name="keywords" content="Android系统,操作系统," />
 
 
 
@@ -93,17 +93,23 @@
 
 
 
-<meta name="description" content="关于音视频同步，无非就是音频同步视频，或者视频同步音频。 我们这里采用视频同步音频，因为人对画面不敏感，对音频敏感。 如果视频滞后，那么睡眠时间就少点，比如sleep（8ms） 如果视频超前，那么睡眠时间就多点，比如sleep（24ms） 1s内音频采出的字节数： 44100*2*2(采样率*采样位数*通道数)">
-<meta name="keywords" content="ffmpeg">
+<meta name="description" content="Activity启动过程分析这里的Activity分为根Activity和普通Activity.这两种启动  所谓根Activity启动就是类似冷启动，先要启动该Activity所在的应用程序进程，然后在该进程内启动Activity 普通Activity的启动就是，前提它们所在的进程已经启动了，然后就是Activity之间的跳转之类的。  根Activity启动的整体流程如下: Launche">
+<meta name="keywords" content="Android系统,操作系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FFmpeg音视频同步">
-<meta property="og:url" content="http://yoursite.com/2017/10/19/ffmpeg-synchronization/index.html">
+<meta property="og:title" content="Activity启动过程分析">
+<meta property="og:url" content="http://yoursite.com/2019/01/23/Android-Activity-startup/index.html">
 <meta property="og:site_name" content="Shelton Blog">
-<meta property="og:description" content="关于音视频同步，无非就是音频同步视频，或者视频同步音频。 我们这里采用视频同步音频，因为人对画面不敏感，对音频敏感。 如果视频滞后，那么睡眠时间就少点，比如sleep（8ms） 如果视频超前，那么睡眠时间就多点，比如sleep（24ms） 1s内音频采出的字节数： 44100*2*2(采样率*采样位数*通道数)">
-<meta property="og:updated_time" content="2018-10-09T02:53:28.000Z">
+<meta property="og:description" content="Activity启动过程分析这里的Activity分为根Activity和普通Activity.这两种启动  所谓根Activity启动就是类似冷启动，先要启动该Activity所在的应用程序进程，然后在该进程内启动Activity 普通Activity的启动就是，前提它们所在的进程已经启动了，然后就是Activity之间的跳转之类的。  根Activity启动的整体流程如下: Launche">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/01/23/01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/01/23/Launcher-AMS.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/01/23/AMS-ApplicationThread.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/01/23/AppThread-Activity.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/01/23/systemserver-process.png">
+<meta property="og:updated_time" content="2019-01-23T05:23:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FFmpeg音视频同步">
-<meta name="twitter:description" content="关于音视频同步，无非就是音频同步视频，或者视频同步音频。 我们这里采用视频同步音频，因为人对画面不敏感，对音频敏感。 如果视频滞后，那么睡眠时间就少点，比如sleep（8ms） 如果视频超前，那么睡眠时间就多点，比如sleep（24ms） 1s内音频采出的字节数： 44100*2*2(采样率*采样位数*通道数)">
+<meta name="twitter:title" content="Activity启动过程分析">
+<meta name="twitter:description" content="Activity启动过程分析这里的Activity分为根Activity和普通Activity.这两种启动  所谓根Activity启动就是类似冷启动，先要启动该Activity所在的应用程序进程，然后在该进程内启动Activity 普通Activity的启动就是，前提它们所在的进程已经启动了，然后就是Activity之间的跳转之类的。  根Activity启动的整体流程如下: Launche">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/01/23/01.png">
 
 
 
@@ -131,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/19/ffmpeg-synchronization/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/01/23/Android-Activity-startup/"/>
 
 
 
 
 
-  <title>FFmpeg音视频同步 | Shelton Blog</title>
+  <title>Activity启动过程分析 | Shelton Blog</title>
   
 
 
@@ -276,7 +282,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/19/ffmpeg-synchronization/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/Android-Activity-startup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shelton">
@@ -293,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">FFmpeg音视频同步</h1>
+          <h1 class="post-title" itemprop="name headline">Activity启动过程分析</h1>
         
 
         <div class="post-meta">
@@ -305,8 +311,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-19T19:15:23+08:00">
-                2017-10-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-23T09:52:30+08:00">
+                2019-01-23
               </time>
             
 
@@ -328,8 +334,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/音视频/" itemprop="url" rel="index">
-                    <span itemprop="name">音视频</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -345,7 +351,7 @@
 
           
           
-             <span id="/2017/10/19/ffmpeg-synchronization/" class="leancloud_visitors" data-flag-title="FFmpeg音视频同步">
+             <span id="/2019/01/23/Android-Activity-startup/" class="leancloud_visitors" data-flag-title="Activity启动过程分析">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -373,15 +379,35 @@
       
 
       
-        <font size="4">
+        <font size="3">
 
-<p>关于音视频同步，无非就是音频同步视频，或者视频同步音频。</p>
-<p>我们这里采用视频同步音频，因为人对画面不敏感，对音频敏感。</p>
-<p>如果视频滞后，那么睡眠时间就少点，比如sleep（8ms）</p>
-<p>如果视频超前，那么睡眠时间就多点，比如sleep（24ms）</p>
-<p>1s内音频采出的字节数：</p>
-<pre><code>44100*2*2(采样率*采样位数*通道数)
-</code></pre></font>
+<h2 id="Activity启动过程分析"><a href="#Activity启动过程分析" class="headerlink" title="Activity启动过程分析"></a>Activity启动过程分析</h2><p>这里的Activity分为根Activity和普通Activity.这两种启动</p>
+<ul>
+<li>所谓根Activity启动就是类似冷启动，先要启动该Activity所在的应用程序进程，然后在该进程内启动Activity</li>
+<li>普通Activity的启动就是，前提它们所在的进程已经启动了，然后就是Activity之间的跳转之类的。</li>
+</ul>
+<h3 id="根Activity启动的整体流程如下"><a href="#根Activity启动的整体流程如下" class="headerlink" title="根Activity启动的整体流程如下:"></a>根Activity启动的整体流程如下:</h3><p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/01/23/01.png" alt="根Actiivty启动整体流程"></p>
+<p>Launcher到AMS的调用过程如下：</p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/01/23/Launcher-AMS.png" alt="Launcher-AMS"></p>
+<p>因为AMS到zygote进程，以及zygote进程启动应用程序，这些在上篇文章有介绍，这里不再重复了 <a href="https://www.jianshu.com/p/364536beb16d" target="_blank" rel="external">应用程序进程启动介绍</a></p>
+<p>接下来就是AMS与ApplicationThread之间的调用</p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/01/23/AMS-ApplicationThread.png" alt="AMS-ApplicationThread"></p>
+<p>AMS与ApplicatinThread之间是通过binder通讯的. </p>
+<p>最后就是ApplicationThread与ActivityThread之间的调用</p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/01/23/AppThread-Activity.png" alt=""></p>
+<h3 id="普通Activity的启动"><a href="#普通Activity的启动" class="headerlink" title="普通Activity的启动"></a>普通Activity的启动</h3><p>就只有两层调用</p>
+<ul>
+<li>AMS与ApplicationThread之间的调用</li>
+<li>ApplicationThread与ActivityThread之间的调用</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/01/23/systemserver-process.png" alt=""></p>
+<pre><code>private class ApplicationThread extends IApplicationThread.Stub {
+    ....
+    ....
+}
+</code></pre><p>ApplicationThread是ActivityThread中的内部类，运行在binder线程池中<br>ApplicationThread是AMS与应用程序进程之间的通许桥梁</p>
+<p>参考：Android进阶解密</p>
+</font>
       
     </div>
 
@@ -410,7 +436,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+            <a href="/tags/Android系统/" rel="tag"># Android系统</a>
+          
+            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
           
         </div>
       
@@ -423,8 +451,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/17/ffmpeg-rgba-to-window/" rel="next" title="FFmpeg将视频文件输出到手机屏幕">
-                <i class="fa fa-chevron-left"></i> FFmpeg将视频文件输出到手机屏幕
+              <a href="/2019/01/21/Android-Application-process-setup/" rel="next" title="Android应用程序进程启动过程">
+                <i class="fa fa-chevron-left"></i> Android应用程序进程启动过程
               </a>
             
           </div>
@@ -432,10 +460,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/22/webrtc-introduce/" rel="prev" title="WebRTC 介绍">
-                WebRTC 介绍 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -482,8 +506,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -545,6 +578,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity启动过程分析"><span class="nav-number">1.</span> <span class="nav-text">Activity启动过程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#根Activity启动的整体流程如下"><span class="nav-number">1.1.</span> <span class="nav-text">根Activity启动的整体流程如下:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#普通Activity的启动"><span class="nav-number">1.2.</span> <span class="nav-text">普通Activity的启动</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
