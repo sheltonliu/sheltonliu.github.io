@@ -42,8 +42,7 @@ Facebook 有一个叫device-year-class的开源库，它会用年份来区分设
 		* 大量占用java堆内存，导致OOM
 		* 放到java堆可能会引起大量的GC
 		* 无法充分利用物理内存
-	
-	
+		
 	* 有没有一种实现，可以将 Bitmap 内存放到 Native 中，也可以做到和对象一起快速释放，同时 GC 的时候也能考虑这些内存防止被滥用？NativeAllocationRegistry 可以一次满足你这三个要求，Android 8.0 正是使用这个辅助回收 Native 内存的机制，来实现像素数据放到 Native 内存中。Android 8.0 还新增了硬件位图 Hardware Bitmap，它可以减少图片内存并提升绘制效率。
 	
 
@@ -141,9 +140,7 @@ Facebook 有一个叫device-year-class的开源库，它会用年份来区分设
 	* Bitmap 分配及回收追踪
 		* 发现问题最多最突出的，是缓存的滥用问题，最为典型的是使用 static LRUCache 来缓存大尺寸 Bitmap
 		
-		
 				private static LruCache<String, Bitmap> sBitmapCache = new LruCache<>(20);
-
 				public static Bitmap getBitmap(String path) {
     				Bitmap bitmap = sBitmapCache.get(path);
     					if (bitmap != null) {
@@ -154,9 +151,7 @@ Facebook 有一个叫device-year-class的开源库，它会用年份来区分设
     				return bitmap;
 				}	
 				
-				
-				
-			比如上面的代码，作用是缓存一些重复使用的 Bitmap 避免重复解码损失性能，但由于 sBitmapCache 是静态的且没有清理逻辑，缓存在其中的图片将永远无法释放，除非 20 个的配额用尽或图片被替换。LruCache 对缓存对象的 个数 进行了限制，但没有对对象的 总大小 进行限制. 因此如果缓存里面存放了数个大图或者长图，将长期占用大量内存
+		* 比如上面的代码，作用是缓存一些重复使用的 Bitmap 避免重复解码损失性能，但由于 sBitmapCache 是静态的且没有清理逻辑，缓存在其中的图片将永远无法释放，除非 20 个的配额用尽或图片被替换。LruCache 对缓存对象的 个数 进行了限制，但没有对对象的 总大小 进行限制. 因此如果缓存里面存放了数个大图或者长图，将长期占用大量内存
 				
 	* 线程监控
 		* 常见的 OOM 情况大多数是因为内存泄漏或申请大量内存造成的，比较少见的有下面这种跟线程相关情况，但在我们 crash 系统上有时能发现一些这样的问题。
