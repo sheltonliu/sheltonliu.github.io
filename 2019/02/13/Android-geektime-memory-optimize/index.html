@@ -1,0 +1,1022 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,Android优化相关," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Android内存优化移动设备的发展Facebook 有一个叫device-year-class的开源库，它会用年份来区分设备的性能 手机运行内存（RAM）其实相当于我们的 PC 中的内存手机不使用 PC 的 DDR 内存，采用的是 LPDDR RAM，全称是“低功耗双倍数据速率内存”，其中 LP 就是“Lower Power”低功耗的意思。 由内存引起的两个问题 异常  java堆 : oo">
+<meta name="keywords" content="Android,Android优化相关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android内存优化">
+<meta property="og:url" content="http://yoursite.com/2019/02/13/Android-geektime-memory-optimize/index.html">
+<meta property="og:site_name" content="Shelton Blog">
+<meta property="og:description" content="Android内存优化移动设备的发展Facebook 有一个叫device-year-class的开源库，它会用年份来区分设备的性能 手机运行内存（RAM）其实相当于我们的 PC 中的内存手机不使用 PC 的 DDR 内存，采用的是 LPDDR RAM，全称是“低功耗双倍数据速率内存”，其中 LP 就是“Lower Power”低功耗的意思。 由内存引起的两个问题 异常  java堆 : oo">
+<meta property="og:updated_time" content="2019-02-25T05:41:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android内存优化">
+<meta name="twitter:description" content="Android内存优化移动设备的发展Facebook 有一个叫device-year-class的开源库，它会用年份来区分设备的性能 手机运行内存（RAM）其实相当于我们的 PC 中的内存手机不使用 PC 的 DDR 内存，采用的是 LPDDR RAM，全称是“低功耗双倍数据速率内存”，其中 LP 就是“Lower Power”低功耗的意思。 由内存引起的两个问题 异常  java堆 : oo">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/13/Android-geektime-memory-optimize/"/>
+
+
+
+
+
+  <title>Android内存优化 | Shelton Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shelton Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/Android-geektime-memory-optimize/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shelton">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shelton Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android内存优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-13T11:56:46+08:00">
+                2019-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/13/Android-geektime-memory-optimize/" class="leancloud_visitors" data-flag-title="Android内存优化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font size="3">
+
+<h2 id="Android内存优化"><a href="#Android内存优化" class="headerlink" title="Android内存优化"></a>Android内存优化</h2><h3 id="移动设备的发展"><a href="#移动设备的发展" class="headerlink" title="移动设备的发展"></a>移动设备的发展</h3><p>Facebook 有一个叫device-year-class的开源库，它会用年份来区分设备的性能</p>
+<p>手机运行内存（RAM）其实相当于我们的 PC 中的内存<br>手机不使用 PC 的 DDR 内存，采用的是 LPDDR RAM，全称是“低功耗双倍数据速率内存”，其中 LP 就是“Lower Power”低功耗的意思。</p>
+<h3 id="由内存引起的两个问题"><a href="#由内存引起的两个问题" class="headerlink" title="由内存引起的两个问题"></a>由内存引起的两个问题</h3><ul>
+<li><p>异常</p>
+<ul>
+<li>java堆 : oom</li>
+<li>PSS(物理内存)： 重启</li>
+<li>VSS(虚拟内存)： oom,内存分配失败(tgkill)</li>
+</ul>
+</li>
+<li><p>卡顿<br>  *　GC</p>
+<ul>
+<li>low memory killer</li>
+</ul>
+</li>
+</ul>
+<h3 id="内存的误区"><a href="#内存的误区" class="headerlink" title="内存的误区"></a>内存的误区</h3><ul>
+<li><p>回顾一下 Android Bitmap 内存分配的变化</p>
+<ul>
+<li><p>在 Android 3.0 之前，Bitmap 对象放在 Java 堆，而像素数据是放在 Native 内存中。如果不手动调用 recycle，Bitmap Native 内存的回收完全依赖 finalize 函数回调，但是这个时机不太可控。</p>
+</li>
+<li><p>Android 3.0～Android 7.0 将 Bitmap 对象和像素数据统一放到 Java 堆中，这样就算我们不调用 recycle，Bitmap 内存也会随着对象一起被回收。不过 Bitmap 是内存消耗的大户，把它的内存放到 Java 堆中存在的问题是</p>
+<ul>
+<li>大量占用java堆内存，导致OOM</li>
+<li>放到java堆可能会引起大量的GC</li>
+<li>无法充分利用物理内存</li>
+</ul>
+</li>
+<li><p>有没有一种实现，可以将 Bitmap 内存放到 Native 中，也可以做到和对象一起快速释放，同时 GC 的时候也能考虑这些内存防止被滥用？NativeAllocationRegistry 可以一次满足你这三个要求，Android 8.0 正是使用这个辅助回收 Native 内存的机制，来实现像素数据放到 Native 内存中。Android 8.0 还新增了硬件位图 Hardware Bitmap，它可以减少图片内存并提升绘制效率。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>误区一：内存占用越少越好</p>
+<ul>
+<li>应用是否占用了过多的内存，跟设备、系统和当时情况有关，而不是 300MB、400MB 这样一个绝对的数值</li>
+<li>希望可以做到“用时分配，及时释放”</li>
+</ul>
+</li>
+<li><p>误区二：Native 内存不用管</p>
+<ul>
+<li><p>当系统物理内存不足时，lmk 开始杀进程，从后台、桌面、服务、前台，直到手机重启。</p>
+</li>
+<li><p>我们比较熟悉的是 Fresco 图片库在 Dalvik 会把图片放到 Native 内存中。事实上在 Android 5.0～Android 7.0，也能做到相同的效果，只是流程相对复杂一些。</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>    // 步骤一：申请一张空的 Native Bitmap
+    Bitmap nativeBitmap = nativeCreateBitmap(dstWidth, dstHeight, nativeConfig, 22);
+
+    // 步骤二：申请一张普通的 Java Bitmap
+    Bitmap srcBitmap = BitmapFactory.decodeResource(res, id);
+
+    // 步骤三：使用 Java Bitmap 将内容绘制到 Native Bitmap 中
+    mNativeCanvas.setBitmap(nativeBitmap);
+    mNativeCanvas.drawBitmap(srcBitmap, mSrcRect, mDstRect, mPaint);
+
+    // 步骤四：释放 Java Bitmap 内存
+    srcBitmap.recycle();
+    srcBitmap = null；
+
+存在的问题就是一个是兼容性问题，另外一个是频繁申请释放 Java Bitmap 容易导致内存抖动。
+</code></pre><h2 id="测量方法"><a href="#测量方法" class="headerlink" title="测量方法"></a>测量方法</h2><h3 id="java内存分配"><a href="#java内存分配" class="headerlink" title="java内存分配"></a>java内存分配</h3><ul>
+<li>这个时候最常用的有 Allocation Tracker 和 MAT 这两个工具。</li>
+</ul>
+<h3 id="Native内存分配"><a href="#Native内存分配" class="headerlink" title="Native内存分配"></a>Native内存分配</h3><ul>
+<li><p><a href="https://android.googlesource.com/platform/bionic/+/master/libc/malloc_debug/README.md" target="_blank" rel="external">Malloc调试</a>可以帮助我们去调试 Native 内存的一些使用问题，例如堆破坏、内存泄漏、非法地址等。Android 8.0 之后支持在非 root 的设备做 Native 内存调试，不过跟 AddressSanitize 一样，需要通过<a href="http://developer.android.com/ndk/guides/wrap-script.html" target="_blank" rel="external">wrap.sh</a>做包装。</p>
+<pre><code>adb shell setprop wrap.&lt;APP&gt; &apos;&quot;LIBC_DEBUG_MALLOC_OPTIONS=backtrace logwrapper&quot;&apos;
+</code></pre></li>
+<li><p><a href="http://android.googlesource.com/platform/bionic/+/master/libc/malloc_hooks/README.md" target="_blank" rel="external">Malloc钩子</a>是在 Android P 之后，Android 的 libc 支持拦截在程序执行期间发生的所有分配 / 释放调用，这样我们就可以构建出自定义的内存检测工具。</p>
+<pre><code>adb shell setprop wrap.&lt;APP&gt; &apos;&quot;LIBC_HOOKS_ENABLE=1&quot;&apos;
+</code></pre></li>
+</ul>
+<h2 id="内存优化探讨"><a href="#内存优化探讨" class="headerlink" title="内存优化探讨"></a>内存优化探讨</h2><h3 id="1-设备分级"><a href="#1-设备分级" class="headerlink" title="1.设备分级"></a>1.设备分级</h3><ul>
+<li><p>内存优化首先需要根据设备环境来综合考虑</p>
+<pre><code>if (year &gt;= 2013) {
+    // Do advanced animation
+} else if (year &gt;= 2010) {
+    // Do simple animation
+} else {
+    // Phone too slow, don&apos;t do any animations
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>缓存管理。我们需要有一套统一的缓存管理机制。 当“系统有难”时，也要义不容辞地归还。我们可以使用 OnTrimMemory 回调，根据不同的状态决定释放多少内存。统一缓存管理可以更好地监控每个模块的缓存大小。</p>
+</li>
+<li><p>进程模型。一个空的进程也会占用 10MB 的内存，而有些应用启动就有十几个进程，甚至有些应用已经从双进程保活升级到四进程保活，所以减少应用启动的进程数、减少常驻进程、有节操的保活，对低端机内存优化非常重要。</p>
+</li>
+<li><p>安装包大小。安装包中的代码、资源、图片以及 so 库的体积，跟它们占用的内存有很大的关系。一个 80MB 的应用很难在 512MB 内存的手机上流畅运行。这种情况我们需要考虑针对低端机用户推出 4MB 的轻量版本，例如 Facebook Lite、今日头条极速版都是这个思路。</p>
+</li>
+</ul>
+<h3 id="2-Bitmap优化"><a href="#2-Bitmap优化" class="headerlink" title="2.Bitmap优化"></a>2.Bitmap优化</h3><ul>
+<li><p>方法一，统一图片库。</p>
+<ul>
+<li>图片内存优化的前提是收拢图片的调用，这样我们可以做整体的控制策略。例如低端机使用 565 格式、更加严格的缩放算法，可以使用 Glide、Fresco 或者采取自研都可以。而且需要进一步将所有 Bitmap.createBitmap、BitmapFactory 相关的接口也一并收拢。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>方法二，统一监控。<ul>
+<li>大图片监控</li>
+<li>重复图片监控</li>
+<li>图片总内存<ul>
+<li>在 OOM 崩溃的时候，也可以把图片占用的总内存、Top N 图片的内存都写到崩溃日志中，帮助我们排查问题。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-内存泄漏"><a href="#3-内存泄漏" class="headerlink" title="3. 内存泄漏"></a>3. 内存泄漏</h3><ul>
+<li><p>Java 内存泄漏</p>
+<ul>
+<li>类似 LeakCanary 自动化检测方案， 或者腾讯 ResourceCanary方案:<a href="https://github.com/Tencent/matrix" target="_blank" rel="external">腾讯APM监控</a></li>
+<li><p>Activity 泄漏，即因为各种原因导致 Activity 被生命周期远比该 Activity 长的对象直接或间接以强引用持有，导致在此期间 Activity 无法被 GC 机制回收的问题.  </p>
+<ul>
+<li>Activity: 匿名内部类隐式持有外部类的引用导致的泄漏</li>
+</ul>
+</li>
+<li><p>Bitmap 分配及回收追踪</p>
+<ul>
+<li><p>发现问题最多最突出的，是缓存的滥用问题，最为典型的是使用 static LRUCache 来缓存大尺寸 Bitmap</p>
+<pre><code>private static LruCache&lt;String, Bitmap&gt; sBitmapCache = new LruCache&lt;&gt;(20);
+public static Bitmap getBitmap(String path) {
+    Bitmap bitmap = sBitmapCache.get(path);
+        if (bitmap != null) {
+            return bitmap;
+        }
+    bitmap = decodeBitmapFromFile(path);
+    sBitmapCache.put(path, bitmap);
+    return bitmap;
+}    
+</code></pre></li>
+<li><p>比如上面的代码，作用是缓存一些重复使用的 Bitmap 避免重复解码损失性能，但由于 sBitmapCache 是静态的且没有清理逻辑，缓存在其中的图片将永远无法释放，除非 20 个的配额用尽或图片被替换。LruCache 对缓存对象的 个数 进行了限制，但没有对对象的 总大小 进行限制. 因此如果缓存里面存放了数个大图或者长图，将长期占用大量内存</p>
+</li>
+</ul>
+</li>
+<li><p>线程监控</p>
+<ul>
+<li><p>常见的 OOM 情况大多数是因为内存泄漏或申请大量内存造成的，比较少见的有下面这种跟线程相关情况，但在我们 crash 系统上有时能发现一些这样的问题。</p>
+<pre><code>java.lang.OutOfMemoryError: pthread_create (1040KB stack) failed: Out of memory
+</code></pre><p>  OutOfMemoryError 这种异常根本原因在于申请不到足够的内存造成的，直接的原因是在创建线程时初始 stack size 的时候，分配不到内存导致的。</p>
+</li>
+<li><p>可以看到每个线程初始化都需要 mmap 一定的 stack size，在默认的情况下一般初始化一个线程需要 mmap 1M 左右的内存空间</p>
+</li>
+<li>对线程数量的限制，可以一定程度避免 OOM 的发生</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="内存监控"><a href="#内存监控" class="headerlink" title="内存监控"></a>内存监控</h3><pre><code>long javaMax = runtime.maxMemory();
+long javaTotal = runtime.totalMemory();
+long javaUsed = javaTotal - runtime.freeMemory();
+// Java 内存使用超过最大限制的 85%
+float proportion = (float) javaUsed / javaMax;
+</code></pre><ul>
+<li><p>GC监控 </p>
+<pre><code>// 运行的 GC 次数
+Debug.getRuntimeStat(&quot;art.gc.gc-count&quot;);
+// GC 使用的总耗时，单位是毫秒
+Debug.getRuntimeStat(&quot;art.gc.gc-time&quot;);
+// 阻塞式 GC 的次数
+Debug.getRuntimeStat(&quot;art.gc.blocking-gc-count&quot;);
+// 阻塞式 GC 的总耗时
+Debug.getRuntimeStat(&quot;art.gc.blocking-gc-time&quot;);
+</code></pre></li>
+</ul>
+<p>参考： <a href="https://mp.weixin.qq.com/s/KtGfi5th-4YHOZsEmTOsjg?" target="_blank" rel="external">微信 Android 终端内存优化实践</a>        </p>
+<p><a href="https://time.geekbang.org/column/article/71277" target="_blank" rel="external">https://time.geekbang.org/column/article/71277</a></p>
+<p><a href="https://time.geekbang.org/column/article/71610" target="_blank" rel="external">https://time.geekbang.org/column/article/71610</a></p>
+</font>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Android优化相关/" rel="tag"># Android优化相关</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/09/Android-Crash-Article/" rel="next" title="Android崩溃优化">
+                <i class="fa fa-chevron-left"></i> Android崩溃优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Shelton" />
+          <p class="site-author-name" itemprop="name">Shelton</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android内存优化"><span class="nav-number">1.</span> <span class="nav-text">Android内存优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移动设备的发展"><span class="nav-number">1.1.</span> <span class="nav-text">移动设备的发展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#由内存引起的两个问题"><span class="nav-number">1.2.</span> <span class="nav-text">由内存引起的两个问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存的误区"><span class="nav-number">1.3.</span> <span class="nav-text">内存的误区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测量方法"><span class="nav-number">2.</span> <span class="nav-text">测量方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java内存分配"><span class="nav-number">2.1.</span> <span class="nav-text">java内存分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Native内存分配"><span class="nav-number">2.2.</span> <span class="nav-text">Native内存分配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存优化探讨"><span class="nav-number">3.</span> <span class="nav-text">内存优化探讨</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-设备分级"><span class="nav-number">3.1.</span> <span class="nav-text">1.设备分级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Bitmap优化"><span class="nav-number">3.2.</span> <span class="nav-text">2.Bitmap优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-内存泄漏"><span class="nav-number">3.3.</span> <span class="nav-text">3. 内存泄漏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存监控"><span class="nav-number">3.4.</span> <span class="nav-text">内存监控</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shelton</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kYWyghHVCnlYtXmdxjow7e4g-gzGzoHsz", "itdf6RTHxM4V4210wuukDwTp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
