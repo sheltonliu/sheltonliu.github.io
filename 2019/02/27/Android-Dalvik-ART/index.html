@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android虚拟机," />
 
 
 
@@ -93,12 +93,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Shelton Blog">
-<meta property="og:url" content="http://yoursite.com/categories/webrtc/index.html">
+<meta name="description" content="Dalvik虚拟机Dvm与Jvm的区别 基于的架构不同  jvm基于栈，所需的指令更多，会导致速度变慢 Dvm基于寄存器   执行的字节码不同  java: 生成 .class文件 apk: .dex文件。 dex工具将.class文件的冗余信息去除掉，然后把所有的.class文件整合到.dex文件中，减少IO操作   dvm允许在有限的内存中同时运行多个进程  dvm由zygote进程创建和">
+<meta name="keywords" content="Android虚拟机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android虚拟机Dalvik ART">
+<meta property="og:url" content="http://yoursite.com/2019/02/27/Android-Dalvik-ART/index.html">
 <meta property="og:site_name" content="Shelton Blog">
+<meta property="og:description" content="Dalvik虚拟机Dvm与Jvm的区别 基于的架构不同  jvm基于栈，所需的指令更多，会导致速度变慢 Dvm基于寄存器   执行的字节码不同  java: 生成 .class文件 apk: .dex文件。 dex工具将.class文件的冗余信息去除掉，然后把所有的.class文件整合到.dex文件中，减少IO操作   dvm允许在有限的内存中同时运行多个进程  dvm由zygote进程创建和">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/02/27/dvm-art.png">
+<meta property="og:updated_time" content="2019-02-27T05:25:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Shelton Blog">
+<meta name="twitter:title" content="Android虚拟机Dalvik ART">
+<meta name="twitter:description" content="Dalvik虚拟机Dvm与Jvm的区别 基于的架构不同  jvm基于栈，所需的指令更多，会导致速度变慢 Dvm基于寄存器   执行的字节码不同  java: 生成 .class文件 apk: .dex文件。 dex工具将.class文件的冗余信息去除掉，然后把所有的.class文件整合到.dex文件中，减少IO操作   dvm允许在有限的内存中同时运行多个进程  dvm由zygote进程创建和">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/02/27/dvm-art.png">
 
 
 
@@ -126,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/webrtc/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/02/27/Android-Dalvik-ART/"/>
 
 
 
 
 
-  <title>分类: webrtc | Shelton Blog</title>
+  <title>Android虚拟机Dalvik ART | Shelton Blog</title>
   
 
 
@@ -157,7 +164,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -261,45 +268,236 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>webrtc<small>分类</small>
-      </h1>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/11/22/webrtc-introduce/" itemprop="url">
-              
-                <span itemprop="name">WebRTC 介绍</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-11-22T13:20:34+08:00"
-              content="2017-11-22" >
-          11-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/Android-Dalvik-ART/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shelton">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shelton Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android虚拟机Dalvik ART</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T12:00:28+08:00">
+                2019-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/27/Android-Dalvik-ART/" class="leancloud_visitors" data-flag-title="Android虚拟机Dalvik ART">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font size="3">
+
+<h2 id="Dalvik虚拟机"><a href="#Dalvik虚拟机" class="headerlink" title="Dalvik虚拟机"></a>Dalvik虚拟机</h2><h3 id="Dvm与Jvm的区别"><a href="#Dvm与Jvm的区别" class="headerlink" title="Dvm与Jvm的区别"></a>Dvm与Jvm的区别</h3><ul>
+<li><p>基于的架构不同</p>
+<ul>
+<li>jvm基于栈，所需的指令更多，会导致速度变慢</li>
+<li>Dvm基于寄存器</li>
+</ul>
+</li>
+<li><p>执行的字节码不同</p>
+<ul>
+<li>java: 生成 .class文件</li>
+<li>apk: .dex文件。 dex工具将.class文件的冗余信息去除掉，然后把所有的.class文件整合到.dex文件中，减少IO操作</li>
+</ul>
+</li>
+<li><p>dvm允许在有限的内存中同时运行多个进程</p>
+</li>
+<li>dvm由zygote进程创建和初始化</li>
+<li>dvm有共享机制</li>
+</ul>
+<h3 id="Dvm运行时堆"><a href="#Dvm运行时堆" class="headerlink" title="Dvm运行时堆"></a>Dvm运行时堆</h3><ul>
+<li>运行时堆用标记-清除(Mark-Sweep)算法进行GC</li>
+<li>由两个Space组成。 <ul>
+<li>Zygote Space:用来管理Zygote进程中加载和创建的对象,不会触发GC</li>
+<li>Allocation Space: 进行对象的分配与释放，不共享，每个进程都有独立的一份</li>
+</ul>
+</li>
+</ul>
+<h2 id="ART虚拟机"><a href="#ART虚拟机" class="headerlink" title="ART虚拟机"></a>ART虚拟机</h2><p>ART虚拟机是4.4发布的，但默认还是采用DVM。 Android5.0版本中默认采用ART，Dvm退出舞台</p>
+<h3 id="ART与DVM的区别"><a href="#ART与DVM的区别" class="headerlink" title="ART与DVM的区别"></a>ART与DVM的区别</h3><ul>
+<li><p>在运行效率上</p>
+<ul>
+<li>dvm: 每次运行，字节码都需要通过JIT进行编译为机器码，运行效率低</li>
+<li>ART: 应用在安装的时候会进行预编译(AOT),将字节码预先编译成机器码存储在本地。这样程序在每次运行时就不需要编译了，提升运行效率<ul>
+<li>ART存在的缺点：1.安装时间长  2.字节码预先编译成机器码占用空间变多</li>
+<li>ART的改进：Android7.0版本中加入JIT,作为AOT的补充。1.安装的时候不会全部编译成机器码，减少安装时间。  2.在运行时将热点代码编译成机器码，节省空间</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在CPU的设计上</p>
+<ul>
+<li>dvm : 是为32位CPU设计的</li>
+<li>ART： 支持64位，同时兼容32位CPU</li>
+</ul>
+</li>
+<li><p>在垃圾回收机制上</p>
+<ul>
+<li>ART进行改进，更加频繁的执行并行垃圾收集</li>
+</ul>
+</li>
+<li><p>运行时堆空间的划分上</p>
+</li>
+</ul>
+<h3 id="ART运行时堆"><a href="#ART运行时堆" class="headerlink" title="ART运行时堆"></a>ART运行时堆</h3><p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/02/27/dvm-art.png" alt="ART运行时堆"></p>
+<p>其中，Zygote Space和Image Space是进程间共享的</p>
+</font>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android虚拟机/" rel="tag"># Android虚拟机</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/13/Android-geektime-memory-optimize/" rel="next" title="Android内存优化">
+                <i class="fa fa-chevron-left"></i> Android内存优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -307,6 +505,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -326,8 +528,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -389,6 +600,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dalvik虚拟机"><span class="nav-number">1.</span> <span class="nav-text">Dalvik虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dvm与Jvm的区别"><span class="nav-number">1.1.</span> <span class="nav-text">Dvm与Jvm的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dvm运行时堆"><span class="nav-number">1.2.</span> <span class="nav-text">Dvm运行时堆</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ART虚拟机"><span class="nav-number">2.</span> <span class="nav-text">ART虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ART与DVM的区别"><span class="nav-number">2.1.</span> <span class="nav-text">ART与DVM的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ART运行时堆"><span class="nav-number">2.2.</span> <span class="nav-text">ART运行时堆</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -502,10 +729,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
