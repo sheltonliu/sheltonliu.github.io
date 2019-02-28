@@ -210,7 +210,38 @@ false
 		return c ; 
 	}
  
- 
+
+采用双亲委派模式的优点：
+
+* 避免重复加载，如果已经加载过一次class,就不需要再次加载，而是直接读取已加载的class
+* 更加安全。
+	* 如果不使用双亲委托模式，就可以自定义一个String的类来替换系统String类，显然造成安全隐患
+	* 当采用双亲委托模式，会使得系统String类在java虚拟机启动的时候就被加载，这样就无法通过自定义的类来替换系统类了。
+	* 只有两个类名一致，并且被同一个类加载器加载的类，java虚拟机才会认为它们是同一个类。
+	
+	
+
+# Android中的类加载器
+
+### 系统类加载器
+* BootClassLoader(java代码实现)
+	* 在Zygote进程的Zygote入口方法中被创建，用于加载preloaded-classes文件中的预加载类
+
+* DexClassLoader
+	* 继承BaseDexClassLoader. 可以加载dex文件，以及包含dex的压缩文件(apk和jar文件)
+
+* PathClassLoader
+	* 继承BaseDexClassLoader. PathClassLoader的构造方法中，没有optimizedDirectory参数，因为已经默认值为/data/dalvik-cache. 所以PathClassLoader无法定义解压dex的存储路径。因此PathClassLoader通常加载已经安装的apk的dex文件(安装的APK的dex文件会存储在/data/dalvik-cache中)
+	
+
+
+### 自定义类加载器	  
+
+
+# Java和Android的类加载器的差异
+* java的引导类加载器是由C++编写的，Android的引导类加载器是由java编写的
+* Android的继承关系要比java的继承关系更复杂些，提供的功能更多
+* Android加载的不再是class文件，所以没有ExtClassLoader和AppClassLoader. 替换它们的是PatchClassLoader和DexClassLoader
 
 
 参考：
