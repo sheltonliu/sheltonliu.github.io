@@ -1,0 +1,921 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,热修复," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="热修复原理热修复框架技术主要有三类，代码修复，资源修复，动态链接库修复。 资源修复很多资源修复的框架参考了Instant Run资源修复的原理，所以先了解一下Instant Run Instant RunInstant Run是Android Studio 2.0以后新增的一个运行机制，能减少开发人员第二次及以后的构建和部署时间。    Hot Swap: 这是效率最高的部署方式，修改一个现有">
+<meta name="keywords" content="Android,热修复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android热修复原理">
+<meta property="og:url" content="http://yoursite.com/2019/02/28/Android-hotfix/index.html">
+<meta property="og:site_name" content="Shelton Blog">
+<meta property="og:description" content="热修复原理热修复框架技术主要有三类，代码修复，资源修复，动态链接库修复。 资源修复很多资源修复的框架参考了Instant Run资源修复的原理，所以先了解一下Instant Run Instant RunInstant Run是Android Studio 2.0以后新增的一个运行机制，能减少开发人员第二次及以后的构建和部署时间。    Hot Swap: 这是效率最高的部署方式，修改一个现有">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/02/28/hotfix-01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/02/28/hotfix-02.png">
+<meta property="og:updated_time" content="2019-02-28T09:13:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android热修复原理">
+<meta name="twitter:description" content="热修复原理热修复框架技术主要有三类，代码修复，资源修复，动态链接库修复。 资源修复很多资源修复的框架参考了Instant Run资源修复的原理，所以先了解一下Instant Run Instant RunInstant Run是Android Studio 2.0以后新增的一个运行机制，能减少开发人员第二次及以后的构建和部署时间。    Hot Swap: 这是效率最高的部署方式，修改一个现有">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/02/28/hotfix-01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/28/Android-hotfix/"/>
+
+
+
+
+
+  <title>Android热修复原理 | Shelton Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shelton Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/Android-hotfix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shelton">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shelton Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android热修复原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T11:04:20+08:00">
+                2019-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/热修复/" itemprop="url" rel="index">
+                    <span itemprop="name">热修复</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/28/Android-hotfix/" class="leancloud_visitors" data-flag-title="Android热修复原理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font size="4">
+
+<h1 id="热修复原理"><a href="#热修复原理" class="headerlink" title="热修复原理"></a>热修复原理</h1><p>热修复框架技术主要有三类，代码修复，资源修复，动态链接库修复。</p>
+<h2 id="资源修复"><a href="#资源修复" class="headerlink" title="资源修复"></a>资源修复</h2><p>很多资源修复的框架参考了Instant Run资源修复的原理，所以先了解一下Instant Run</p>
+<h3 id="Instant-Run"><a href="#Instant-Run" class="headerlink" title="Instant Run"></a>Instant Run</h3><p>Instant Run是Android Studio 2.0以后新增的一个运行机制，能减少开发人员第二次及以后的构建和部署时间。</p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/02/28/hotfix-01.png" alt="传统编译"></p>
+<p><img src="https://raw.githubusercontent.com/sheltonliu/sheltonliu.github.io/hexo/blog/MarkdownPhotos/2019/02/28/hotfix-02.png" alt="Instant Run编译"></p>
+<ul>
+<li><p>Hot Swap: 这是效率最高的部署方式，修改一个现有方法中的代码会采用这种方法。它不需要重启APP， 不需要重启Activity</p>
+</li>
+<li><p>Warm Swap: App不需要重启，但是Activity需要重启。 修改或删除一个现有的资源文件时采用</p>
+</li>
+<li><p>Cold Swap: App需要重启，但不需要重新安装。 添加，删除或修改一个字段和方法，添加一个类时采用该方式。</p>
+</li>
+</ul>
+<h3 id="Instant-Run-资源修复的原理"><a href="#Instant-Run-资源修复的原理" class="headerlink" title="Instant Run 资源修复的原理"></a>Instant Run 资源修复的原理</h3><ul>
+<li><p>创建新的AssetManager,通过反射调用addAssetPath方法加载外部的资源，这样新创建的AssetManager就含有了外部资源</p>
+</li>
+<li><p>将AssetManager类型的mAssets字段的引用全部替换为新的AssetManager.</p>
+</li>
+</ul>
+<h2 id="代码修复"><a href="#代码修复" class="headerlink" title="代码修复"></a>代码修复</h2><h3 id="类加载方案"><a href="#类加载方案" class="headerlink" title="类加载方案"></a>类加载方案</h3><p>类加载方案基于dex分包。 为什么要dex分包，因为65535的限制和LinearAlloc限制。</p>
+<ul>
+<li><p>65535限制。 </p>
+<ul>
+<li>主要原因是DVM ByteCode的限制，dvm指令集方法调用指令invoke-kind索引为16bits,最多能引用65535个方法数</li>
+</ul>
+</li>
+<li><p>LinearAlloc限制</p>
+<ul>
+<li>Dvm中的LinearAlloc是一个固定的缓冲区，当方法数超出了缓存区大小就会报错。</li>
+</ul>
+</li>
+<li><p>常用的做法：我们会新建一个hotfix分支，然后在该分支上修改bug，生成patch包，然后将patch放到Element数组dexElements的第一个元素，这样就会优先加载patch中的类，后面存在bug的类就不会被加载。 因为classloader采用的双亲委托模式，同一个类加载之后就不会再次加载    </p>
+</li>
+<li><p>类加载方案需要重启app,让classloader重新加载补丁包中的类。为什么要重启？ 因为类是无法卸载的，想要重新加载新的类，就需要重启app. 所以采用类加载方案是不能及时生效的。</p>
+<ul>
+<li>Q    Q空间超级补丁，Nuwa,就是按照上面将补丁包放到Element数组的首位优先加载</li>
+<li>微信的Tinker将新旧APK做了diff,得到patch.dex,再将patch.dex与手机APK中的classes.dex做合并，生成新的classes.dex.然后在运行时通过反射将classes.dex放到Element数组的第一位。</li>
+</ul>
+</li>
+</ul>
+<h3 id="底层替换方案"><a href="#底层替换方案" class="headerlink" title="底层替换方案"></a>底层替换方案</h3><p>底层替换方案不会再次加载新类，而是直接在Native层修改原有类。</p>
+<ul>
+<li>底层替换方案主要是替换ArtMethod结构体中的字段或者替换整个ArtMethod结构体。</li>
+<li>AndFix采用的是替换ArtMethod结构体中的字段，但是会有兼容性问题，因为厂商会修改结构体，导致替换失败</li>
+<li>Sophix采用的是替换整个ArtMethod结构体，不会存在兼容问题。</li>
+<li>底层替换方案是可以及时生效的，不需要重启。</li>
+</ul>
+<h3 id="Instant-Run方案"><a href="#Instant-Run方案" class="headerlink" title="Instant Run方案"></a>Instant Run方案</h3><ul>
+<li>主要是通过ASM来操作代码，进行方法的修改。</li>
+<li>ASM是一个字节码操作框架，能够动态生成类或者增强现有类的功能。ASM可以直接产生class文件，也可以在类被加载到虚拟机之前动态改变类的行为。</li>
+</ul>
+<h2 id="动态链接库修复"><a href="#动态链接库修复" class="headerlink" title="动态链接库修复"></a>动态链接库修复</h2><p>这个主要是更新so,也就是重新加载so. 加载so有两个方法</p>
+<ul>
+<li><p>System的load方法. 该方法传入的参数是so在磁盘空间的完整路径</p>
+</li>
+<li><p>System的loadLibrary方法。 该方法传入的参数是so的名称，用于加载apk安装后自动从APK包中复制到/data/data/packagename/lib下的so. 目前so的修复主要是针对这两个方法。</p>
+</li>
+</ul>
+<p>so修复的两个方案</p>
+<ol>
+<li>将so补丁插入到NativeLibraryElement数组的前部，让so补丁优先加载</li>
+<li>调用System的load方法来接管so的加载入口。</li>
+</ol>
+<p>参考：</p>
+<p>《Android进阶解密》   </p>
+</font>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/热修复/" rel="tag"># 热修复</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/27/Android-Dalvik-ART/" rel="next" title="Android虚拟机Dalvik ART">
+                <i class="fa fa-chevron-left"></i> Android虚拟机Dalvik ART
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/28/Android-plug-info/" rel="prev" title="Android插件化原理">
+                Android插件化原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Shelton" />
+          <p class="site-author-name" itemprop="name">Shelton</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#热修复原理"><span class="nav-number">1.</span> <span class="nav-text">热修复原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#资源修复"><span class="nav-number">1.1.</span> <span class="nav-text">资源修复</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Instant-Run"><span class="nav-number">1.1.1.</span> <span class="nav-text">Instant Run</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Instant-Run-资源修复的原理"><span class="nav-number">1.1.2.</span> <span class="nav-text">Instant Run 资源修复的原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码修复"><span class="nav-number">1.2.</span> <span class="nav-text">代码修复</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载方案"><span class="nav-number">1.2.1.</span> <span class="nav-text">类加载方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#底层替换方案"><span class="nav-number">1.2.2.</span> <span class="nav-text">底层替换方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Instant-Run方案"><span class="nav-number">1.2.3.</span> <span class="nav-text">Instant Run方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态链接库修复"><span class="nav-number">1.3.</span> <span class="nav-text">动态链接库修复</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shelton</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kYWyghHVCnlYtXmdxjow7e4g-gzGzoHsz", "itdf6RTHxM4V4210wuukDwTp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
